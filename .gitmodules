@@ -1,0 +1,3 @@
+[submodule "Assets/Dependencies/ApparatusUPackage"]
+	path = Assets/Dependencies/ApparatusUPackage
+	url = https://github.com/atomata/VClassroom_ProtoVSolar_ApparatusUPackage.git
