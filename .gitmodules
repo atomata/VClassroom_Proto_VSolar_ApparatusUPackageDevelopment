@@ -1,3 +1,12 @@
 [submodule "Assets/Dependencies/ApparatusUPackage"]
 	path = Assets/Dependencies/ApparatusUPackage
 	url = https://github.com/atomata/VClassroom_ProtoVSolar_ApparatusUPackage.git
+[submodule "Assets/Dependencies/Hex/CS"]
+	path = Assets/Dependencies/Hex/CS
+	url = https://github.com/hexthedev/HexCS.git
+[submodule "Assets/Dependencies/Hex/CS_Data"]
+	path = Assets/Dependencies/Hex/CS_Data
+	url = https://github.com/hexthedev/HexCS-Data.git
+[submodule "Assets/Dependencies/Hex/UN"]
+	path = Assets/Dependencies/Hex/UN
+	url = https://github.com/hexthedev/HexUN.git
