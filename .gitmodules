@@ -7,3 +7,6 @@
 [submodule "Assets/Dependencies/Hex/UN"]
 	path = Assets/Dependencies/Hex/UN
 	url = https://github.com/hexthedev/HexUN.git
+[submodule "Assets/Dependencies/Atomata/Apparatus"]
+	path = Assets/Dependencies/Atomata/Apparatus
+	url = https://github.com/atomata/VClassroom_ProtoVSolar_ApparatusUPackage.git
