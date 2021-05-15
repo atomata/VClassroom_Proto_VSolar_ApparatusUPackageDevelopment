@@ -1,4 +1,5 @@
 {
     "ApparatusDatabaseName" : "vsolarsystem-proto-storage",
+    "EditableDatabase" : "EditableDatabase",
     "Location" : 0
 }
