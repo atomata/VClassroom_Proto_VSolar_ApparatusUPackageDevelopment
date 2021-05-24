@@ -111,7 +111,7 @@ MonoBehaviour:
   _children: []
   TotemState: 1
   _asset: moon
-  _ethrealAnimatorReference: {fileID: 0}
+  _ethrealTriggerReference: {fileID: 0}
 --- !u!1 &9114625228811180518
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9114625228811180513}
   - component: {fileID: 9114625228811180512}
+  - component: {fileID: 1827127240018058842}
   m_Layer: 0
   m_Name: moonspindle
   m_TagString: Untagged
@@ -163,3 +164,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1827127240018058842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114625228811180518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d6b070981113094baf5c55f170929df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _voidTriggerNames:
+  - Rotate
+  _voidEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9114625228811180512}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Rotate
+          m_BoolArgument: 0
+        m_CallState: 2

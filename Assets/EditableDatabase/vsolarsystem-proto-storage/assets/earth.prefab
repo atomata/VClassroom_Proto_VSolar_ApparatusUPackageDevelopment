@@ -187,6 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4131607663981180773}
   - component: {fileID: 2674546226125509959}
+  - component: {fileID: 4365640827669322938}
   m_Layer: 0
   m_Name: earth
   m_TagString: Untagged
@@ -228,6 +229,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4365640827669322938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131607663981180769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d6b070981113094baf5c55f170929df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _voidTriggerNames:
+  - Rotate
+  _voidEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2674546226125509959}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Rotate
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4131942991131449632
 GameObject:
   m_ObjectHideFlags: 0
