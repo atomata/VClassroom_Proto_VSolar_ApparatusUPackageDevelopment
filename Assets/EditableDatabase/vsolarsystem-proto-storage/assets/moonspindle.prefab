@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 9114625228506498430}
   - component: {fileID: 9114625228506498425}
   m_Layer: 0
-  m_Name: '[ASSET] Moon'
+  m_Name: '[Asset] Moon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,3 +193,5 @@ MonoBehaviour:
           m_StringArgument: Rotate
           m_BoolArgument: 0
         m_CallState: 2
+  _boolTriggerNames: []
+  _boolEvents: []
