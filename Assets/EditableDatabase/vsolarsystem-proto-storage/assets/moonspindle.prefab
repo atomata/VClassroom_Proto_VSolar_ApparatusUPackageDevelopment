@@ -105,12 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd6ead61ef29dc4c8acba9b04869355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeState: 1
-  _identifier: node
+  _activationState: 0
+  LoadState: 0
+  _identifier: moon
   _parent: {fileID: 0}
   _children: []
-  TotemState: 1
-  _asset: moon
   _ethrealTriggerReference: {fileID: 0}
 --- !u!1 &9114625228811180518
 GameObject:
