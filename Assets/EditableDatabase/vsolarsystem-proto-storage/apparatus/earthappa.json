@@ -1,1 +1,1 @@
-{"Id":{"Type":1,"Identifier":"earthappa"},"Children":[{"Type":0,"Identifier":"earth"}]}
+{"Id":{"Type":1,"Identifier":"earthappa"},"Children":[{"Type":0,"Identifier":"earth"}],"MetaPaths":["earthappa\\earth","earthappa\\earth\\moonspindle","earthappa\\earth\\moonspindle\\orbit","earthappa\\earth\\moonspindle\\moon","earthappa\\earth\\moonspindle\\moon\\axis"],"MetaData":["0@trigger:void/Rotate","1@trigger:void/Rotate","2@trigger:bool/show","3@trigger:void/Rotate","3@trigger:void/Still","3@trigger:bool/Annotate","4@trigger:bool/visible"]}

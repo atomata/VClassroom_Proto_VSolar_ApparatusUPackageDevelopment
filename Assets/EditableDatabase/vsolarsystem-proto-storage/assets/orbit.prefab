@@ -47,7 +47,7 @@ MonoBehaviour:
   _voidTriggerNames: []
   _voidEvents: []
   _boolTriggerNames:
-  - 
+  - show
   _boolEvents:
   - m_PersistentCalls:
       m_Calls:
