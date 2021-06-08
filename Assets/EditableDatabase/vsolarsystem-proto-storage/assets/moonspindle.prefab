@@ -107,11 +107,94 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionState: 1
-  LoadState: 1
+  _loadState: 2
   _identifier: orbit
   _parent: {fileID: 0}
-  _children: []
+  _children:
+  - {fileID: 0}
   _ethrealTriggerReference: {fileID: 0}
+--- !u!1 &6303515776567985388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5220862222481389023}
+  - component: {fileID: 2767904829886418664}
+  m_Layer: 0
+  m_Name: '[Events] events'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5220862222481389023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303515776567985388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9114625228811180513}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2767904829886418664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303515776567985388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86426f14ba2153342aa991dfebb217f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _connectionState: 0
+  _loadState: 0
+  _identifier: events
+  _parent: {fileID: 0}
+  _children: []
+  _voidEventNames:
+  - rotate
+  - idle
+  _voidEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9114625228811180512}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Rotate
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9114625228811180512}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Idle
+          m_BoolArgument: 0
+        m_CallState: 2
+  _boolEventNames: []
+  _boolEvents: []
 --- !u!1 &9114625228506498431
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,10 +239,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionState: 1
-  LoadState: 1
+  _loadState: 2
   _identifier: moon
   _parent: {fileID: 0}
   _children:
+  - {fileID: 0}
   - {fileID: 0}
   _ethrealTriggerReference: {fileID: 0}
 --- !u!1 &9114625228811180518
@@ -192,6 +276,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7180313640030129722}
+  - {fileID: 5220862222481389023}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

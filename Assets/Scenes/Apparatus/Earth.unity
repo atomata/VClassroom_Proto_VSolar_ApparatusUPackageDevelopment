@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionState: 1
-  LoadState: 2
+  _loadState: 2
   _identifier: earthappa
   _parent: {fileID: 0}
   _children:
