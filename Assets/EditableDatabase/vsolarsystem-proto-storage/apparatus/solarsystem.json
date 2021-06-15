@@ -3,10 +3,131 @@
         "Type": 1,
         "Identifier": "solarsystem"
     },
-    "Transforms": [],
-    "Children": [],
+    "Transforms": [
+        {
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "Scale": {
+                "x": 1.5,
+                "y": 1.5,
+                "z": 1.5
+            }
+        },
+        {
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "Scale": {
+                "x": 3.0,
+                "y": 3.0,
+                "z": 3.0
+            }
+        }
+    ],
+    "Children": [
+        {
+            "Type": 0,
+            "Identifier": "sun"
+        },
+        {
+            "Type": 0,
+            "Identifier": "earthspindle"
+        },
+        {
+            "Type": 0,
+            "Identifier": "jupyterspindle"
+        }
+    ],
     "Metadata": {
-        "Paths": [],
-        "Data": []
+        "Paths": [
+            "sun",
+            "earthspindle",
+            "jupyterspindle",
+            "earthspindle/events",
+            "earthspindle/orbit",
+            "earthspindle/earth",
+            "jupyterspindle/orbit",
+            "jupyterspindle/jupyter",
+            "earthspindle/orbit/events",
+            "earthspindle/earth/moonspindle",
+            "jupyterspindle/orbit/events",
+            "jupyterspindle/jupyter/events",
+            "earthspindle/earth/moonspindle/events",
+            "earthspindle/earth/moonspindle/orbit",
+            "earthspindle/earth/moonspindle/moon",
+            "earthspindle/earth/moonspindle/orbit/events",
+            "earthspindle/earth/moonspindle/moon/axis",
+            "earthspindle/earth/moonspindle/moon/events",
+            "earthspindle/earth/moonspindle/moon/axis/events"
+        ],
+        "Data": [
+            "0@info:identifier/sun",
+            "1@info:identifier/earthspindle",
+            "2@info:identifier/jupyterspindle",
+            "3@info:identifier/events",
+            "3@event:void/rotate",
+            "3@event:void/idle",
+            "4@info:identifier/orbit",
+            "5@info:identifier/earth",
+            "6@info:identifier/orbit",
+            "7@info:identifier/jupyter",
+            "8@info:identifier/events",
+            "8@event:bool/visible",
+            "9@info:identifier/moonspindle",
+            "10@info:identifier/events",
+            "10@event:bool/visible",
+            "11@info:identifier/events",
+            "11@event:void/rotate",
+            "11@event:void/idle",
+            "12@info:identifier/events",
+            "12@event:void/rotate",
+            "12@event:void/idle",
+            "13@info:identifier/orbit",
+            "14@info:identifier/moon",
+            "15@info:identifier/events",
+            "15@event:bool/visible",
+            "16@info:identifier/axis",
+            "17@info:identifier/events",
+            "17@event:void/rotate",
+            "17@event:void/still",
+            "17@event:bool/annotate",
+            "18@info:identifier/events",
+            "18@event:bool/visible"
+        ]
     }
 }
