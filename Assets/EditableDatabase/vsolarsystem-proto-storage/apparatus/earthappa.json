@@ -31,21 +31,35 @@
     ],
     "Metadata": {
         "Paths": [
-            "earth",
-            "earth/moonspindle",
-            "earth/moonspindle/orbit",
-            "earth/moonspindle/moon",
-            "earth/moonspindle/moon/axis",
-            "earth/moonspindle/moon/axis/events"
+            "earthappa",
+            "earthappa/earth",
+            "earthappa/earth/moonspindle",
+            "earthappa/earth/moonspindle/events",
+            "earthappa/earth/moonspindle/orbit",
+            "earthappa/earth/moonspindle/moon",
+            "earthappa/earth/moonspindle/orbit/events",
+            "earthappa/earth/moonspindle/moon/axis",
+            "earthappa/earth/moonspindle/moon/events",
+            "earthappa/earth/moonspindle/moon/axis/events"
         ],
         "Data": [
-            "0@info:identifier/earth",
-            "1@info:identifier/moonspindle",
-            "2@info:identifier/orbit",
-            "3@info:identifier/moon",
-            "4@info:identifier/axis",
-            "5@info:identifier/events",
-            "5@event:bool/visible"
+            "0@info:identifier/earthappa",
+            "1@info:identifier/earth",
+            "2@info:identifier/moonspindle",
+            "3@info:identifier/events",
+            "3@event:void/rotate",
+            "3@event:void/idle",
+            "4@info:identifier/orbit",
+            "5@info:identifier/moon",
+            "6@info:identifier/events",
+            "6@event:bool/visible",
+            "7@info:identifier/axis",
+            "8@info:identifier/events",
+            "8@event:void/rotate",
+            "8@event:void/still",
+            "8@event:bool/annotate",
+            "9@info:identifier/events",
+            "9@event:bool/visible"
         ]
     }
 }
