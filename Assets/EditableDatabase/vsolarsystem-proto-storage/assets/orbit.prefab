@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1404039967254948940}
-  - component: {fileID: 6069406405123585873}
   m_Layer: 0
   m_Name: orbit
   m_TagString: Untagged
@@ -33,37 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6069406405123585873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404039967254948941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d6b070981113094baf5c55f170929df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _voidTriggerNames: []
-  _voidEvents: []
-  _boolTriggerNames:
-  - show
-  _boolEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 341626272614948269}
-        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &6970463515202760639
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,11 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86426f14ba2153342aa991dfebb217f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _connectionState: 0
-  _loadState: 0
   _identifier: events
-  _parent: {fileID: 0}
-  _children: []
   _voidEventNames: []
   _voidEvents: []
   _boolEventNames:

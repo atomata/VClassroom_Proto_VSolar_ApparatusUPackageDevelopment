@@ -219,7 +219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _identifier: moonspindle
-  _ethrealTriggerReference: {fileID: 0}
 --- !u!4 &643657311
 Transform:
   m_ObjectHideFlags: 0
