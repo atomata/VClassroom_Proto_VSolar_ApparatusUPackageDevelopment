@@ -10,3 +10,6 @@
 [submodule "Assets/Shaders/_standard"]
 	path = Assets/Shaders/_standard
 	url = https://github.com/atomata/_shaders.git
+[submodule "Assets/Dependencies/Atomata/Apparatus"]
+	path = Assets/Dependencies/Atomata/Apparatus
+	url = https://github.com/atomata/ATF-Apparatus.git
