@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce67c2562632a7d48a2126817235594c, type: 3}
   m_Name: ApparatusConfig
   m_EditorClassIdentifier: 
+  EditableDatabase: EditableDatabase
+  FileSystemDatabasePath: C:\_data\atomata\FileSystemDatabase
+  ApparatusDatabaseName: vsolarsystem-proto-storage
   _iEditorResourceDatabase: {fileID: 11400000, guid: 800caa2f5b6cbac4bbe47131dd9cfb92, type: 2}
   _iResourceDatabase: {fileID: 11400000, guid: 02b6d343bce677c4baa0147de4739e83, type: 2}
