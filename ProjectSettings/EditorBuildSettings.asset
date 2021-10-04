@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Containers/WindowsContainer.unity
-    guid: fb476052a1c354042920cb697fb8950b
+    path: Assets/Scenes/Containers/ApparatusContainer_WebGL.unity
+    guid: 6b71645e8b795304d93457abfc7b012e
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 457204cc35d850b4eac02495da49d696, type: 2}
