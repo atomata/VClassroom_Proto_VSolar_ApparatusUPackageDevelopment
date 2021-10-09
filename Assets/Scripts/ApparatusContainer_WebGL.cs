@@ -36,6 +36,7 @@ namespace Atomata.VSolar.Apparatus.WebGL
 
 
         private string requestApparatusJSON = "";
+        public string _identifier;
 
         /// <summary>
         /// Handles triggers, sent as strings with following format 
@@ -236,24 +237,23 @@ namespace Atomata.VSolar.Apparatus.WebGL
 
         public void LoadFromJSON(string json)
         {
-            LogToBrowser("1");
             requestApparatusJSON = json;
 
-            string identifier = "earth";
+            // get identifier from JSON
+            int idStart = json.IndexOf("\"Identifier\": \"") + "\"Identifier\": \"".Length;
+            int idEnd = json.LastIndexOf("\"},\"Transforms\":");
+            _identifier = json.Substring(idStart, idEnd - idStart);
 
             if (_managedNode != null) Destroy(_managedNode);
 
-            LogToBrowser("2");
-
             // make a serialization node as child
-            GameObject serNodeGo = new GameObject($"[SerializationNode] {identifier} Apparatus");
+            GameObject serNodeGo = new GameObject($"[SerializationNode] {_identifier} Apparatus");
 
-            LogToBrowser(transform.ToString());
             serNodeGo.transform.SetParent(transform);
 
             // set the serialization node settings
             SerializationNode serNode = serNodeGo.AddComponent<SerializationNode>();
-            serNode.Identifier = identifier;
+            serNode.Identifier = _identifier;
 
             // make sure that request handeling is performed by the container,
             // so that apparatus resources are pulled from the right places
@@ -277,7 +277,7 @@ namespace Atomata.VSolar.Apparatus.WebGL
                         OnRequest_LoadApparatus_JSON(request);
                         return;
                     case EApparatusRequestType.LoadAsset:
-                        OnRequest_LoadAsset(request);
+                        OnRequest_LoadAsset_JSON(request);
                         return;
                 }
             }
@@ -300,6 +300,50 @@ namespace Atomata.VSolar.Apparatus.WebGL
                 ApparatusResponseObject.SerializeNodeResponse(sappa),
                 this
             );
+        }
+
+        /// <summary>
+        /// Loads and assetbundle from the filesystem based on request args
+        /// </summary>
+        private void OnRequest_LoadAsset_JSON(ApparatusRequest request)
+        {
+            // find the file based on the request args
+            const string cDatabaseName = "vsolarsystem-proto-storage";
+            UnityPath databasePath = UnityPath.PersistentDataPath.Path
+                .InsertAtEnd("Database")
+                .InsertAtEnd(cDatabaseName)
+                .InsertAtEnd("assetbundles");
+
+            if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
+            {
+                // find the file based on the request args
+                FileInfo[] files = di.GetFiles();
+                AssetLoadRequestArgs args = request.RequestObject.Args as AssetLoadRequestArgs;
+                FileInfo file = files.FirstOrDefault(
+                    f =>
+                    {
+                        PathString ps = f.FullName;
+                        return ps.End == args.Name;
+                    }
+                );
+
+                // Load an assetbundle from bytes
+                byte[] bytes = null;
+                using (FileStream fs = file.OpenRead())
+                {
+                    bytes = fs.ReadAllBytes();
+                }
+
+                AssetBundle assetBundle = AssetBundle.LoadFromMemory(bytes);
+                Object[] objects = assetBundle.LoadAllAssets();
+                GameObject go = objects[0] as GameObject;
+
+                // respond to the request
+                request.Respond(
+                    ApparatusResponseObject.AssetResponse(go),
+                    this
+                );
+            }
         }
     }
 }
