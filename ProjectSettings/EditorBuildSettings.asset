@@ -9,4 +9,4 @@ EditorBuildSettings:
     path: Assets/Scenes/Containers/WindowsContainer.unity
     guid: fb476052a1c354042920cb697fb8950b
   m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: 457204cc35d850b4eac02495da49d696, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: 1b69ce73a58475e4fac1b4fae314a6ac, type: 2}
