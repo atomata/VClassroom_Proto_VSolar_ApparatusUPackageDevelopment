@@ -122,47 +122,20 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         private async void OnRequest_LoadApparatus(ApparatusRequest request)
         {
-            // Make the correct path to the target folder
-            //const string cDatabaseName = "vsolarsystem-proto-storage";
-            //UnityPath databasePath = UnityPath.PersistentDataPath.Path
-            //    .InsertAtEnd("Database")
-            //    .InsertAtEnd(cDatabaseName)
-            //    .InsertAtEnd("Apparatus");
-
-            //if(databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
-            //{
-            //    // find the file based on the request args
-            //    FileInfo[] files = di.GetFiles();
-            //    ApparatusLoadRequestArgs args = request.RequestObject.Args as ApparatusLoadRequestArgs;
-            //    FileInfo file = files.FirstOrDefault(
-            //        f =>
-            //        {
-            //            PathString ps = f.FullName;
-            //            return ps.EndWithoutExtension == args.Identifier;
-            //        }
-            //    );
-
-            //    // read the json
-            //    string json = null;
-            //    using (FileStream fs = file.OpenRead())
-            //    {
-            //        using (StreamReader sr = new StreamReader(fs))
-            //        {
-            //            json = sr.ReadToEnd();
-            //        }
-            //    }
-
             TextAsset json = await Addressables.LoadAssetAsync<TextAsset>("earth").Task;
-            Debug.Log("Hello2");
-
-            // deserialize the object
-            SrApparatus sappa =  JsonUtility.FromJson<SrApparatus>(json.ToString());
+            if(json != null)
+            {
+                Debug.Log("Hello2");
+                // deserialize the object
+                SrApparatus sappa = JsonUtility.FromJson<SrApparatus>(json.ToString());
 
                 // respond to the request
                 request.Respond(
                     ApparatusResponseObject.SerializeNodeResponse(sappa),
                     this
                 );
+            }
+
         }
 
         /// <summary>
@@ -170,45 +143,16 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         private async void OnRequest_LoadAsset(ApparatusRequest request)
         {
-            // find the file based on the request args
-            //const string cDatabaseName = "vsolarsystem-proto-storage";
-            //UnityPath databasePath = UnityPath.PersistentDataPath.Path
-            //    .InsertAtEnd("Database")
-            //    .InsertAtEnd(cDatabaseName)
-            //    .InsertAtEnd("assetbundles");
-
-            //if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
-            //{
-            //    // find the file based on the request args
-            //    FileInfo[] files = di.GetFiles();
-            //    AssetLoadRequestArgs args = request.RequestObject.Args as AssetLoadRequestArgs;
-            //    FileInfo file = files.FirstOrDefault(
-            //        f =>
-            //        {
-            //            PathString ps = f.FullName;
-            //            return ps.End == args.Name;
-            //        }
-            //    );
-
-            //    // Load an assetbundle from bytes
-            //    byte[] bytes = null;
-            //    using (FileStream fs = file.OpenRead())
-            //    {
-            //        bytes = fs.ReadAllBytes();
-            //    }
-
-            //    AssetBundle assetBundle = AssetBundle.LoadFromMemory(bytes);
-            //    Object[] objects = assetBundle.LoadAllAssets();
-            //    GameObject go = objects[0] as GameObject;
-
             GameObject go = await Addressables.LoadAssetAsync<GameObject>("earth").Task;
-            Debug.Log("Hello1");
-
+            if(go != null)
+            {
+                Debug.Log("Hello1");
                 // respond to the request
                 request.Respond(
                     ApparatusResponseObject.AssetResponse(go),
                     this
                 );
+            }
         }
     }
 }
