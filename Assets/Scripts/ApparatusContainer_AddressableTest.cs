@@ -153,8 +153,9 @@ namespace Atomata.VSolar.Apparatus.Example
             //    }
 
             TextAsset json = await Addressables.LoadAssetAsync<TextAsset>("earth").Task;
+            Debug.Log("Hello2");
 
-                // deserialize the object
+            // deserialize the object
             SrApparatus sappa =  JsonUtility.FromJson<SrApparatus>(json.ToString());
 
                 // respond to the request
@@ -201,6 +202,7 @@ namespace Atomata.VSolar.Apparatus.Example
             //    GameObject go = objects[0] as GameObject;
 
             GameObject go = await Addressables.LoadAssetAsync<GameObject>("earth").Task;
+            Debug.Log("Hello1");
 
                 // respond to the request
                 request.Respond(
