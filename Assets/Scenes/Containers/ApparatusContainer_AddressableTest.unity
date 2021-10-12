@@ -388,9 +388,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.ApparatusContainer_DesktopLocal,
-          TestScripts
+      - m_Target: {fileID: 1368626685}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+          ApparatusUPackageDevelopment
         m_MethodName: ButtonClickTrigger
         m_Mode: 5
         m_Arguments:
@@ -401,9 +401,9 @@ MonoBehaviour:
           m_StringArgument: earth/earth/event?mantle_active;False
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.ApparatusContainer_DesktopLocal,
-          TestScripts
+      - m_Target: {fileID: 1368626685}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+          ApparatusUPackageDevelopment
         m_MethodName: ButtonClickTrigger
         m_Mode: 5
         m_Arguments:
@@ -614,9 +614,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.ApparatusContainer_DesktopLocal,
-          Assembly-CSharp
+      - m_Target: {fileID: 1368626685}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+          ApparatusUPackageDevelopment
         m_MethodName: ButtonClickLoad
         m_Mode: 5
         m_Arguments:
@@ -974,9 +974,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.ApparatusContainer_DesktopLocal,
-          TestScripts
+      - m_Target: {fileID: 1368626685}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+          ApparatusUPackageDevelopment
         m_MethodName: ButtonClickTrigger
         m_Mode: 5
         m_Arguments:
@@ -987,9 +987,9 @@ MonoBehaviour:
           m_StringArgument: earth/earth/event?split_active;False
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.ApparatusContainer_DesktopLocal,
-          TestScripts
+      - m_Target: {fileID: 1368626685}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+          ApparatusUPackageDevelopment
         m_MethodName: ButtonClickTrigger
         m_Mode: 5
         m_Arguments:
@@ -1295,9 +1295,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.ApparatusContainer_DesktopLocal,
-          Assembly-CSharp
+      - m_Target: {fileID: 1368626685}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+          ApparatusUPackageDevelopment
         m_MethodName: ButtonClickDestroy
         m_Mode: 1
         m_Arguments:
