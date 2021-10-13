@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -96,7 +96,6 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         public void OnRequest(ApparatusRequest request)
         {
-            Debug.Log($"Got a request {request.RequestObject.Type}");
 
             // claim the request so that you're a legitimate responder
             if (request.TryClaim(this))
@@ -145,6 +144,7 @@ namespace Atomata.VSolar.Apparatus.Example
             GameObject go = await Addressables.LoadAssetAsync<GameObject>("earth").Task;
             if(go != null)
             {
+                Debug.Log("load asset");
                 // respond to the request
                 request.Respond(
                     ApparatusResponseObject.AssetResponse(go),
