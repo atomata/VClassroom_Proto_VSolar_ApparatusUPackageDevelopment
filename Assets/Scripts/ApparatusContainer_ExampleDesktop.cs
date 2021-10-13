@@ -27,6 +27,8 @@ namespace Atomata.VSolar.Apparatus.Example
         [SerializeField]
         private SerializationNode _managedNode = null;
 
+        private Dictionary<int, GameObject> _cachedBundles = new Dictionary<int, GameObject>();
+
         /// <summary>
         /// Handles triggers, sent as strings with following format 
         /// path/to/node?eventName;(True|False). Only supported boolean
@@ -187,20 +189,26 @@ namespace Atomata.VSolar.Apparatus.Example
                     }
                 );
 
-                // Load an assetbundle from bytes
-                byte[] bytes = null;
-                using (FileStream fs = file.OpenRead())
+                int hashKey = file.FullName.GetHashCode();
+                if (!_cachedBundles.ContainsKey(hashKey))
                 {
-                    bytes = fs.ReadAllBytes();
-                }
+                    // Load an assetbundle from bytes
+                    byte[] bytes = null;
+                    using (FileStream fs = file.OpenRead())
+                    {
+                        bytes = fs.ReadAllBytes();
+                    }
 
-                AssetBundle assetBundle = AssetBundle.LoadFromMemory(bytes);
-                Object[] objects = assetBundle.LoadAllAssets();
-                GameObject go = objects[0] as GameObject;
+                    AssetBundle assetBundle = AssetBundle.LoadFromMemory(bytes);
+                    Object[] objects = assetBundle.LoadAllAssets();
+                    GameObject go = objects[0] as GameObject;
+
+                    _cachedBundles.Add(hashKey, go);
+                }
 
                 // respond to the request
                 request.Respond(
-                    ApparatusResponseObject.AssetResponse(go),
+                    ApparatusResponseObject.AssetResponse(_cachedBundles[hashKey]),
                     this
                 );
             }
