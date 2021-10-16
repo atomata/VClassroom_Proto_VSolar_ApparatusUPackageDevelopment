@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb706186b723c149b3b93eaf828311a, type: 3}
+  m_Name: TurquoiseNavy
+  m_EditorClassIdentifier: 
+  _base: {r: 0.19215688, g: 0.3647059, b: 0.48235297, a: 1}
+  _light: {r: 0.5273229, g: 0.65692085, b: 0.745283, a: 1}
+  _dark: {r: 0.1277145, g: 0.24810463, b: 0.3301887, a: 1}
+  _greyed: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _baseMaterial: {fileID: 2100000, guid: c185b51dda1d0414eac8c4cc78681b90, type: 2}
+  _lightBaseMaterial: {fileID: 2100000, guid: 4b3f41f01011539488259f5a4eb54b18, type: 2}
+  _darkBaseMaterial: {fileID: 2100000, guid: 7e3607a7367fdda4596706e55be55db0, type: 2}
+  _greyedBaseMaterial: {fileID: 2100000, guid: d58f30471b6e0f846a8eef2bd1d75b1e, type: 2}

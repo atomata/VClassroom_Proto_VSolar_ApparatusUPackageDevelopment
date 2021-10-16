@@ -1,0 +1,11 @@
+{
+  "Tokens": [
+    {
+      "Path": "Dependencies/Atomata/Apparatus/Runtime/Scripts/Events/Generated/ApparatusRequest.event",
+      "Type": "ApparatusRequest",
+      "Namespace": "Atomata.VSolar.Events",
+      "MenuPath": "Atomata/Apparatus/Events",
+      "EventTypeNamespace": "Atomata.VSolar.Apparatus"
+    }
+  ]
+}   
