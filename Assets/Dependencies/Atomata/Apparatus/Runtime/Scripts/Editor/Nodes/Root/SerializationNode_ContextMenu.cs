@@ -20,7 +20,7 @@ namespace Atomata.VSolar.Apparatus
         /// endpoint
         /// </summary>
         [ContextMenu("SerailizeAndSave")]
-        public void ConvertPrefabToAssetTotem()
+        public void SerializeAndSave()
         {
             SerializeNode(this);
 
