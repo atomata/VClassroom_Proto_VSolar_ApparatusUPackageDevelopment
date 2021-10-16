@@ -1,9 +1,3 @@
-[submodule "Assets/Dependencies/Hex/CS_Data"]
-	path = Assets/Dependencies/Hex/CS_Data
-	url = https://github.com/hexthedev/HexCS-Data.git
-[submodule "Assets/Dependencies/Hex/UN"]
-	path = Assets/Dependencies/Hex/UN
-	url = https://github.com/hexthedev/HexUN.git
 [submodule "Assets/Shaders/_standard"]
 	path = Assets/Shaders/_standard
 	url = https://github.com/atomata/_shaders.git
