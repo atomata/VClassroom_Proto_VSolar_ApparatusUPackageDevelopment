@@ -173,5 +173,24 @@ namespace Atomata.VSolar.Apparatus
             _managedChild = UTGameObject.CreateFailureObject();
             _managedChild.transform.SetParent(transform, false);
         }
+
+        /// <inheritdoc/>
+        protected override string[] ResolveMetadata()
+        {
+            string[] baseMeta =  base.ResolveMetadata();
+            return UTArray.Combine(baseMeta, new string[] { UTMeta.KeyMeta(AssetBundleKey) });
+        }
+
+        public override void Deserialize(SrApparatusNode node, string[] metas)
+        {
+            base.Deserialize(node, metas);
+
+            IEnumerable<string> keys = metas.Where(m => m.StartsWith(UTMeta.cMetaTypeKey));
+
+            foreach(string key in keys)
+            {
+                AssetBundleKey = key.Split(':')[1];
+            }
+        }
     }
 }

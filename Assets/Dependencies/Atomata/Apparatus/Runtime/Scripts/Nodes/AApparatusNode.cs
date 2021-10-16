@@ -273,12 +273,12 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Returns a serializable id version of the node so that it can be identified
         /// </summary>
-        public SrApparatusId SerializableId() =>  new SrApparatusId(Type, Identifier);
+        public SrApparatusNode SerializableId() =>  new SrApparatusNode(Type, Identifier);
 
         /// <summary>
         /// Deserailize the basic load info based on id
         /// </summary>
-        public void Deserialize(SrApparatusId node) => Identifier = node.Identifier;
+        public virtual void Deserialize(SrApparatusNode node, string[] metas) => Identifier = node.Identifier;
         #endregion
 
         /*

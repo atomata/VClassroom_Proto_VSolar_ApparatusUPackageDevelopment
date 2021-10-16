@@ -9,10 +9,10 @@ namespace Atomata.VSolar.Apparatus
     [System.Serializable]
     public class SrApparatus
     {
-        public SrApparatusId Id;
+        public SrApparatusNode Id;
 
         public SrLocalTransform[] Transforms;
-        public SrApparatusId[] Children;
+        public SrApparatusNode[] Children;
         public SrApparatusMetadata Metadata;
 
         public string Identifier => Id.Identifier;
@@ -21,11 +21,11 @@ namespace Atomata.VSolar.Apparatus
         public SrApparatus(SerializationNode node)
         {
             // Get the id
-            Id = new SrApparatusId(EApparatusNodeType.Apparatus, node.Identifier);
+            Id = new SrApparatusNode(EApparatusNodeType.Apparatus, node.Identifier);
 
             // Get the direct children ids
             AApparatusNode[] children = node.Children;
-            Children = new SrApparatusId[children.Length];
+            Children = new SrApparatusNode[children.Length];
             Transforms = new SrLocalTransform[children.Length];
             for (int i = 0; i<children.Length; i++)
             {
