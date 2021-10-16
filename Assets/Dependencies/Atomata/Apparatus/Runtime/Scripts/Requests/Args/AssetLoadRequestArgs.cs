@@ -11,7 +11,8 @@ namespace Atomata.VSolar.Apparatus
     public class AssetLoadRequestArgs
     {
         /// <summary>
-        /// What is the name of the asset that should be loaded
+        /// What is the name of the asset that should be loaded. This will be used to do an asset lookup
+        /// in a database somewhere, so it's important that the name corresponds to an existing asset. 
         /// </summary>
         public string Name;
 
