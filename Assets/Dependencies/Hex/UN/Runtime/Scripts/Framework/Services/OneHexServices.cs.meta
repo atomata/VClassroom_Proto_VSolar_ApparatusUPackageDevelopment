@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 7922b9f415a8a284ebcc826f9b37f7cb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - IAppControl: {fileID: 5749796832405510292, guid: 526e969ed16446140a1a14a0686772e0, type: 3}
+  - ILog: {fileID: 6100055236613773629, guid: 61545384a3d29f34cacc32146bf8a808, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

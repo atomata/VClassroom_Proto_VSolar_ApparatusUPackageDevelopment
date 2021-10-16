@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb706186b723c149b3b93eaf828311a, type: 3}
+  m_Name: OrangeSun
+  m_EditorClassIdentifier: 
+  _base: {r: 0.9490197, g: 0.40000004, b: 0.16078432, a: 1}
+  _light: {r: 0.9803922, g: 0.6392157, b: 0.41960788, a: 1}
+  _dark: {r: 0.745283, g: 0.29963833, b: 0.10546456, a: 1}
+  _greyed: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _baseMaterial: {fileID: 2100000, guid: 19707141781683c4cb97ec591736f882, type: 2}
+  _lightBaseMaterial: {fileID: 2100000, guid: e89d2db1a192bbc4da6a23206ff3e647, type: 2}
+  _darkBaseMaterial: {fileID: 2100000, guid: a2828990d435f654b9b66afa47f6699b, type: 2}
+  _greyedBaseMaterial: {fileID: 2100000, guid: d58f30471b6e0f846a8eef2bd1d75b1e, type: 2}

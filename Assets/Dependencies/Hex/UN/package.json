@@ -1,0 +1,1 @@
+{"name": "com.hex.hexun", "version": "1.0.3", "displayName": "HexUN", "description": "Framework classes for the HexUN Unity process", "unity": "2019.4", "unityRelease": "0f1", "dependencies": {}, "keywords": ["HexUN"], "author": {"name": "James McCafferty", "email": "jamesmccafferty@live.ca", "url": "https://github.com/hexthedev/HexUN"}}

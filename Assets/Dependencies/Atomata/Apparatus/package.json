@@ -1,0 +1,16 @@
+{
+    "name": "com.atomata.apparatus",
+    "version": "0.0.1",
+    "displayName": "Apparatus",
+    "description": "Apparatus implementaiton for Atomata Apparatus objects",
+    "unity": "2020.3",
+    "unityRelease": "1f1",
+    "dependencies": { },
+    "keywords": ["Atomata"],
+    "author": {
+      "name": "Atomata",
+      "email": "jamesmccafferty@live.ca",
+      "url": "https://www.atomata.com"
+    }
+  }
+  
