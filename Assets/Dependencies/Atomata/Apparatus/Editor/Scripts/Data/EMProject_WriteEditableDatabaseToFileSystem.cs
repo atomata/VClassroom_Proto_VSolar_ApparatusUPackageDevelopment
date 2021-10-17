@@ -89,7 +89,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
                 {
                     AssetBundleBuild abb = new AssetBundleBuild()
                     {
-                        assetBundleName = $"{sourceFile.EndWithoutExtension}_{Enum.GetName(typeof(BuildTarget), bt)}",
+                        assetBundleName = $"{sourceFile.EndWithoutExtension}_{Enum.GetName(typeof(EAtomataPlatform), UTAtomataPlatform.EditorOnly_FromBuildTarget(bt))}",
                         assetNames = new string[] { bundleFile.ProjectRelativePath }
                     };
 
