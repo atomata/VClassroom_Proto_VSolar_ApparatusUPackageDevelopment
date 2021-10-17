@@ -9,6 +9,8 @@ using System.Linq;
 
 using UnityEngine;
 
+using Atomata.VSolar.Apparatus;
+
 namespace Atomata.VSolar.Apparatus.Example
 {
     /// <summary>
@@ -19,6 +21,8 @@ namespace Atomata.VSolar.Apparatus.Example
     /// </summary>
     public class ApparatusContainer_ExampleDesktop : MonoBehaviour
     {
+        IPrefabProvider PrefabProvider = new LocalAssetBundleProvider("vsolarsystem-proto-storage");
+
         /// <summary>
         /// This is the node that is being managed by the container. Null if 
         /// no apparatus has been loaded yet. Serialized only so that it 
@@ -167,51 +171,16 @@ namespace Atomata.VSolar.Apparatus.Example
         /// <summary>
         /// Loads and assetbundle from the filesystem based on request args
         /// </summary>
-        private void OnRequest_LoadAsset(ApparatusRequest request)
+        private async void OnRequest_LoadAsset(ApparatusRequest request)
         {
-            // find the file based on the request args
-            const string cDatabaseName = "vsolarsystem-proto-storage";
-            UnityPath databasePath = UnityPath.PersistentDataPath.Path
-                .InsertAtEnd("Database")
-                .InsertAtEnd(cDatabaseName)
-                .InsertAtEnd("assetbundles");
+            AssetLoadRequestArgs args = request.RequestObject.Args as AssetLoadRequestArgs;
 
-            if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
-            {
-                // find the file based on the request args
-                FileInfo[] files = di.GetFiles();
-                AssetLoadRequestArgs args = request.RequestObject.Args as AssetLoadRequestArgs;
-                FileInfo file = files.FirstOrDefault(
-                    f =>
-                    {
-                        PathString ps = f.FullName;
-                        return ps.End == args.Name;
-                    }
-                );
+            GameObject prefab = await PrefabProvider.Provide(args.Name);
 
-                int hashKey = file.FullName.GetHashCode();
-                if (!_cachedBundles.ContainsKey(hashKey))
-                {
-                    // Load an assetbundle from bytes
-                    byte[] bytes = null;
-                    using (FileStream fs = file.OpenRead())
-                    {
-                        bytes = fs.ReadAllBytes();
-                    }
-
-                    AssetBundle assetBundle = AssetBundle.LoadFromMemory(bytes);
-                    Object[] objects = assetBundle.LoadAllAssets();
-                    GameObject go = objects[0] as GameObject;
-
-                    _cachedBundles.Add(hashKey, go);
-                }
-
-                // respond to the request
-                request.Respond(
-                    ApparatusResponseObject.AssetResponse(_cachedBundles[hashKey]),
-                    this
-                );
-            }
+            request.Respond(
+                ApparatusResponseObject.AssetResponse(prefab),
+                this
+            );
         }
     }
 }
