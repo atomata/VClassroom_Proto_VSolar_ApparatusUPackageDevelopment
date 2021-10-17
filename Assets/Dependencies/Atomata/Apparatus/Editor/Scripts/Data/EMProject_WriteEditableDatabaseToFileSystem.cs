@@ -24,6 +24,12 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
     {
         private const string cLogCategory = "WriteEditableDatabaseToFileSystem";
 
+        private static readonly BuildTarget[] SupportedTargets = new BuildTarget[]
+        {
+            BuildTarget.WebGL,
+            BuildTarget.StandaloneWindows
+        };
+
         /// <summary>
         /// Process an object, and save it to the target directory
         /// </summary>
@@ -79,18 +85,21 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
             {
                 UnityPath bundleFile = sourceFile;
 
-                AssetBundleBuild abb = new AssetBundleBuild()
+                foreach(BuildTarget bt in SupportedTargets)
                 {
-                    assetBundleName = sourceFile.EndWithoutExtension,
-                    assetNames = new string[] { bundleFile.ProjectRelativePath }
-                };
+                    AssetBundleBuild abb = new AssetBundleBuild()
+                    {
+                        assetBundleName = $"{sourceFile.EndWithoutExtension}_{Enum.GetName(typeof(BuildTarget), bt)}",
+                        assetNames = new string[] { bundleFile.ProjectRelativePath }
+                    };
 
-                AssetBundleManifest abm = BuildPipeline.BuildAssetBundles(
-                    targetFolder,
-                    new AssetBundleBuild[] { abb },
-                    BuildAssetBundleOptions.None,
-                    BuildTarget.WebGL
-                );
+                    AssetBundleManifest abm = BuildPipeline.BuildAssetBundles(
+                        targetFolder,
+                        new AssetBundleBuild[] { abb },
+                        BuildAssetBundleOptions.None,
+                        bt
+                    );
+                }
             }
 
             OneHexServices.Instance.Log.Info(cLogCategory, $"Saved editable database to path {targetRoot}");
