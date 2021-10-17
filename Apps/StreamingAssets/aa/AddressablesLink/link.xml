@@ -23,6 +23,7 @@
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.BoxCollider" preserve="all" />
+    <type fullname="UnityEngine.CapsuleCollider" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.AnimationClip" preserve="all" />
@@ -31,6 +32,7 @@
   </assembly>
   <assembly fullname="Atomata.VSolar, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="Atomata.VSolar.Apparatus.EventNode" preserve="all" />
+    <type fullname="Atomata.VSolar.Apparatus.SerializationNode" preserve="all" />
     <type fullname="Atomata.VSolar.Apparatus.DeltaTransformNode" preserve="all" />
   </assembly>
 </linker>

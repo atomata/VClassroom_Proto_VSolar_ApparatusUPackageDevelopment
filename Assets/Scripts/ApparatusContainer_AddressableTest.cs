@@ -1,7 +1,3 @@
-using HexCS.Core;
-
-using HexUN.Data;
-
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +41,7 @@ namespace Atomata.VSolar.Apparatus.Example
                 await _managedNode.Trigger(
                     ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0])
                 );
+
             }
         }
 
@@ -121,7 +118,8 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         private async void OnRequest_LoadApparatus(ApparatusRequest request)
         {
-            TextAsset json = await Addressables.LoadAssetAsync<TextAsset>("earth").Task;
+            string identifier = (request.RequestObject.Args as ApparatusLoadRequestArgs).Identifier;
+            TextAsset json = await Addressables.LoadAssetAsync<TextAsset>(identifier).Task;
             if(json != null)
             {
                 // deserialize the object
@@ -141,7 +139,8 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         private async void OnRequest_LoadAsset(ApparatusRequest request)
         {
-            GameObject go = await Addressables.LoadAssetAsync<GameObject>("earth").Task;
+            string name = (request.RequestObject.Args as AssetLoadRequestArgs).Name;
+            GameObject go = await Addressables.LoadAssetAsync<GameObject>(name).Task;
             if(go != null)
             {
                 Debug.Log("load asset");
