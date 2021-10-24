@@ -5,6 +5,7 @@ using HexCS.Core;
 using HexUN.Behaviour;
 using HexUN.Engine.Utilities;
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Atomata.VSolar.Apparatus
     public abstract partial class AApparatusNode : HexBehaviour
     {
         private string cLogCategory = nameof(AApparatusNode);
+        private string cNodeLogCategory = "NodeLog";
 
         [Header("[AApparatusNode]")]
         [SerializeField]
@@ -430,5 +432,16 @@ namespace Atomata.VSolar.Apparatus
             return false;
         }
 #endif
+
+        protected void LogInfo(string nodeType, string message) 
+            => OneHexServices.Instance.Log.Info(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}");
+
+        protected void LogWaring(string nodeType, string message)
+            => OneHexServices.Instance.Log.Warn(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}");
+
+        protected void LogError(string nodeType, string message)
+            => OneHexServices.Instance.Log.Error(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}");
+        protected void LogError(string nodeType, string message, Exception exception)
+            => OneHexServices.Instance.Log.Error(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}", exception);
     }
 }
