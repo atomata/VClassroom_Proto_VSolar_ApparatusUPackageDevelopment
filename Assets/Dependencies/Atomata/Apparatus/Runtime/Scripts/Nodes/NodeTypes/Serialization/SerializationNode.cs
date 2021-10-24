@@ -18,7 +18,7 @@ namespace Atomata.VSolar.Apparatus
     /// </summary>
     public partial class SerializationNode : AApparatusNode
     {
-        private const string cLogCategory = nameof(SerializationNode);
+        private const string cNodeType = nameof(SerializationNode);
 
         [Header("[Requests]")]
         [SerializeField]
@@ -28,36 +28,35 @@ namespace Atomata.VSolar.Apparatus
         public override EApparatusNodeType Type => EApparatusNodeType.Apparatus;
 
         private EApparatusNodeLoadState _loadState = EApparatusNodeLoadState.Unloaded;
+        protected override void SetCustomRequestHandler() =>  RequestHandler = HandleRequest;
+        
 
-        protected override void SetCustomRequestHandler()
+        private void HandleRequest(ApparatusRequest request)
         {
-            RequestHandler = HandleRequest;
-        }
-
-        protected void HandleRequest(ApparatusRequest request)
-        {
-            // serailization nodes can be nested. In the vase where there is no request handler
-            // and this is not the root, then just relay request to the parent. 
-            if(!IsRoot && _onRequest == null)
+            // if the serialization node dosen't have an onRequest handler it needs to find one somewhere else. 
+            if(_onRequest == null)
             {
                 if (IsRoot)
                 {
-                    OneHexServices.Instance.Log.Error(cLogCategory, "The root seralization node does not have a request handler. This is not allowed");
+                    LogError(cNodeType, $"Failed to handle request. The root seralization node does not have a request handler. This is not allowed.");
                 }
                 else
                 {
+                    LogInfo(cNodeType, $"Relaying request to parent node");
                     Parent.RequestHandler.Invoke(request);
                 }
 
                 return;
             }
 
+            LogInfo(cNodeType, $"Received a request and calling registered function: <{_onRequest.GetPersistentMethodName(0)}> on object <{_onRequest.GetPersistentTarget(0)}>");
             _onRequest.Invoke(request);
 
             // If after the request has been invoked no responder has claimed it, it means there
             // is nothing listening for request. Provide an error
             if (!request.IsClaimed)
             {
+                LogWaring(cNodeType, $"Failed to handle request. After relaying request the request was never claimed. Sending missing reference error.");
                 request.TryClaim(this);
                 request.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse("RequestEventListener"), this);
                 return;
@@ -117,13 +116,13 @@ namespace Atomata.VSolar.Apparatus
             }
             catch (Exception e)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}");
+                LogError(cNodeType, $"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}");
                 return;
             }
 
             if (res.Failed)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} with failure type {res.Status}");
+                LogError(cNodeType, $"Failed to load apparatus {Identifier} with failure type {res.Status}");
                 return;
             }
 
@@ -131,14 +130,14 @@ namespace Atomata.VSolar.Apparatus
 
             if(args == null)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
+                LogError(cNodeType, $"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
                 return;
             }
 
             // load the apparatus children
             if(args.Identifier != Identifier)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
+                LogError(cNodeType, $"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
                 return;
             }
 
