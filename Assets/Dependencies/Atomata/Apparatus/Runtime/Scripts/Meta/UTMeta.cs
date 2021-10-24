@@ -19,7 +19,8 @@ namespace Atomata.VSolar.Apparatus
         public const string cMetaInfoFormat = "{0}:{1}";
 
         public const string cMetaTypeIdentifer = "identifier";
-        
+        public const string cMetaTypeKey = "key";
+
         public const string cMetaTypeInput = "input";
         public const string cMetaInputFormat = "{0}/{1}"; // 0 is input type, 1 is input name
         public const string cMetaInputVoidType = "void";
@@ -31,5 +32,8 @@ namespace Atomata.VSolar.Apparatus
 
         public static string InputMeta(string inputType, string inputName)
             => string.Format(cMetaInfoFormat, cMetaTypeInput, string.Format(cMetaInfoFormat, inputType, inputName));
+
+        public static string KeyMeta(string key) 
+            => string.Format(cMetaInfoFormat, cMetaTypeKey, key);
     }
 }

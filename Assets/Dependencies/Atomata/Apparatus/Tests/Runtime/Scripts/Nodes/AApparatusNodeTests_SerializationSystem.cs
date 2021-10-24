@@ -27,12 +27,12 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             TestNode_SerializationSystem node = new GameObject().AddComponent<TestNode_SerializationSystem>();
             node.Identifier = "test";
-            SrApparatusId id = node.SerializableId();
+            SrApparatusNode id = node.SerializableId();
             bool idIsCorrect = id.Identifier == node.Identifier && id.Type == node.Type;
             UTTests.Log("The id is correctly serialized", idIsCorrect);
 
             TestNode_SerializationSystem nodeNew = new GameObject().AddComponent<TestNode_SerializationSystem>();
-            nodeNew.Deserialize(id);
+            nodeNew.Deserialize(id, new string[] { });
             bool idIsDeserializeCorrect = nodeNew.Identifier == id.Identifier;
             UTTests.Log("The serialized id populates correctly", idIsDeserializeCorrect);
 

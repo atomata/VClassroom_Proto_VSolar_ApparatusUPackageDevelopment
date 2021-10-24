@@ -25,7 +25,8 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
             DeltaTransformNode node = serializedObject.targetObject as DeltaTransformNode;
 
             GUI.enabled = false;
-            EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour(node), typeof(EventNode), false);
+            EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour(node), typeof(DeltaTransformNode), false);
+            EditorGUILayout.ObjectField("Editor", MonoScript.FromScriptableObject(this), typeof(EiApparatusDeltaTransformNode), false);
             GUI.enabled = true;
 
             _baseProperties.RenderGUI(node);

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using HexUN.Framework;
 using System;
 using Cysharp.Threading.Tasks;
+using HexCS.Core;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Atomata.VSolar.Apparatus
 {
@@ -22,6 +25,8 @@ namespace Atomata.VSolar.Apparatus
 
         private GameObject _managedChild;
         private EApparatusNodeLoadState _loadState = EApparatusNodeLoadState.Unloaded;
+
+        public string AssetBundleKey;
 
         public override EApparatusNodeType Type => EApparatusNodeType.Asset;
 
@@ -68,7 +73,7 @@ namespace Atomata.VSolar.Apparatus
             // Attempt to load, may error if timeout occurs
             try
             {
-                ethereal = await LoadAsset_Prefab(Identifier);
+                ethereal = await LoadAsset_Prefab(AssetBundleKey);
             }
             catch (Exception e)
             {
@@ -167,6 +172,25 @@ namespace Atomata.VSolar.Apparatus
         {
             _managedChild = UTGameObject.CreateFailureObject();
             _managedChild.transform.SetParent(transform, false);
+        }
+
+        /// <inheritdoc/>
+        protected override string[] ResolveMetadata()
+        {
+            string[] baseMeta =  base.ResolveMetadata();
+            return UTArray.Combine(baseMeta, new string[] { UTMeta.KeyMeta(AssetBundleKey) });
+        }
+
+        public override void Deserialize(SrApparatusNode node, string[] metas)
+        {
+            base.Deserialize(node, metas);
+
+            IEnumerable<string> keys = metas.Where(m => m.StartsWith(UTMeta.cMetaTypeKey));
+
+            foreach(string key in keys)
+            {
+                AssetBundleKey = key.Split(':')[1];
+            }
         }
     }
 }

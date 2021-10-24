@@ -43,12 +43,21 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
 
             public void RenderGUI(AApparatusNode node)
             {
-                EditorGUILayout.PropertyField(_identifier);
+                RenderGUI_Fields(node);
+                RenderGUI_ConnectionInfoAndDebug(node);
+            }
 
+            public void RenderGUI_Fields(AApparatusNode node)
+            {
+                EditorGUILayout.PropertyField(_identifier);
+            }
+
+            public void RenderGUI_ConnectionInfoAndDebug(AApparatusNode node)
+            {
                 // Show non-serialized propertes, states, parent
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Connection Info", EditorStyles.boldLabel);
-                
+
                 GUI.enabled = false;
                 EditorGUILayout.EnumPopup(
                     "Connection State",
@@ -73,7 +82,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
                 {
                     foreach (AApparatusNode child in children)
                     {
-                        EditorGUILayout.ObjectField(child.Identifier, child, typeof(AApparatusNode),true);
+                        EditorGUILayout.ObjectField(child.Identifier, child, typeof(AApparatusNode), true);
                     }
                 }
                 GUI.enabled = true;
@@ -87,7 +96,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
                 Queue<AApparatusNode> menuProcess = new Queue<AApparatusNode>();
                 menuProcess.Enqueue(node);
 
-                while(menuProcess.Count > 0)
+                while (menuProcess.Count > 0)
                 {
                     AApparatusNode child = menuProcess.Dequeue();
                     PathString path = child.Path(node.Identifier);
@@ -99,7 +108,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
                         _showChildInfo[path] = EditorGUILayout.BeginFoldoutHeaderGroup(_showChildInfo[path], path, EditorStyles.foldout);
 
                         if (_showChildInfo[path]) render();
-                    
+
                         EditorGUILayout.EndFoldoutHeaderGroup();
                     }
 
