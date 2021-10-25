@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Atomata.VSolar.Utilities;
 
 namespace Atomata.VSolar.Apparatus.Example
 {
@@ -91,7 +92,7 @@ namespace Atomata.VSolar.Apparatus.Example
         /// This function handles requests from the apparatus and resolves them
         /// based on a Desktop platform with relevent data existing in the file system.
         /// </summary>
-        public void OnRequest(ApparatusRequest request)
+        public void OnRequest(ApparatusRequest request, LogWriter log)
         {
 
             // claim the request so that you're a legitimate responder
