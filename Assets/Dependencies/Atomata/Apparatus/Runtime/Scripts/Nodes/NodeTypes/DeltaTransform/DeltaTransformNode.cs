@@ -37,6 +37,8 @@ namespace Atomata.VSolar.Apparatus
         /// <inheritdoc />
         public override EApparatusNodeType Type => EApparatusNodeType.DeltaTransform;
 
+        public override string NodeType => "DeltaTransform";
+
         protected async override UniTask TriggerNode(ApparatusTrigger trigger)
         {
             if (_managedTransform == null) return;

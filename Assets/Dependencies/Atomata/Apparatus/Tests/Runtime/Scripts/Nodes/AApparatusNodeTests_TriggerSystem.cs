@@ -111,6 +111,8 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             public override EApparatusNodeType Type => default;
 
+            public override string NodeType => "Test";
+
             public ApparatusTrigger LastTrigger = null;
 
             public bool wasLoadCalled;

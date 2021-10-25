@@ -70,6 +70,8 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             public override EApparatusNodeType Type => default;
 
+            public override string NodeType => "Test";
+
             public Dictionary<string, string> OtherData = new Dictionary<string, string>();
 
             protected override string[] ResolveMetadata()

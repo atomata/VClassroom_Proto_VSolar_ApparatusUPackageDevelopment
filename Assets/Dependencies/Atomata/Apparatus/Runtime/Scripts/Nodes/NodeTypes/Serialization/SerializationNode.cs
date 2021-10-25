@@ -1,3 +1,5 @@
+using Atomata.VSolar.Utilities;
+
 using Cysharp.Threading.Tasks;
 
 using HexCS.Core;
@@ -18,8 +20,6 @@ namespace Atomata.VSolar.Apparatus
     /// </summary>
     public partial class SerializationNode : AApparatusNode
     {
-        private const string cNodeType = nameof(SerializationNode);
-
         [Header("[Requests]")]
         [SerializeField]
         [Tooltip("Event used by the apparatus to make requests to the environment")]
@@ -27,41 +27,9 @@ namespace Atomata.VSolar.Apparatus
 
         public override EApparatusNodeType Type => EApparatusNodeType.Apparatus;
 
+        public override string NodeType => "Serialization";
+
         private EApparatusNodeLoadState _loadState = EApparatusNodeLoadState.Unloaded;
-        protected override void SetCustomRequestHandler() =>  RequestHandler = HandleRequest;
-        
-
-        private void HandleRequest(ApparatusRequest request)
-        {
-            // if the serialization node dosen't have an onRequest handler it needs to find one somewhere else. 
-            if(_onRequest == null)
-            {
-                if (IsRoot)
-                {
-                    LogError(cNodeType, $"Failed to handle request. The root seralization node does not have a request handler. This is not allowed.");
-                }
-                else
-                {
-                    LogInfo(cNodeType, $"Relaying request to parent node");
-                    Parent.RequestHandler.Invoke(request);
-                }
-
-                return;
-            }
-
-            LogInfo(cNodeType, $"Received a request and calling registered function: <{_onRequest.GetPersistentMethodName(0)}> on object <{_onRequest.GetPersistentTarget(0)}>");
-            _onRequest.Invoke(request);
-
-            // If after the request has been invoked no responder has claimed it, it means there
-            // is nothing listening for request. Provide an error
-            if (!request.IsClaimed)
-            {
-                LogWaring(cNodeType, $"Failed to handle request. After relaying request the request was never claimed. Sending missing reference error.");
-                request.TryClaim(this);
-                request.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse("RequestEventListener"), this);
-                return;
-            }
-        }
 
         protected override void OnConnected()
         {
@@ -109,20 +77,23 @@ namespace Atomata.VSolar.Apparatus
             // Get the SRApparatusNode to load from
             ApparatusRequestObject req = ApparatusRequestObject.LoadApparatus(Identifier);
             ApparatusResponseObject res = null;
-            
+
+            LogWriter log = new LogWriter(nameof(Load));
+
             try
             {
-                res = await SendRequestAsync(req);
+                res = await SendRequestAsync(req, log);
             }
             catch (Exception e)
             {
-                LogError(cNodeType, $"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}");
+                log.AddError(GetNodeLog($"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}"));
+                
                 return;
             }
 
             if (res.Failed)
             {
-                LogError(cNodeType, $"Failed to load apparatus {Identifier} with failure type {res.Status}");
+                LogError($"Failed to load apparatus {Identifier} with failure type {res.Status}");
                 return;
             }
 
@@ -130,14 +101,14 @@ namespace Atomata.VSolar.Apparatus
 
             if(args == null)
             {
-                LogError(cNodeType, $"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
+                LogError($"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
                 return;
             }
 
             // load the apparatus children
             if(args.Identifier != Identifier)
             {
-                LogError(cNodeType, $"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
+                LogError($"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
                 return;
             }
 

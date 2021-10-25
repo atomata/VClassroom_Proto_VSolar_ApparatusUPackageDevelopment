@@ -1,4 +1,5 @@
 using Atomata.VSolar.Apparatus.UnityEditor;
+using Atomata.VSolar.Utilities;
 
 using Cysharp.Threading.Tasks;
 
@@ -30,9 +31,9 @@ namespace Atomata.VSolar.Apparatus {
             await Node.Trigger(ApparatusTrigger.LoadTrigger(true));
         }
 
-        public void HandleRequest(ApparatusRequest req)
+        public void HandleRequest(ApparatusRequest req, LogWriter log)
         {
-            Config.Node_OnRequest(req);
+            Config.Node_OnRequest(req, log);
         }
     }
 }

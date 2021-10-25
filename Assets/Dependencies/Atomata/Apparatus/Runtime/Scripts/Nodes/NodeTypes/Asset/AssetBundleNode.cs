@@ -12,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using HexCS.Core;
 using System.Linq;
 using System.Collections.Generic;
+using Atomata.VSolar.Utilities;
 
 namespace Atomata.VSolar.Apparatus
 {
@@ -29,6 +30,8 @@ namespace Atomata.VSolar.Apparatus
         public string AssetBundleKey;
 
         public override EApparatusNodeType Type => EApparatusNodeType.Asset;
+
+        public override string NodeType => "AssetBundle";
 
         private async UniTask Load()
         {
@@ -115,9 +118,12 @@ namespace Atomata.VSolar.Apparatus
         {
             ApparatusRequestObject req = ApparatusRequestObject.LoadAsset(asset);
             ApparatusResponseObject res = null;
+
+            LogWriter log = new LogWriter(nameof(LoadAsset_Prefab));
+
             try
             {
-                res = await SendRequestAsync(req);
+                res = await SendRequestAsync(req, log);
             }
             catch(Exception e)
             {

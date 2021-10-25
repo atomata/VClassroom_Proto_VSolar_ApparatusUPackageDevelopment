@@ -51,6 +51,8 @@ namespace Atomata.VSolar.Apparatus
 
         public override EApparatusNodeType Type =>  EApparatusNodeType.Event;
 
+        public override string NodeType => "Event";
+
         public void Invoke_Void(string name)
         {
             int index = Array.IndexOf(_voidEventNames, name);

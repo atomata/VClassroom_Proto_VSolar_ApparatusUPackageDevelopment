@@ -43,6 +43,8 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             public override EApparatusNodeType Type => default;
 
+            public override string NodeType => "Test";
+
             protected override UniTask TriggerNode(ApparatusTrigger trigger)
             {
                 throw new System.NotImplementedException();

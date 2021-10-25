@@ -1,3 +1,5 @@
+using Atomata.VSolar.Utilities;
+
 using Cysharp.Threading.Tasks;
 
 using HexCS.Core;
@@ -33,8 +35,10 @@ namespace Atomata.VSolar.Apparatus
         private AApparatusNode _parent;
         private List<AApparatusNode> _children = new List<AApparatusNode>();
 
-        private Action<ApparatusRequest> _requestHandler = null;  
-        
+        private Action<ApparatusRequest, LogWriter> _requestHandler = null;
+
+        public abstract string NodeType { get; }
+
         /// <summary>
         /// Is this node currently connected to it's parent and children. If unconnected, 
         /// none of the nodes functions will work reliably
@@ -92,14 +96,20 @@ namespace Atomata.VSolar.Apparatus
         /// requests to editor config based resolution. Can be set to override the request 
         /// handler implemented by the node with a custom request handler
         /// </summary>
-        public Action<ApparatusRequest> RequestHandler
+        public Action<ApparatusRequest, LogWriter> RequestHandler
         {
             get
             {
-                // introduced because it's possible for a request to be sent before nodes are enabled
-                if (_requestHandler == null) SetCustomRequestHandler();
+                if (IsRoot)
+                {
+                    IRequestHandler handler = transform.parent.GetComponent<IRequestHandler>();
+                    _requestHandler = handler == null ? NullHandler : new Action<ApparatusRequest, LogWriter>(handler.HandleRequest);
+                }
+                else
+                {
+                    _requestHandler = Parent.RequestHandler ?? NullHandler;
+                }
 
-                if (_requestHandler == null) _requestHandler = RelayRequestToParent;
                 return _requestHandler;
             }
             set => _requestHandler = value;
@@ -343,10 +353,10 @@ namespace Atomata.VSolar.Apparatus
         /// Sends a request by pushing it to the request pipeline. Returns the constructed
         /// request so that is can be awaited
         /// </summary>
-        protected ApparatusRequest SendRequest(ApparatusRequestObject request)
+        protected ApparatusRequest SendRequest(ApparatusRequestObject request, LogWriter writer)
         {
             ApparatusRequest req = new ApparatusRequest(request);
-            RequestHandler(req);
+            RequestHandler(req, writer);
             return req;
         }
 
@@ -354,33 +364,21 @@ namespace Atomata.VSolar.Apparatus
         /// Sends a request by pushing it to the request pipeline. automatically awaits the
         /// request and provides a response
         /// </summary>
-        protected async Task<ApparatusResponseObject> SendRequestAsync(ApparatusRequestObject request)
+        protected async Task<ApparatusResponseObject> SendRequestAsync(ApparatusRequestObject request, LogWriter writer)
         {
             ApparatusRequest req = new ApparatusRequest(request);
 
-            RequestHandler(req);
+            RequestHandler(req, writer);
             return await req.AwaitAsync();
         }
 
         /// <summary>
         /// Handles a request received by the request pipeline
         /// </summary>
-        private void RelayRequestToParent(ApparatusRequest request)
+        private void NullHandler(ApparatusRequest request, LogWriter log)
         {
-            if (IsRoot)
-            {
-                OneHexServices.Instance.Log.Error(nameof(AApparatusNode), $"Node request has reached the root and is not being handled");
-            }
-            else
-            {
-                _parent.RequestHandler.Invoke(request);
-            }
+            log.AddError(GetNodeLog($"Node request has reached the root and is not being handled"));
         }
-
-        /// <summary>
-        /// Used to set a custom request handler from a concrete class
-        /// </summary>
-        protected virtual void SetCustomRequestHandler() { }
         #endregion
 
         /// <summary>
@@ -433,15 +431,22 @@ namespace Atomata.VSolar.Apparatus
         }
 #endif
 
-        protected void LogInfo(string nodeType, string message) 
-            => OneHexServices.Instance.Log.Info(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}");
+        protected void LogInfo(string message) 
+            => OneHexServices.Instance.Log.Info(cNodeLogCategory, GetNodeLog(message));
 
-        protected void LogWaring(string nodeType, string message)
-            => OneHexServices.Instance.Log.Warn(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}");
+        protected void LogWaring(string message)
+            => OneHexServices.Instance.Log.Warn(cNodeLogCategory, GetNodeLog(message));
 
-        protected void LogError(string nodeType, string message)
-            => OneHexServices.Instance.Log.Error(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}");
-        protected void LogError(string nodeType, string message, Exception exception)
-            => OneHexServices.Instance.Log.Error(cNodeLogCategory, $"{message} \nId: {Identifier} \nPath: {Path()}\nType{nodeType}", exception);
+        protected void LogError(string message)
+            => OneHexServices.Instance.Log.Error(cNodeLogCategory, GetNodeLog(message));
+        protected void LogError(string message, Exception exception)
+            => OneHexServices.Instance.Log.Error(cNodeLogCategory, GetNodeLog(message), exception);
+
+        protected void LogWriter(string title, LogWriter writer)
+        {
+            OneHexServices.Instance.Log.Info("LOG", writer.GetLog());
+        }
+
+        protected string GetNodeLog(string message) => $"{message} \n\tId: {Identifier} \n\tPath: {Path()}\n\tType{NodeType}";
     }
 }

@@ -10,6 +10,7 @@ using HexUN.Framework.Debugging;
 using HexUN.Framework.Request;
 using HexUN.Framework.Testing;
 using Cysharp.Threading.Tasks;
+using Atomata.VSolar.Utilities;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -66,12 +67,14 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             public override EApparatusNodeType Type => default;
 
+            public override string NodeType => "Test";
+
             public void OnEnable()
             {
                 RequestHandler = HandleRequest;
             }
 
-            private void HandleRequest(ApparatusRequest request)
+            private void HandleRequest(ApparatusRequest request, LogWriter log)
             {
                 if (request.RequestObject.Type == EApparatusRequestType.LoadApparatus)
                 {
@@ -83,7 +86,9 @@ namespace Atomata.VSolar.Apparatus.Tests
 
             public IEnumerator LoadMeAnApparatus()
             {
-                ApparatusRequest ar = SendRequest(ApparatusRequestObject.LoadApparatus("testapp"));
+                LogWriter writer = new LogWriter(nameof(LoadMeAnApparatus));
+
+                ApparatusRequest ar = SendRequest(ApparatusRequestObject.LoadApparatus("testapp"), writer);
 
                 while (ar.State != Request<ApparatusRequestObject, ApparatusResponseObject>.EState.Complete)
                 {
