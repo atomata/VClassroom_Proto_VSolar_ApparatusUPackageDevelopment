@@ -1,9 +1,9 @@
 using Atomata.VSolar.Apparatus.UnityEditor;
-using Atomata.VSolar.Utilities;
 
 using Cysharp.Threading.Tasks;
 
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using UnityEngine;
 
@@ -28,24 +28,24 @@ namespace Atomata.VSolar.Apparatus {
 
             if (Node == null)
             {
-                log.AddWarning($"Cannot initalize {nameof(SerializationNode)} because node is null");
+                log.AddWarning(cLogCategory, cLogCategory, $"Cannot initalize {nameof(SerializationNode)} because node is null");
                 OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
                 return;
             }
 
-            log.AddInfo("Triggering Unload");
-            await Node.Trigger(ApparatusTrigger.LoadTrigger(false));
+            log.AddInfo(cLogCategory, cLogCategory, "Triggering Unload");
+            await Node.Trigger(ApparatusTrigger.LoadTrigger(false), log);
 
-            log.AddInfo("Triggering Disconnect");
+            log.AddInfo(cLogCategory, cLogCategory, "Triggering Disconnect");
             Node.Disconnect();
 
-            log.AddInfo("Triggering Connected");
+            log.AddInfo(cLogCategory, cLogCategory, "Triggering Connected");
             Node.Connect();
 
-            log.AddInfo("Triggering Load");
-            await Node.Trigger(ApparatusTrigger.LoadTrigger(true));
+            log.AddInfo(cLogCategory, cLogCategory, "Triggering Load");
+            await Node.Trigger(ApparatusTrigger.LoadTrigger(true), log);
 
-            log.AddInfo("Initializing complete");
+            log.AddInfo(cLogCategory, cLogCategory, "Initializing complete");
             OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
         }
 

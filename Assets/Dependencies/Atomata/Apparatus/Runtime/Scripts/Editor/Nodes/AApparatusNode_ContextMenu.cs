@@ -1,6 +1,9 @@
 #if UNITY_EDITOR
 using Atomata.VSolar.Apparatus.UnityEditor;
 
+using HexUN.Framework;
+using HexUN.Framework.Debugging;
+
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -22,15 +25,23 @@ namespace Atomata.VSolar.Apparatus
         [ContextMenu("Load")]
         private void LoadNode()
         {
-            void Load(AApparatusNode a) => a.Trigger(ApparatusTrigger.LoadTrigger(true));
+            LogWriter log = new LogWriter("ApparatusContainer HandleTrigger");
+
+            void Load(AApparatusNode a) => a.Trigger(ApparatusTrigger.LoadTrigger(true), log);
             DoNodeAction(Load, true);
+
+            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
         }
 
         [ContextMenu("Unload")]
         private void UnloadNode()
         {
-            void Unload(AApparatusNode a) => a.Trigger(ApparatusTrigger.LoadTrigger(false));
+            LogWriter log = new LogWriter("ApparatusContainer HandleTrigger");
+
+            void Unload(AApparatusNode a) => a.Trigger(ApparatusTrigger.LoadTrigger(false), log);
             DoNodeAction(Unload);
+
+            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
         }
 
         [ContextMenu("Connect")]

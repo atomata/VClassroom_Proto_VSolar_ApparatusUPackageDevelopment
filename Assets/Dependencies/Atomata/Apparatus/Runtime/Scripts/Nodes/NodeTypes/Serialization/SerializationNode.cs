@@ -1,11 +1,10 @@
-using Atomata.VSolar.Utilities;
-
 using Cysharp.Threading.Tasks;
 
 using HexCS.Core;
 
 using HexUN.Engine.Utilities;
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using System;
 using System.Collections.Generic;
@@ -20,6 +19,8 @@ namespace Atomata.VSolar.Apparatus
     /// </summary>
     public partial class SerializationNode : AApparatusNode
     {
+        private const string cLogCategory = nameof(SerializationNode);
+
         [Header("[Requests]")]
         [SerializeField]
         [Tooltip("Event used by the apparatus to make requests to the environment")]
@@ -58,27 +59,25 @@ namespace Atomata.VSolar.Apparatus
             childRoot._onRequest = _onRequest;
         }
 
-        protected override async UniTask TriggerNode(ApparatusTrigger trigger)
+        protected override async UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
             switch (trigger.Type)
             {
                 case ETriggerType.Load:
                     if(trigger.TryUnpackTrigger_Load(out bool shouldLoad))
                     {
-                        if (shouldLoad) await Load();
+                        if (shouldLoad) await Load(log);
                         else Unload();
                     }
                     break;
             }
         }
 
-        private async UniTask Load()
+        private async UniTask Load(LogWriter log)
         {
             // Get the SRApparatusNode to load from
             ApparatusRequestObject req = ApparatusRequestObject.LoadApparatus(Identifier);
             ApparatusResponseObject res = null;
-
-            LogWriter log = new LogWriter(nameof(Load));
 
             try
             {
@@ -86,7 +85,7 @@ namespace Atomata.VSolar.Apparatus
             }
             catch (Exception e)
             {
-                log.AddError(GetNodeLog($"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}"));
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}");
                 
                 return;
             }

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Atomata.VSolar.Utilities;
+using HexUN.Framework.Debugging;
 
 namespace Atomata.VSolar.Apparatus.Example
 {
@@ -17,6 +17,8 @@ namespace Atomata.VSolar.Apparatus.Example
     /// </summary>
     public class ApparatusContainer_AddressableTest : MonoBehaviour
     {
+        private const string cLogCategory = nameof(ApparatusContainer_AddressableTest);
+
         /// <summary>
         /// This is the node that is being managed by the container. Null if 
         /// no apparatus has been loaded yet. Serialized only so that it 
@@ -34,13 +36,15 @@ namespace Atomata.VSolar.Apparatus.Example
         {
             if(_managedNode != null)
             {
+                LogWriter log = new LogWriter(cLogCategory);
+
                 // unpack the info
                 string[] pathAndArgs = trigger.Split('?');
                 string[] args = pathAndArgs[1].Split(';');
 
                 // convert the info to a bool trigger object
                 await _managedNode.Trigger(
-                    ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0])
+                    ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0]), log
                 );
 
             }
@@ -62,7 +66,13 @@ namespace Atomata.VSolar.Apparatus.Example
         public async void ButtonClickLoad(string apparatus)
         {
             Load(apparatus);
-            if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true));
+            if (_managedNode != null)
+            {
+                LogWriter log = new LogWriter("ApparatusContainer ButtonClickLoad");
+
+                await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true), log);
+
+            }
         }
 
         /// <summary>

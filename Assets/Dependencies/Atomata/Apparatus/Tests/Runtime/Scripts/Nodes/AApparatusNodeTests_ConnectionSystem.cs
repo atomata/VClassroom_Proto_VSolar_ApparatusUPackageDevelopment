@@ -5,6 +5,7 @@ using HexCS.Core;
 using System.Linq;
 using HexUN.Framework.Testing;
 using Cysharp.Threading.Tasks;
+using HexUN.Framework.Debugging;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -132,7 +133,7 @@ namespace Atomata.VSolar.Apparatus.Tests
 
             protected override void OnDisconnected() => isConnected = false;
 
-            protected override UniTask TriggerNode(ApparatusTrigger trigger)
+            protected override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
             {
                 throw new System.NotImplementedException();
             }

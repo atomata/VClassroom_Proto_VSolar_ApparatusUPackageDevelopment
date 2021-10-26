@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
+using HexUN.Framework.Debugging;
 
 namespace Atomata.VSolar.Apparatus
 {
@@ -73,7 +74,7 @@ namespace Atomata.VSolar.Apparatus
             }
         }
 
-        protected async override UniTask TriggerNode(ApparatusTrigger trigger)
+        protected async override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
             if (trigger.TryUnpackTrigger_Input(out string type, out string name, out string value))
             {

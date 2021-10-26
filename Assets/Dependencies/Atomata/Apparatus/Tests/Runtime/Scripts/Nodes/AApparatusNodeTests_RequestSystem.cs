@@ -10,7 +10,6 @@ using HexUN.Framework.Debugging;
 using HexUN.Framework.Request;
 using HexUN.Framework.Testing;
 using Cysharp.Threading.Tasks;
-using Atomata.VSolar.Utilities;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -99,7 +98,7 @@ namespace Atomata.VSolar.Apparatus.Tests
                 else Debug.Log("The request failed");
             }
 
-            protected override UniTask TriggerNode(ApparatusTrigger trigger)
+            protected override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
             {
                 throw new System.NotImplementedException();
             }

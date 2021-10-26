@@ -8,8 +8,8 @@ using System.IO;
 using System.Linq;
 
 using UnityEngine;
-
-using Atomata.VSolar.Utilities;
+using HexUN.Framework.Debugging;
+using HexUN.Framework;
 
 namespace Atomata.VSolar.Apparatus.Example
 {
@@ -21,6 +21,8 @@ namespace Atomata.VSolar.Apparatus.Example
     /// </summary>
     public class ApparatusContainer_ExampleDesktop : MonoBehaviour
     {
+        private const string cLogCategory = nameof(ApparatusContainer_ExampleDesktop);
+
         /// <summary>
         /// This is the node that is being managed by the container. Null if 
         /// no apparatus has been loaded yet. Serialized only so that it 
@@ -40,14 +42,18 @@ namespace Atomata.VSolar.Apparatus.Example
         {
             if(_managedNode != null)
             {
+                LogWriter log = new LogWriter(cLogCategory);
+
                 // unpack the info
                 string[] pathAndArgs = trigger.Split('?');
                 string[] args = pathAndArgs[1].Split(';');
 
                 // convert the info to a bool trigger object
                 await _managedNode.Trigger(
-                    ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0])
+                    ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0]), log
                 );
+
+                OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
             }
         }
 
@@ -66,8 +72,12 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         public async void ButtonClickLoad(string apparatus)
         {
+            LogWriter log = new LogWriter(cLogCategory);
+
             Load(apparatus);
-            if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true));
+            if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true), log);
+
+            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
         }
 
         /// <summary>

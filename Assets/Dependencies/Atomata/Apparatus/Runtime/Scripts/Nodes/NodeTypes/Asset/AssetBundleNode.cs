@@ -12,7 +12,7 @@ using Cysharp.Threading.Tasks;
 using HexCS.Core;
 using System.Linq;
 using System.Collections.Generic;
-using Atomata.VSolar.Utilities;
+using HexUN.Framework.Debugging;
 
 namespace Atomata.VSolar.Apparatus
 {
@@ -100,7 +100,7 @@ namespace Atomata.VSolar.Apparatus
         }
         #endregion
 
-        protected override async UniTask TriggerNode(ApparatusTrigger trigger)
+        protected override async UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
             switch (trigger.Type)
             {

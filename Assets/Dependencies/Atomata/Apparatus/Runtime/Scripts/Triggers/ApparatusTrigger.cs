@@ -1,5 +1,7 @@
 using HexCS.Core;
 
+using HexUN.Framework.Debugging;
+
 using System.Collections.Generic;
 
 namespace Atomata.VSolar.Apparatus

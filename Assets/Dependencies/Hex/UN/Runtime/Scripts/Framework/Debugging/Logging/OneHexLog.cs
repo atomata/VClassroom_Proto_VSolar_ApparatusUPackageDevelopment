@@ -38,11 +38,6 @@ namespace HexUN.Framework.Debugging
         private StringBuilder _sb = new StringBuilder();
 
         #region API
-        /// <summary>
-        /// User facing info with unknown category
-        /// </summary>
-        public void SimpleInfo(string message) => Info(cUnknownCategory, message, true);
-
         /// <inheritdoc />
         public void Info(string category, string message, bool forUser = false)
             => PerformLog(
@@ -53,11 +48,6 @@ namespace HexUN.Framework.Debugging
                 LogInfoAction
             );
 
-        /// <summary>
-        /// User facing warn with unknown category
-        /// </summary>
-        public void SimpleWarn(string message) => Warn(cUnknownCategory, message, true);
-
         /// <inheritdoc />
         public void Warn(string category, string message, bool forUser = false)
             => PerformLog(
@@ -67,11 +57,6 @@ namespace HexUN.Framework.Debugging
                 forUser,
                 LogWarnAction
             );
-
-        /// <summary>
-        /// User facing error with unknown category and no execption
-        /// </summary>
-        public void SimpleError(string message) => Error(cUnknownCategory, message, true);
 
         /// <inheritdoc />
         public void Error(string category, string message, bool forUser = false)

@@ -89,7 +89,7 @@ namespace Atomata.VSolar.Apparatus.Tests
                 return UTArray.Combine(baseData, newData);
             }
 
-            protected override UniTask TriggerNode(ApparatusTrigger trigger)
+            protected override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
             {
                 throw new System.NotImplementedException();
             }
