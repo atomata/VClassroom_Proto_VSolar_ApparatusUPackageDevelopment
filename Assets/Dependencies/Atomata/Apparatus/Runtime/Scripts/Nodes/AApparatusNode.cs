@@ -242,8 +242,10 @@ namespace Atomata.VSolar.Apparatus
         /// </summary>
         public async UniTask Trigger(ApparatusTrigger trigger, LogWriter log)
         {
-            log.AddInfo(cLogCategory, NodeIdentityString, "Trigger received, relaying...");
-            await RelayTrigger(new ApparatusTriggerCarriage(trigger), log);
+            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Trigger received, relaying...");
+
+            ApparatusTriggerCarriage triggerCarriage = new ApparatusTriggerCarriage(trigger);
+            await RelayTrigger(triggerCarriage, log);
         }
 
         /// <summary>
@@ -255,12 +257,12 @@ namespace Atomata.VSolar.Apparatus
         {
             if (trigger.IsTarget(_identifier))
             {
-                log.AddInfo(cLogCategory, NodeIdentityString, "Trigger received. This node is the target. TriggeringNode");
+                log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.Trigger.GetHashCode()}> Performing trigger relay operation. This node is the target. calling TriggerNode on this.");
                 await TriggerNode(trigger.Trigger, log);
 
                 if (trigger.IsGlobal)
                 {
-                    log.AddInfo(cLogCategory, NodeIdentityString, "Trigger received. Trigger is global. Relaying to children");
+                    log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.Trigger.GetHashCode()}> Performing trigger relay operation. Trigger is global. Relaying trigger to children.");
                     foreach (AApparatusNode child in _children) await child.RelayTrigger(trigger, log);
                 }
             }
@@ -368,7 +370,7 @@ namespace Atomata.VSolar.Apparatus
                 writer.AddError(cLogCategory, NodeIdentityString, "Sent request but it was not claimed. Sending error response to sender");
 
                 req.TryClaim(this);
-                req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse("Unknown"), this);
+                req.Respond(ApparatusResponseObject.RequestFailedResponse(), this);
             }
 
             return req;
@@ -386,7 +388,7 @@ namespace Atomata.VSolar.Apparatus
             if (!req.IsClaimed)
             {
                 writer.AddError(cLogCategory, NodeIdentityString, "Sent request but it was not claimed. Sending error response to sender");
-                return ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse("Unknown");
+                return ApparatusResponseObject.RequestFailedResponse();
             }
 
             return await req.AwaitAsync();

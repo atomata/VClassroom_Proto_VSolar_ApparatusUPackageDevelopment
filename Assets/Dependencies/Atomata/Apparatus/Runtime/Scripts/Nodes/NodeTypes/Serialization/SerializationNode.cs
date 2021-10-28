@@ -61,6 +61,8 @@ namespace Atomata.VSolar.Apparatus
 
         protected override async UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Applying trigger to node. Trigger Type: {trigger.Type}");
+
             switch (trigger.Type)
             {
                 case ETriggerType.Load:
@@ -71,11 +73,16 @@ namespace Atomata.VSolar.Apparatus
                     }
                     break;
             }
+
+            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Complete");
         }
 
         private async UniTask Load(LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Attempting load of apparatus. Id: {Identifier}");
+
             // Get the SRApparatusNode to load from
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Sending request to retrieve the apparatus json...");
             ApparatusRequestObject req = ApparatusRequestObject.LoadApparatus(Identifier);
             ApparatusResponseObject res = null;
 
@@ -92,7 +99,7 @@ namespace Atomata.VSolar.Apparatus
 
             if (res.Failed)
             {
-                LogError($"Failed to load apparatus {Identifier} with failure type {res.Status}");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} with failure type {res.Status}");
                 return;
             }
 
@@ -100,19 +107,20 @@ namespace Atomata.VSolar.Apparatus
 
             if(args == null)
             {
-                LogError($"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
                 return;
             }
 
             // load the apparatus children
             if(args.Identifier != Identifier)
             {
-                LogError($"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
                 return;
             }
 
             // Create the objects
-            for(int i = 0; i<args.Children.Length; i++)
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Json recieved. Unpacking...");
+            for (int i = 0; i<args.Children.Length; i++)
             {
                 SrApparatusNode node = args.Children[i];
 
@@ -152,7 +160,7 @@ namespace Atomata.VSolar.Apparatus
                         break;
                 }
             }
-
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Unpacking success. New node created. Connecting to child");
             Connect();
         }
 

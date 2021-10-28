@@ -6,6 +6,8 @@ namespace HexUN.Framework.Debugging
 {
     public class LogWriter
     {
+        ELogSeverity _severity = ELogSeverity.Info;
+
         private List<string> _logs = new List<string>();
         private string _title;
         private string _lastIdentity = null;
@@ -15,8 +17,16 @@ namespace HexUN.Framework.Debugging
             _title = title;
         }
 
-        public void AddError(string category, string identity, string log) => LogAndKeyword("ERROR", category, identity, log);
-        public void AddWarning(string category, string identity, string log) => LogAndKeyword("WARNING", category, identity, log);
+        public void AddError(string category, string identity, string log)
+        {
+            _severity = ELogSeverity.Error;
+            LogAndKeyword("ERROR", category, identity, log);
+        }
+        public void AddWarning(string category, string identity, string log)
+        {
+            if (_severity == ELogSeverity.Warning) _severity = ELogSeverity.Warning;
+            LogAndKeyword("WARNING", category, identity, log);
+        }
         public void AddInfo(string category, string identity, string log) => LogAndKeyword("INFO", category, identity, log);
 
         public string GetLog()
@@ -38,6 +48,22 @@ namespace HexUN.Framework.Debugging
             if (identity != _lastIdentity) _logs.Add(identity);
             _logs.Add($"  [{keyword}] [{category}] {log}");
             _lastIdentity = identity;
+        }
+
+        public void PrintToConsole(string category)
+        {
+            switch (_severity)
+            {
+                case ELogSeverity.Info:
+                    OneHexServices.Instance.Log.Info(category, GetLog());
+                    break;
+                case ELogSeverity.Warning:
+                    OneHexServices.Instance.Log.Warn(category, GetLog());
+                    break;
+                case ELogSeverity.Error:
+                    OneHexServices.Instance.Log.Error(category, GetLog());
+                    break;
+            }
         }
     }
 }

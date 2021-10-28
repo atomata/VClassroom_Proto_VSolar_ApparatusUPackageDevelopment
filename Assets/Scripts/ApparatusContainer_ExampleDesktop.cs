@@ -19,7 +19,7 @@ namespace Atomata.VSolar.Apparatus.Example
     /// this case is stored on the filesystem of the user in a specific place. The container
     /// is useless if the database hasn't been prepared manually.
     /// </summary>
-    public class ApparatusContainer_ExampleDesktop : MonoBehaviour
+    public class ApparatusContainer_ExampleDesktop : MonoBehaviour, IRequestHandler
     {
         private const string cLogCategory = nameof(ApparatusContainer_ExampleDesktop);
 
@@ -77,7 +77,7 @@ namespace Atomata.VSolar.Apparatus.Example
             Load(apparatus);
             if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true), log);
 
-            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
+            log.PrintToConsole(cLogCategory);
         }
 
         /// <summary>
@@ -95,10 +95,6 @@ namespace Atomata.VSolar.Apparatus.Example
             SerializationNode serNode = serNodeGo.AddComponent<SerializationNode>();
             serNode.Identifier = identifier;
 
-            // make sure that request handeling is performed by the container,
-            // so that apparatus resources are pulled from the right places
-            serNode.RequestHandler = OnRequest;
-
             // cache reference
             _managedNode = serNode;
         }
@@ -107,34 +103,35 @@ namespace Atomata.VSolar.Apparatus.Example
         /// This function handles requests from the apparatus and resolves them
         /// based on a Desktop platform with relevent data existing in the file system.
         /// </summary>
-        public void OnRequest(ApparatusRequest request, LogWriter log)
+        public void HandleRequest(ApparatusRequest request, LogWriter log)
         {
-            Debug.Log($"Got a request {request.RequestObject.Type}");
-
+            log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
+           
             // claim the request so that you're a legitimate responder
             if (request.TryClaim(this))
             {
                 switch (request.RequestObject.Type)
                 {
                     case EApparatusRequestType.LoadApparatus:
-                        OnRequest_LoadApparatus(request);
+                        OnRequest_LoadApparatus(request, log);
                         return;
                     case EApparatusRequestType.LoadAsset:
-                        OnRequest_LoadAsset(request);
+                        OnRequest_LoadAsset(request, log);
                         return;
                 }
             }
             else
             {
-                Debug.LogError("[ApparatusContainer] Something else claimed a request. This should never happen for the container");
+               log.AddError(cLogCategory, cLogCategory, "[ApparatusContainer] Something else claimed a request. This should never happen for the container");
             }
         }
 
         /// <summary>
         /// Handles loading an apparatus
         /// </summary>
-        private void OnRequest_LoadApparatus(ApparatusRequest request)
+        private void OnRequest_LoadApparatus(ApparatusRequest request, LogWriter log)
         {
+            log.AddInfo(cLogCategory, cLogCategory, "Starting apparatus load operation");
             // Make the correct path to the target folder
             const string cDatabaseName = "vsolarsystem-proto-storage";
             UnityPath databasePath = UnityPath.PersistentDataPath.Path
@@ -142,7 +139,9 @@ namespace Atomata.VSolar.Apparatus.Example
                 .InsertAtEnd(cDatabaseName)
                 .InsertAtEnd("Apparatus");
 
-            if(databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
+
+            log.AddInfo(cLogCategory, cLogCategory, $"searching in database: {cDatabaseName} using database path {databasePath}");
+            if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
             {
                 // find the file based on the request args
                 FileInfo[] files = di.GetFiles();
@@ -154,6 +153,13 @@ namespace Atomata.VSolar.Apparatus.Example
                         return ps.EndWithoutExtension == args.Identifier;
                     }
                 );
+
+                if(file == null)
+                {
+                    log.AddError(cLogCategory, cLogCategory, $"Failed to find file {args.Identifier} in database");
+                    request.Respond(ApparatusResponseObject.RequestFailedResponse(), this);
+                    return;
+                }
 
                 // read the json
                 string json = null;
@@ -179,8 +185,10 @@ namespace Atomata.VSolar.Apparatus.Example
         /// <summary>
         /// Loads and assetbundle from the filesystem based on request args
         /// </summary>
-        private void OnRequest_LoadAsset(ApparatusRequest request)
+        private void OnRequest_LoadAsset(ApparatusRequest request, LogWriter log)
         {
+            log.AddInfo(cLogCategory, cLogCategory, "Starting assetbundle load operation");
+
             // find the file based on the request args
             const string cDatabaseName = "vsolarsystem-proto-storage";
             UnityPath databasePath = UnityPath.PersistentDataPath.Path
@@ -188,6 +196,7 @@ namespace Atomata.VSolar.Apparatus.Example
                 .InsertAtEnd(cDatabaseName)
                 .InsertAtEnd("assetbundles");
 
+            log.AddInfo(cLogCategory, cLogCategory, $"searching in database: {cDatabaseName} using database path {databasePath}");
             if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
             {
                 // find the file based on the request args
@@ -200,6 +209,13 @@ namespace Atomata.VSolar.Apparatus.Example
                         return ps.End == args.Name;
                     }
                 );
+
+                if (file == null)
+                {
+                    log.AddError(cLogCategory, cLogCategory, $"Failed to find file {args.Name} in database");
+                    request.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Name), this);
+                    return;
+                }
 
                 int hashKey = file.FullName.GetHashCode();
                 if (!_cachedBundles.ContainsKey(hashKey))
