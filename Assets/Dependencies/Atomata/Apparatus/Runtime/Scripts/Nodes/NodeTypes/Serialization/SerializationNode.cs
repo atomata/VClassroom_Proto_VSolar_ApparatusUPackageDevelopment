@@ -1,9 +1,14 @@
 using Cysharp.Threading.Tasks;
 
+using HexCS.Core;
+
 using HexUN.Engine.Utilities;
 using HexUN.Framework;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
@@ -140,7 +145,7 @@ namespace Atomata.VSolar.Apparatus
             // Create the objects
             for(int i = 0; i<args.Children.Length; i++)
             {
-                SrApparatusId node = args.Children[i];
+                SrApparatusNode node = args.Children[i];
 
                 GameObject obj = gameObject.AddChild($"[{node.Type}] {node.Identifier}");
                 obj.hideFlags = HideFlags.DontSave;
@@ -150,15 +155,31 @@ namespace Atomata.VSolar.Apparatus
                     args.Transforms[i].ApplyToTransform(obj.transform);                
                 }
 
+                // Get the meta that directly relates to this node
+                List<string> metas = new List<string>();
+                
+                string metaPath = $"{Identifier}/{node.Identifier}";
+                int metaIndex = Array.IndexOf<string>(args.Metadata.Paths, metaPath);
+
+                if (metaIndex != -1)
+                {
+                    foreach (string s in args.Metadata.Data)
+                    {
+                        string[] split = s.Split('@');
+                        if (int.Parse(split[0]) == metaIndex) metas.Add(split[1]);
+                    }
+                }
+
+
                 switch (node.Type)
                 {
                     case EApparatusNodeType.Asset:
                         AssetBundleNode asset = obj.AddComponent<AssetBundleNode>();
-                        asset.Deserialize(node);
+                        asset.Deserialize(node, metas.ToArray());
                         break;
                     case EApparatusNodeType.Apparatus:
                         SerializationNode appa = obj.AddComponent<SerializationNode>();
-                        appa.Deserialize(node);
+                        appa.Deserialize(node, metas.ToArray());
                         break;
                 }
             }

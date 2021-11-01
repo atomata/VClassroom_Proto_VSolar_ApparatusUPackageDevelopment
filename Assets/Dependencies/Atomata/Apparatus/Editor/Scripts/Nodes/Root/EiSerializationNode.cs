@@ -27,6 +27,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
 
             GUI.enabled = false;
             EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour(node), typeof(SerializationNode), false);
+            EditorGUILayout.ObjectField("Editor", MonoScript.FromScriptableObject(this), typeof(EiSerializationNode), false);
             GUI.enabled = true;
 
             EditorGUILayout.PropertyField(_onRequest);
