@@ -1,1 +1,26 @@
-{"Id":{"Type":1,"Identifier":"earth"},"Transforms":[{"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"Scale":{"x":1.0,"y":1.0,"z":1.0}}],"Children":[{"Type":0,"Identifier":"earth"}],"Metadata":{"Paths":["earth","earth/earth"],"Data":["0@identifier:earth","1@identifier:earth","1@key:earth"]}}
+{
+  "Id": {
+    "Type": 1,
+    "Identifier": "earth"
+  },
+  "Transforms": [
+    {
+      "Position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "Rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "Scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  ],
+  "Children":[{"Type":0,"Identifier":"earth"}],"Metadata":{"Paths":["earth","earth/earth"],"Data":["0@identifier:earth","1@identifier:earth","1@key:earth"]}}

@@ -1,1 +1,32 @@
-{"Id":{"Type":1,"Identifier":"gracious-cube"},"Transforms":[{"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"Scale":{"x":1.0,"y":1.0,"z":1.0}}],"Children":[{"Type":0,"Identifier":"gracious-cube"}],"Metadata":{"Paths":["gracious-cube","gracious-cube/gracious-cube"],"Data":["0@identifier:gracious-cube","1@identifier:gracious-cube","1@key:gracious-cube"]}}
+{
+  "Id": {
+    "Type": 1,
+    "Identifier": "gracious-cube"
+  },
+  "Transforms": [
+    {
+      "Position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "Rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "Scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  ],
+  "Children": [
+    
+    {
+      "Type": 0,
+      "Identifier": "gracious-cube"
+    }
+  ],"Metadata":{"Paths":["gracious-cube","gracious-cube/gracious-cube"],"Data":["0@identifier:gracious-cube","1@identifier:gracious-cube","1@key:gracious-cube"]}}
