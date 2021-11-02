@@ -29,9 +29,9 @@ namespace Atomata.VSolar.Apparatus.Example
         /// path/to/node?eventName;(True|False). Only supported boolean
         /// triggers
         /// </summary>
-        public async void ButtonClickTrigger(string trigger)
+        public async void ButtonClickBoolTrigger(string trigger)
         {
-            if(_managedNode != null)
+            if (_managedNode != null)
             {
                 // unpack the info
                 string[] pathAndArgs = trigger.Split('?');
@@ -40,6 +40,24 @@ namespace Atomata.VSolar.Apparatus.Example
                 // convert the info to a bool trigger object
                 await _managedNode.Trigger(
                     ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0])
+                );
+
+            }
+        }
+
+
+        public async void ButtonClickVoidTrigger(string trigger)
+        {
+            if (_managedNode != null)
+            {
+                // unpack the info
+                int base_index = trigger.LastIndexOf('/');
+                string path = trigger.Substring(0,base_index);
+                string name = trigger.Substring(base_index+1);
+
+                //convert the info to a void trigger object
+                await _managedNode.Trigger(
+                    ApparatusTrigger.DirectEvent_Void(name, path)
                 );
 
             }
@@ -120,7 +138,7 @@ namespace Atomata.VSolar.Apparatus.Example
         {
             string identifier = (request.RequestObject.Args as ApparatusLoadRequestArgs).Identifier;
             TextAsset json = await Addressables.LoadAssetAsync<TextAsset>(identifier).Task;
-            if(json != null)
+            if (json != null)
             {
                 // deserialize the object
                 SrApparatus sappa = JsonUtility.FromJson<SrApparatus>(json.ToString());
@@ -141,7 +159,7 @@ namespace Atomata.VSolar.Apparatus.Example
         {
             string name = (request.RequestObject.Args as AssetLoadRequestArgs).Name;
             GameObject go = await Addressables.LoadAssetAsync<GameObject>(name).Task;
-            if(go != null)
+            if (go != null)
             {
                 Debug.Log("load asset");
                 // respond to the request
