@@ -36,6 +36,12 @@ namespace Atomata.VSolar.Apparatus
                 {
                     if (trigger.TryGetParameter("value", out value)) return true;
                 }
+
+                else
+                {
+                    value = default;
+                    return true;
+                }
             }
 
             type = default;
