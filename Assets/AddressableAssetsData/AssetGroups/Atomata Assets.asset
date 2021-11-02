@@ -25,27 +25,31 @@ MonoBehaviour:
     m_Address: earth
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8496a1825de3c7f4f8fe9c0a834d2ea4
-    m_Address: evil-cylinder
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 72838a2bcb15a034087c1d55cfa143b0
     m_Address: gracious-cube
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 42df0bc5709b25846b60cc88c30019a6
-    m_Address: wobble-sphere
+  - m_GUID: 8496a1825de3c7f4f8fe9c0a834d2ea4
+    m_Address: evil-cylinder
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: c1134fd1a6426a143a5b082a56693d31
     m_Address: evil-cylinder
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0540d2c159b654b4ca2de8e8069c813a
+    m_Address: wobble-sphere
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 609437758a169644a812bf3d2950b521
     m_Address: gracious-cube
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 0540d2c159b654b4ca2de8e8069c813a
+  - m_GUID: d3970ec985b906f4e8b82ce9f8352dc6
+    m_Address: multi-asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 42df0bc5709b25846b60cc88c30019a6
     m_Address: wobble-sphere
     m_ReadOnly: 0
     m_SerializedLabels: []
