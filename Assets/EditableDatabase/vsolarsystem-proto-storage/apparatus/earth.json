@@ -23,4 +23,43 @@
       }
     }
   ],
-  "Children":[{"Type":0,"Identifier":"earth"}],"Metadata":{"Paths":["earth","earth/earth"],"Data":["0@identifier:earth","1@identifier:earth","1@key:earth"]}}
+  "Children": [
+    {
+      "Type": 0,
+      "Identifier": "earth"
+    }
+  ],
+  "Metadata": {
+    "Paths": [
+      "earth",
+      "earth/earth",
+      "earth/earth/event",
+      "earth/earth/delta",
+      "earth/earth/example"
+    ],
+    "Data": [
+      "0@identifier:earth",
+      "1@identifier:earth",
+      "1@key:earth",
+      "2@identifier:event",
+      "2@input:bool:split_active",
+      "2@input:bool:mantle_active",
+      "3@identifier:delta",
+      "3@input:vec3:position",
+      "3@input:vec3:rotation",
+      "3@input:vec3:scale",
+      "3@input:vec3:position_delta",
+      "3@input:vec3:rotation_delta",
+      "3@input:vec3:scale_delta",
+      "3@input:bool:isLocal",
+      "4@identifier:example",
+      "4@input:vec3:position",
+      "4@input:vec3:rotation",
+      "4@input:vec3:scale",
+      "4@input:vec3:position_delta",
+      "4@input:vec3:rotation_delta",
+      "4@input:vec3:scale_delta",
+      "4@input:bool:isLocal"
+    ]
+  }
+}
