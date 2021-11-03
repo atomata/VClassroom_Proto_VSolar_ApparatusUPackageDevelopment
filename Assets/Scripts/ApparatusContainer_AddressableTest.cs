@@ -34,8 +34,8 @@ namespace Atomata.VSolar.Apparatus.Example
             if (_managedNode != null)
             {
                 // unpack the info
-                string[] pathAndArgs = trigger.Split('?');
-                string[] args = pathAndArgs[1].Split(';');
+                string[] pathAndArgs = trigger.Split('@');
+                string[] args = pathAndArgs[1].Split('?');
 
                 // convert the info to a bool trigger object
                 await _managedNode.Trigger(
@@ -51,13 +51,11 @@ namespace Atomata.VSolar.Apparatus.Example
             if (_managedNode != null)
             {
                 // unpack the info
-                int base_index = trigger.LastIndexOf('/');
-                string path = trigger.Substring(0,base_index);
-                string name = trigger.Substring(base_index+1);
+                string[] pathAndName = trigger.Split('@');
 
                 //convert the info to a void trigger object
                 await _managedNode.Trigger(
-                    ApparatusTrigger.DirectEvent_Void(name, path)
+                    ApparatusTrigger.DirectEvent_Void(pathAndName[1], pathAndName[0])
                 );
 
             }
@@ -87,7 +85,8 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         public void Load(string identifier)
         {
-            if (_managedNode != null) Destroy(_managedNode);
+            if (_managedNode != null)
+                Destroy(_managedNode.gameObject);
 
             // make a serialization node as child
             GameObject serNodeGo = new GameObject($"[SerializationNode] {identifier} Apparatus");
