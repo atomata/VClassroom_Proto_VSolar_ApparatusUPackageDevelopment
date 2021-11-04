@@ -323,9 +323,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickVoidTrigger
+        m_MethodName: VoidTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -457,9 +457,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickBoolTrigger
+        m_MethodName: BoolTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -470,9 +470,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickBoolTrigger
+        m_MethodName: BoolTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -683,9 +683,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickLoad
+        m_MethodName: LoadApparatus
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1228,9 +1228,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickLoad
+        m_MethodName: LoadApparatus
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1318,10 +1318,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1368626683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fbda02d6e4aafa48b6027f7eae05f34, type: 3}
+  m_Script: {fileID: 11500000, guid: 628ba682c45ec3c4eadc2a214a59f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _managedNode: {fileID: 0}
+  _rootURL: https://addressabletest1.blob.core.windows.net/assetbundles
 --- !u!1 &1561206342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,9 +1567,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickBoolTrigger
+        m_MethodName: BoolTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1579,9 +1580,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickBoolTrigger
+        m_MethodName: BoolTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1887,9 +1888,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickDestroy
+        m_MethodName: DestroyNode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2021,9 +2022,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368626685}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_AddressableTest,
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.Example.ApparatusContainer_ExampleCloudBundles,
           ApparatusUPackageDevelopment
-        m_MethodName: ButtonClickVoidTrigger
+        m_MethodName: VoidTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

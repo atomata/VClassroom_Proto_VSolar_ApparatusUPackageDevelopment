@@ -8,8 +8,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Containers/ApparatusContainer_ExampleDesktop.unity
     guid: fb476052a1c354042920cb697fb8950b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Containers/ApparatusContainer_AddressableTest.unity
     guid: bb10606d355f0394480d81aa317569fc
+  - enabled: 1
+    path: Assets/Scenes/Containers/ApparatusContainer_ExampleAssetBundleCloud.unity
+    guid: 5a5645555b12e6c429418b6924914815
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 1b69ce73a58475e4fac1b4fae314a6ac, type: 2}
