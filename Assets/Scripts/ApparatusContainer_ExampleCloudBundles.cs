@@ -16,14 +16,11 @@ using System.Runtime.InteropServices;
 namespace Atomata.VSolar.Apparatus.Example
 {
     /// <summary>
-    /// This is an example container, that has only been created to show quickly how
-    /// a container can load and unload an apparatus from byte[] data. The byte data in
-    /// this case is stored on the filesystem of the user in a specific place. The container
-    /// is useless if the database hasn't been prepared manually.
+    /// This is an example container, that has only been created to show how
+    /// a container can load an apparatus from byte[] data that is stored in azure blob storage as assetbundle. 
     /// </summary>
     public class ApparatusContainer_ExampleCloudBundles : MonoBehaviour
     {
-        IPrefabProvider PrefabProvider = new LocalAssetBundleProvider("vsolarsystem-proto-storage");
 
         [DllImport("__Internal")]
         private static extern void LogToBrowser(string str);
@@ -40,14 +37,8 @@ namespace Atomata.VSolar.Apparatus.Example
 
 
         /// <summary>
-        /// Handles triggers, sent as strings with following format 
-        /// path/to/node?eventName;(True|False). Only supported boolean
-        /// triggers
-        /// </summary>
-        /// <summary>
-        /// Handles triggers, sent as strings with following format 
-        /// path/to/node?eventName;(True|False). Only supported boolean
-        /// triggers
+        /// Handles boolean triggers, sent as strings with following format 
+        /// path/to/node@eventName?(True|False). 
         /// </summary>
         public async void BoolTrigger(string trigger)
         {
@@ -66,7 +57,10 @@ namespace Atomata.VSolar.Apparatus.Example
             LogToBrowser("bool trigger successfully handled");
         }
 
-
+        /// <summary>
+        /// Handles void triggers, sent as strings with following format 
+        /// path/to/node@eventName. 
+        /// </summary>
         public async void VoidTrigger(string trigger)
         {
             if (_managedNode != null)
@@ -83,7 +77,7 @@ namespace Atomata.VSolar.Apparatus.Example
         }
 
         /// <summary>
-        /// Simplyt destroys the loaded node
+        /// destroys the loaded node
         /// </summary>
         public void DestroyNode()
         {
@@ -127,7 +121,7 @@ namespace Atomata.VSolar.Apparatus.Example
 
         /// <summary>
         /// This function handles requests from the apparatus and resolves them
-        /// based on a Desktop platform with relevent data existing in the file system.
+        /// based on a webgl platform with relevent data existing in the azure blob storage.
         /// </summary>
         public void OnRequest(ApparatusRequest request)
         {
@@ -181,7 +175,7 @@ namespace Atomata.VSolar.Apparatus.Example
 
 
         /// <summary>
-        /// Loads and assetbundle from the filesystem based on request args
+        /// Loads and assetbundle from azure blob storage based on request args
         /// </summary>
         private IEnumerator OnRequest_LoadAsset(ApparatusRequest request)
         {
