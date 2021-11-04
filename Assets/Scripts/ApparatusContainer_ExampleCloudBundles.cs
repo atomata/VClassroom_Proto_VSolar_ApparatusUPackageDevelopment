@@ -11,6 +11,7 @@ using UnityEngine;
 
 using Atomata.VSolar.Apparatus;
 using UnityEngine.Networking;
+using System.Runtime.InteropServices;
 
 namespace Atomata.VSolar.Apparatus.Example
 {
@@ -24,6 +25,8 @@ namespace Atomata.VSolar.Apparatus.Example
     {
         IPrefabProvider PrefabProvider = new LocalAssetBundleProvider("vsolarsystem-proto-storage");
 
+        [DllImport("__Internal")]
+        private static extern void LogToBrowser(string str);
         /// <summary>
         /// This is the node that is being managed by the container. Null if 
         /// no apparatus has been loaded yet. Serialized only so that it 
@@ -60,6 +63,7 @@ namespace Atomata.VSolar.Apparatus.Example
                 );
 
             }
+            LogToBrowser("bool trigger successfully handled");
         }
 
 
@@ -75,6 +79,7 @@ namespace Atomata.VSolar.Apparatus.Example
                     ApparatusTrigger.DirectEvent_Void(pathAndName[1], pathAndName[0])
                 );
             }
+            LogToBrowser("void trigger successfully handled");
         }
 
         /// <summary>
@@ -94,6 +99,7 @@ namespace Atomata.VSolar.Apparatus.Example
         {
             SetupSerializationNode(apparatus);
             if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true));
+            LogToBrowser("load trigger successfully handled");
         }
 
         /// <summary>
