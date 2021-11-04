@@ -11,6 +11,8 @@ using UnityEngine;
 using HexUN.Framework.Debugging;
 using HexUN.Framework;
 
+using Atomata.VSolar.Apparatus;
+
 namespace Atomata.VSolar.Apparatus.Example
 {
     /// <summary>
@@ -22,6 +24,9 @@ namespace Atomata.VSolar.Apparatus.Example
     public class ApparatusContainer_ExampleDesktop : MonoBehaviour, IRequestHandler
     {
         private const string cLogCategory = nameof(ApparatusContainer_ExampleDesktop);
+
+        IPrefabProvider PrefabProvider = new LocalAssetBundleProvider("vsolarsystem-proto-storage");
+        IApparatusProvider ApparatusProvider = new LocalApparatusProvider("vsolarsystem-proto-storage");
 
         /// <summary>
         /// This is the node that is being managed by the container. Null if 
@@ -106,140 +111,7 @@ namespace Atomata.VSolar.Apparatus.Example
         public void HandleRequest(ApparatusRequest request, LogWriter log)
         {
             log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
-           
-            // claim the request so that you're a legitimate responder
-            if (request.TryClaim(this))
-            {
-                switch (request.RequestObject.Type)
-                {
-                    case EApparatusRequestType.LoadApparatus:
-                        OnRequest_LoadApparatus(request, log);
-                        return;
-                    case EApparatusRequestType.LoadAsset:
-                        OnRequest_LoadAsset(request, log);
-                        return;
-                }
-            }
-            else
-            {
-               log.AddError(cLogCategory, cLogCategory, "[ApparatusContainer] Something else claimed a request. This should never happen for the container");
-            }
-        }
-
-        /// <summary>
-        /// Handles loading an apparatus
-        /// </summary>
-        private void OnRequest_LoadApparatus(ApparatusRequest request, LogWriter log)
-        {
-            log.AddInfo(cLogCategory, cLogCategory, "Starting apparatus load operation");
-            // Make the correct path to the target folder
-            const string cDatabaseName = "vsolarsystem-proto-storage";
-            UnityPath databasePath = UnityPath.PersistentDataPath.Path
-                .InsertAtEnd("Database")
-                .InsertAtEnd(cDatabaseName)
-                .InsertAtEnd("Apparatus");
-
-
-            log.AddInfo(cLogCategory, cLogCategory, $"searching in database: {cDatabaseName} using database path {databasePath}");
-            if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
-            {
-                // find the file based on the request args
-                FileInfo[] files = di.GetFiles();
-                ApparatusLoadRequestArgs args = request.RequestObject.Args as ApparatusLoadRequestArgs;
-                FileInfo file = files.FirstOrDefault(
-                    f =>
-                    {
-                        PathString ps = f.FullName;
-                        return ps.EndWithoutExtension == args.Identifier;
-                    }
-                );
-
-                if(file == null)
-                {
-                    log.AddError(cLogCategory, cLogCategory, $"Failed to find file {args.Identifier} in database");
-                    request.Respond(ApparatusResponseObject.RequestFailedResponse(), this);
-                    return;
-                }
-
-                // read the json
-                string json = null;
-                using (FileStream fs = file.OpenRead())
-                {
-                    using (StreamReader sr = new StreamReader(fs))
-                    {
-                        json = sr.ReadToEnd();
-                    }
-                }
-
-                // deserialize the object
-                SrApparatus sappa =  JsonUtility.FromJson<SrApparatus>(json);
-
-                // respond to the request
-                request.Respond(
-                    ApparatusResponseObject.SerializeNodeResponse(sappa),
-                    this
-                );
-            }
-        }
-
-        /// <summary>
-        /// Loads and assetbundle from the filesystem based on request args
-        /// </summary>
-        private void OnRequest_LoadAsset(ApparatusRequest request, LogWriter log)
-        {
-            log.AddInfo(cLogCategory, cLogCategory, "Starting assetbundle load operation");
-
-            // find the file based on the request args
-            const string cDatabaseName = "vsolarsystem-proto-storage";
-            UnityPath databasePath = UnityPath.PersistentDataPath.Path
-                .InsertAtEnd("Database")
-                .InsertAtEnd(cDatabaseName)
-                .InsertAtEnd("assetbundles");
-
-            log.AddInfo(cLogCategory, cLogCategory, $"searching in database: {cDatabaseName} using database path {databasePath}");
-            if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
-            {
-                // find the file based on the request args
-                FileInfo[] files = di.GetFiles();
-                AssetLoadRequestArgs args = request.RequestObject.Args as AssetLoadRequestArgs;
-                FileInfo file = files.FirstOrDefault(
-                    f =>
-                    {
-                        PathString ps = f.FullName;
-                        return ps.End == args.Name;
-                    }
-                );
-
-                if (file == null)
-                {
-                    log.AddError(cLogCategory, cLogCategory, $"Failed to find file {args.Name} in database");
-                    request.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Name), this);
-                    return;
-                }
-
-                int hashKey = file.FullName.GetHashCode();
-                if (!_cachedBundles.ContainsKey(hashKey))
-                {
-                    // Load an assetbundle from bytes
-                    byte[] bytes = null;
-                    using (FileStream fs = file.OpenRead())
-                    {
-                        bytes = fs.ReadAllBytes();
-                    }
-
-                    AssetBundle assetBundle = AssetBundle.LoadFromMemory(bytes);
-                    Object[] objects = assetBundle.LoadAllAssets();
-                    GameObject go = objects[0] as GameObject;
-
-                    _cachedBundles.Add(hashKey, go);
-                }
-
-                // respond to the request
-                request.Respond(
-                    ApparatusResponseObject.AssetResponse(_cachedBundles[hashKey]),
-                    this
-                );
-            }
+            UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, request, this, cLogCategory, log);
         }
     }
 }

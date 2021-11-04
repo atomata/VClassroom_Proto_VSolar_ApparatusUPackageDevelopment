@@ -469,6 +469,6 @@ namespace Atomata.VSolar.Apparatus
             OneHexServices.Instance.Log.Info("LOG", writer.GetLog());
         }
 
-        protected string NodeIdentityString => $"Id: {Identifier}, Path: {Path()}, NodeType: {NodeType}";
+        protected string NodeIdentityString => $"Node: {Path()} - {NodeType}";
     }
 }
