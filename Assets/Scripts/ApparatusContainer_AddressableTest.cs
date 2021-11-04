@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using System.Runtime.InteropServices;
 
 namespace Atomata.VSolar.Apparatus.Example
 {
@@ -16,6 +17,8 @@ namespace Atomata.VSolar.Apparatus.Example
     /// </summary>
     public class ApparatusContainer_AddressableTest : MonoBehaviour
     {
+        [DllImport("__Internal")]
+        private static extern void LogToBrowser(string str);
         /// <summary>
         /// This is the node that is being managed by the container. Null if 
         /// no apparatus has been loaded yet. Serialized only so that it 
@@ -42,6 +45,7 @@ namespace Atomata.VSolar.Apparatus.Example
                     ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0])
                 );
 
+                LogToBrowser("bool trigger successfully handled");
             }
         }
 
@@ -57,7 +61,7 @@ namespace Atomata.VSolar.Apparatus.Example
                 await _managedNode.Trigger(
                     ApparatusTrigger.DirectEvent_Void(pathAndName[1], pathAndName[0])
                 );
-
+                LogToBrowser("void trigger successfully handled");
             }
         }
 
