@@ -34,7 +34,7 @@ namespace HexUN.Framework.Debugging
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("\n**********");
-            sb.AppendLine($"Timestamp: {DateTime.Now.ToShortDateString()} : {DateTime.Now.ToLongTimeString()}");
+            sb.AppendLine($"Timestamp: {DateTime.Now.ToShortDateString()} : {DateTime.Now.ToString("HH:mm:ss.fff")}");
             sb.AppendLine(_title);
             sb.AppendLine("----------");
             foreach (string line in _logs) sb.AppendLine(line);
