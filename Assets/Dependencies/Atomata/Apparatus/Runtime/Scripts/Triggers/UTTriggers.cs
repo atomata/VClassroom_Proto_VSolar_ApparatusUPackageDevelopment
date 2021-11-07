@@ -32,10 +32,13 @@ namespace Atomata.VSolar.Apparatus
         {
             if (trigger.Type == ETriggerType.Event && trigger.TryGetParameter("type", out type) && trigger.TryGetParameter("name", out name))
             {
-                if(type != UTMeta.cMetaInputVoidType)
+                if (type == UTMeta.cMetaInputVoidType)
                 {
-                    if (trigger.TryGetParameter("value", out value)) return true;
+                    value = default;
+                    return true; 
                 }
+
+                if (trigger.TryGetParameter("value", out value)) return true;
             }
 
             type = default;
