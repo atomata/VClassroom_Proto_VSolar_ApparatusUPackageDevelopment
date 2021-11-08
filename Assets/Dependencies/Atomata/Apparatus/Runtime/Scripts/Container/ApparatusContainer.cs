@@ -2,6 +2,8 @@ using HexCS.Core;
 
 using HexUN.Behaviour;
 using HexUN.Deps;
+using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using System.Collections.Generic;
 
@@ -36,16 +38,24 @@ namespace Atomata.VSolar.Apparatus
 
         protected override void SceneInitalize()
         {
+            LogWriter log = new LogWriter("ApparatusContainer SceneInitialize");
+
             PopulateApparatusRoot();
-            foreach (SerializationNode root in _managedApparatus) root.Connect();
-            foreach (SerializationNode root in _managedApparatus) root.Trigger( ApparatusTrigger.LoadTrigger(true) );
+            foreach (SerializationNode root in _managedApparatus) root.Connect(log);
+            foreach (SerializationNode root in _managedApparatus) root.Trigger( ApparatusTrigger.LoadTrigger(true), log);
+
+            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
         }
 
         protected override void SceneDenitialize() 
         {
-            foreach (SerializationNode root in _managedApparatus) root.Disconnect();
-            foreach (SerializationNode root in _managedApparatus) root.Trigger(ApparatusTrigger.LoadTrigger(false));
+            LogWriter log = new LogWriter("ApparatusContainer SceneDenitialize");
+
+            foreach (SerializationNode root in _managedApparatus) root.Disconnect(log);
+            foreach (SerializationNode root in _managedApparatus) root.Trigger(ApparatusTrigger.LoadTrigger(false), log);
             _managedApparatus = new SerializationNode[0];
+
+            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
         }
 
         protected override void ResolveDependencies()
@@ -57,18 +67,22 @@ namespace Atomata.VSolar.Apparatus
 
         public void HandleTrigger(string trigger)
         {
+            LogWriter log = new LogWriter("ApparatusContainer HandleTrigger");
+
             string[] vars = trigger.Split('?');
             PathString pth = vars[0];
 
             if(vars.Length > 1)
             {
                 string[] vars2 = vars[1].Split('=');
-                _managedApparatus[0].Trigger(ApparatusTrigger.Trigger_Bool(pth.End, vars2[1] == "True", pth.RemoveAtEnd()));
+                _managedApparatus[0].Trigger(ApparatusTrigger.Trigger_Bool(pth.End, vars2[1] == "True", pth.RemoveAtEnd()), log);
             }
             else
             {
-                _managedApparatus[0].Trigger(ApparatusTrigger.DirectEvent_Void(pth.End, pth.RemoveAtEnd()));
+                _managedApparatus[0].Trigger(ApparatusTrigger.DirectEvent_Void(pth.End, pth.RemoveAtEnd()), log);
             }
+
+            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
         }
 
         public void PopulateApparatusRoot()

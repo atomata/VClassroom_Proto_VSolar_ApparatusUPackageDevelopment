@@ -4,6 +4,7 @@ using HexCS.Core;
 
 using HexUN.Engine.Utilities;
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using System;
 using System.Collections.Generic;
@@ -27,42 +28,9 @@ namespace Atomata.VSolar.Apparatus
 
         public override EApparatusNodeType Type => EApparatusNodeType.Apparatus;
 
+        public override string NodeType => "Serialization";
+
         private EApparatusNodeLoadState _loadState = EApparatusNodeLoadState.Unloaded;
-
-        protected override void SetCustomRequestHandler()
-        {
-            RequestHandler = HandleRequest;
-        }
-
-        protected void HandleRequest(ApparatusRequest request)
-        {
-            // serailization nodes can be nested. In the vase where there is no request handler
-            // and this is not the root, then just relay request to the parent. 
-            if(!IsRoot && _onRequest == null)
-            {
-                if (IsRoot)
-                {
-                    OneHexServices.Instance.Log.Error(cLogCategory, "The root seralization node does not have a request handler. This is not allowed");
-                }
-                else
-                {
-                    Parent.RequestHandler.Invoke(request);
-                }
-
-                return;
-            }
-
-            _onRequest.Invoke(request);
-
-            // If after the request has been invoked no responder has claimed it, it means there
-            // is nothing listening for request. Provide an error
-            if (!request.IsClaimed)
-            {
-                request.TryClaim(this);
-                request.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse("RequestEventListener"), this);
-                return;
-            }
-        }
 
         protected override void OnConnected()
         {
@@ -91,39 +59,47 @@ namespace Atomata.VSolar.Apparatus
             childRoot._onRequest = _onRequest;
         }
 
-        protected override async UniTask TriggerNode(ApparatusTrigger trigger)
+        protected override async UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Applying trigger to node. Trigger Type: {trigger.Type}");
+
             switch (trigger.Type)
             {
                 case ETriggerType.Load:
                     if(trigger.TryUnpackTrigger_Load(out bool shouldLoad))
                     {
-                        if (shouldLoad) await Load();
+                        if (shouldLoad) await Load(log);
                         else Unload();
                     }
                     break;
             }
+
+            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Complete");
         }
 
-        private async UniTask Load()
+        private async UniTask Load(LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Attempting load of apparatus. Id: {Identifier}");
+
             // Get the SRApparatusNode to load from
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Sending request to retrieve the apparatus json...");
             ApparatusRequestObject req = ApparatusRequestObject.LoadApparatus(Identifier);
             ApparatusResponseObject res = null;
-            
+
             try
             {
-                res = await SendRequestAsync(req);
+                res = await SendRequestAsync(req, log);
             }
             catch (Exception e)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} because request failed. {e.GetType()}: {e.Message}");
+                
                 return;
             }
 
             if (res.Failed)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} with failure type {res.Status}");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} with failure type {res.Status}");
                 return;
             }
 
@@ -131,19 +107,20 @@ namespace Atomata.VSolar.Apparatus
 
             if(args == null)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} because response object was not a {nameof(SrApparatus)}");
                 return;
             }
 
             // load the apparatus children
             if(args.Identifier != Identifier)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {Identifier} because provided {nameof(SrApparatus)} object did not contain correct identifier [{Identifier}] as root object");
                 return;
             }
 
             // Create the objects
-            for(int i = 0; i<args.Children.Length; i++)
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Json recieved. Unpacking...");
+            for (int i = 0; i<args.Children.Length; i++)
             {
                 SrApparatusNode node = args.Children[i];
 
@@ -183,8 +160,8 @@ namespace Atomata.VSolar.Apparatus
                         break;
                 }
             }
-
-            Connect();
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Unpacking success. New node created. Connecting to child");
+            Connect(log);
         }
 
         protected void Unload() => DestroyAllNodeChildren();

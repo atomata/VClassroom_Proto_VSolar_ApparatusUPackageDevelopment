@@ -26,6 +26,8 @@ namespace Atomata.VSolar.Apparatus.Tests
         [Test]
         public void Works()
         {
+            LogWriter log = new LogWriter("Test");
+
             // Setup
             TestNode_MetaData par = new GameObject("par").AddComponent<TestNode_MetaData>();
             par.Identifier = "par";
@@ -34,7 +36,7 @@ namespace Atomata.VSolar.Apparatus.Tests
             ch.Identifier = "ch";
             ch.OtherData.Add("custom", "value");
 
-            par.Connect();
+            par.Connect(log);
 
             // Tests
             SrApparatusMetadata meta = par.GetMetadata();
@@ -70,6 +72,8 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             public override EApparatusNodeType Type => default;
 
+            public override string NodeType => "Test";
+
             public Dictionary<string, string> OtherData = new Dictionary<string, string>();
 
             protected override string[] ResolveMetadata()
@@ -87,7 +91,7 @@ namespace Atomata.VSolar.Apparatus.Tests
                 return UTArray.Combine(baseData, newData);
             }
 
-            protected override UniTask TriggerNode(ApparatusTrigger trigger)
+            protected override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
             {
                 throw new System.NotImplementedException();
             }

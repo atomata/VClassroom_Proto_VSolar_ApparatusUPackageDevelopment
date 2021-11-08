@@ -18,6 +18,11 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// A failure that occurs from a missing reference
         /// </summary>
-        Failed_ReferenceMissing
+        Failed_ReferenceMissing,
+
+        /// <summary>
+        /// A failure that occurs when a request fails to be resolved
+        /// </summary>
+        Failed_Request
     }
 }

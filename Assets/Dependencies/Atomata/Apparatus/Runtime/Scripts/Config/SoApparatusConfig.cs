@@ -1,5 +1,6 @@
 using HexUN.Deps;
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -61,7 +62,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
 #endif
         }
 
-        public void Node_OnRequest(ApparatusRequest request)
+        public void Node_OnRequest(ApparatusRequest request, LogWriter log)
         {
             if (!request.TryClaim(this)) return;
 

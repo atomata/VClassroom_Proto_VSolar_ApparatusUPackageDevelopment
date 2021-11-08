@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 
+using HexUN.Framework.Debugging;
+
 using UnityEngine;
 
 
@@ -16,6 +18,6 @@ namespace Atomata.VSolar.Apparatus
         /// Provides a prefab based on the key. If the prefab cannot be found,
         /// return null;
         /// </summary>
-        UniTask<GameObject> Provide(string key);
+        UniTask<GameObject> Provide(string key, LogWriter log);
     }
 }

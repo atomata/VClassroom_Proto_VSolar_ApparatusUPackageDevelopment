@@ -3,6 +3,7 @@ using Atomata.VSolar.Apparatus.UnityEditor;
 using Cysharp.Threading.Tasks;
 
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using UnityEngine;
 
@@ -11,11 +12,11 @@ namespace Atomata.VSolar.Apparatus {
     /// Manages a referenced ApparatusRootNode and reloads it OnEnable
     /// </summary>
     [ExecuteAlways]
-    public class ApparatusContainer_Dev : MonoBehaviour
+    public class ApparatusContainer_Dev : MonoBehaviour, IRequestHandler
     {
-        private const string cLogCategory = "ApparatusContainer_Dev";
-
+        private const string cLogCategory = nameof(ApparatusContainer_Dev);
         private IPrefabProvider PrefabProvider;
+        private IApparatusProvider ApparatusProvider;
 
         [SerializeField]
         private SoApparatusConfig Config;
@@ -25,57 +26,44 @@ namespace Atomata.VSolar.Apparatus {
 
         public async void OnEnable()
         {
+            LogWriter log = new LogWriter("Dev Container Load");
             if(Config == null)
             {
                 OneHexServices.Instance.Log.Error(cLogCategory, "An SoApparatus Config must be assigned for editor containers");
             }
 
             PrefabProvider = new EditableDatabasePrefabProvider(Config);
+            ApparatusProvider = new EditableDatabaseApparatusProvider(Config);
 
             if (Node == null) return;
 
-            await Node.Trigger(ApparatusTrigger.LoadTrigger(false));
-            Node.Disconnect();
-
-            Node.Connect();
-            await Node.Trigger(ApparatusTrigger.LoadTrigger(true));
-        }
-
-        public void HandleRequest(ApparatusRequest req)
-        {
-            switch (req.RequestObject.Type)
+            if (Node == null)
             {
-                case EApparatusRequestType.LoadAsset:
-                    HandleAssetLoadRequest(req);
-                    break;
-            }
-
-            // TO DO: Make all requests get handled at this level, instead of in config
-            Config.Node_OnRequest(req);
-        }
-
-        private async void HandleAssetLoadRequest(ApparatusRequest req)
-        {
-            if (!req.TryClaim(this)) return;
-
-            AssetLoadRequestArgs args = req.RequestObject.Args as AssetLoadRequestArgs;
-
-            if (args == null)
-            {
-                OneHexServices.Instance.Log.Error(cLogCategory, "Failed to get AssetLoadRequestArgs from AssetLoadRequest");
-                req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Name), this);
+                log.AddWarning(cLogCategory, cLogCategory, $"Cannot initalize {nameof(SerializationNode)} because node is null");
+                OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
                 return;
             }
 
-            GameObject prefab = await PrefabProvider.Provide(args.Name);
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Unload trigger to node: {Node.Identifier}");
+            await Node.Trigger(ApparatusTrigger.LoadTrigger(false), log);
 
-            if (prefab == null)
-            {
-                OneHexServices.Instance.Log.Warn(cLogCategory, $"Could not load prefab with name {args.Name}, does not exist");
-                req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Name), this);
-            }
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Disconnect trigger to node: {Node.Identifier}");
+            Node.Disconnect(log);
 
-            req.Respond(ApparatusResponseObject.AssetResponse(prefab), this);
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Connect trigger to node: {Node.Identifier}");
+            Node.Connect(log);
+
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Load trigger to node: {Node.Identifier}");
+            await Node.Trigger(ApparatusTrigger.LoadTrigger(true), log);
+
+            log.AddInfo(cLogCategory, cLogCategory, "Initializing complete");
+            log.PrintToConsole(cLogCategory);
+        }
+
+        public void HandleRequest(ApparatusRequest req, LogWriter log)
+        {
+            log.AddInfo(cLogCategory, cLogCategory, $"{req.GetIDString()} Request received, handling...");
+            UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, req, this, cLogCategory, log);
         }
     }
 }

@@ -1,5 +1,7 @@
 using HexCS.Core;
 
+using HexUN.Framework.Debugging;
+
 using System.Collections.Generic;
 
 namespace Atomata.VSolar.Apparatus
@@ -26,6 +28,16 @@ namespace Atomata.VSolar.Apparatus
         /// will always be neighbours in the list. So [key, value, key, value, ...]
         /// </summary>
         public string[] Params;
+
+        /// <summary>
+        /// Used in debugging to provide a string formated <TRIG#-HashCode> to 
+        /// identify the trigger in logs
+        /// </summary>
+        /// <returns></returns>
+        public string GetIDString()
+        {
+            return $"<TRIG#-{GetHashCode()}>";
+        }
 
         private ApparatusTrigger() { }
 

@@ -12,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using HexCS.Core;
 using System.Linq;
 using System.Collections.Generic;
+using HexUN.Framework.Debugging;
 
 namespace Atomata.VSolar.Apparatus
 {
@@ -30,16 +31,26 @@ namespace Atomata.VSolar.Apparatus
 
         public override EApparatusNodeType Type => EApparatusNodeType.Asset;
 
-        private async UniTask Load()
+        public override string NodeType => "AssetBundle";
+
+        private async UniTask Load(LogWriter log)
         {
-            if (_loadState == EApparatusNodeLoadState.Loaded) return;
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Performing assetbundle load");
+
+            if (_loadState == EApparatusNodeLoadState.Loaded)
+            {
+                log.AddInfo(cLogCategory, NodeIdentityString, $"Already in loaded state. Aborting");
+                return;
+            }
 
             DestroyAllNonNodeChildren();
-            await LoadAsset();
+            await LoadAsset(log);
             _loadState = EApparatusNodeLoadState.Loaded;
+
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Load complete");
         }
 
-        private void Unload()
+        private void Unload(LogWriter log)
         {
             if (_loadState == EApparatusNodeLoadState.Unloaded) return;
 
@@ -58,12 +69,14 @@ namespace Atomata.VSolar.Apparatus
             return tot;
         }
 
-        private async Task LoadAsset()
+        private async Task LoadAsset(LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Starting async load operation");
+
             // check that this object has not been desroyed
             if (this == null)
             {
-                OneHexServices.Instance.Log.Warn(cLogCategory, $"Could node load asset for {gameObject.name} because this == null");
+                log.AddWarning(cLogCategory, NodeIdentityString, $"Could node load asset for {gameObject.name} because this == null");
                 return;
             }
 
@@ -73,16 +86,17 @@ namespace Atomata.VSolar.Apparatus
             // Attempt to load, may error if timeout occurs
             try
             {
-                ethereal = await LoadAsset_Prefab(AssetBundleKey);
+                ethereal = await LoadAsset_Prefab(AssetBundleKey, log);
             }
             catch (Exception e)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Error loading etheral asset", e);
+                log.AddError(cLogCategory, NodeIdentityString, $"Error loading etheral asset. \n{e.Message}\n{e.StackTrace}");
             }
 
             // if etheral is still null, show a generic error object
             if (ethereal == null)
             {
+                log.AddError(cLogCategory, NodeIdentityString, $"After full load operation prefab is still null. Loading failure object");
                 LoadEtherealAsFailureObject();
                 return;
             }
@@ -93,41 +107,50 @@ namespace Atomata.VSolar.Apparatus
             // Activate children. By doing this, the children will become part of the tree
             // and the load trigger should automatically propogate too them
             if(_managedChild != null)
-                Connect();
+                Connect(log);
+
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Async load operation complete");
         }
         #endregion
 
-        protected override async UniTask TriggerNode(ApparatusTrigger trigger)
+        protected override async UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Applying trigger to node. Trigger Type: {trigger.Type}");
+
             switch (trigger.Type)
             {
                 case ETriggerType.Load:
                     if(trigger.TryUnpackTrigger_Load(out bool shouldLoad))
                     {
-                        if (shouldLoad) await Load();
-                        else Unload();
+                        if (shouldLoad) await Load(log);
+                        else Unload(log);
                     }
                     break;
             }
+
+            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Complete");
         }
 
-        private async Task<GameObject> LoadAsset_Prefab(string asset)
+        private async Task<GameObject> LoadAsset_Prefab(string asset, LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Starting async load of prefab {asset}");
+
             ApparatusRequestObject req = ApparatusRequestObject.LoadAsset(asset);
             ApparatusResponseObject res = null;
+
             try
             {
-                res = await SendRequestAsync(req);
+                res = await SendRequestAsync(req, log);
             }
             catch(Exception e)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load prefab {asset} because request failed. {e.GetType()}: {e.Message}");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed prefab because request attempt threw an exception. \nException:{e?.Message}\n{e?.StackTrace}");
                 return null;
             }
 
             if(res.Status == EApparatusResponseStatus.Failed_ReferenceMissing)
             {
-                OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to load prefab {asset} because a reference to {res.ResponseData as string} was missing");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load prefab {asset} because a reference to {res.ResponseData as string} was missing");
                 return null;
             }
 
@@ -152,7 +175,7 @@ namespace Atomata.VSolar.Apparatus
             // if asset dosen't exist
             if (loaded == null)
             {
-                Debug.LogError($"[AssetEditorTotem] Failed to load prefab {asset}. This means that the prefab is not available in the Assets folder because it was created in another project.");
+                log.AddError(cLogCategory, NodeIdentityString, $"[AssetEditorTotem] Failed to load prefab {asset}. This means that the prefab is not available in the Assets folder because it was created in another project.");
                 return null;
             }
 #else
@@ -165,6 +188,7 @@ namespace Atomata.VSolar.Apparatus
                 t => t.gameObject.hideFlags = HideFlags.NotEditable | HideFlags.DontSave
             );
 
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Loaded object: {loaded.name}");
             return loaded;
         }
 

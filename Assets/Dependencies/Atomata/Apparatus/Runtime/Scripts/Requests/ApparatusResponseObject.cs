@@ -75,5 +75,13 @@ namespace Atomata.VSolar.Apparatus
         {
             return new ApparatusResponseObject(EApparatusResponseStatus.Failed_ReferenceMissing, resourceName);
         }
+
+        /// <summary>
+        /// Returns a response indicating that a core resourse is not yet loaded or missing
+        /// </summary>
+        public static ApparatusResponseObject RequestFailedResponse()
+        {
+            return new ApparatusResponseObject(EApparatusResponseStatus.Failed_Request);
+        }
     }
 }

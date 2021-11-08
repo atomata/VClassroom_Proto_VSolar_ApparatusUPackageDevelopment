@@ -66,12 +66,14 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             public override EApparatusNodeType Type => default;
 
+            public override string NodeType => "Test";
+
             public void OnEnable()
             {
                 RequestHandler = HandleRequest;
             }
 
-            private void HandleRequest(ApparatusRequest request)
+            private void HandleRequest(ApparatusRequest request, LogWriter log)
             {
                 if (request.RequestObject.Type == EApparatusRequestType.LoadApparatus)
                 {
@@ -83,7 +85,9 @@ namespace Atomata.VSolar.Apparatus.Tests
 
             public IEnumerator LoadMeAnApparatus()
             {
-                ApparatusRequest ar = SendRequest(ApparatusRequestObject.LoadApparatus("testapp"));
+                LogWriter writer = new LogWriter(nameof(LoadMeAnApparatus));
+
+                ApparatusRequest ar = SendRequest(ApparatusRequestObject.LoadApparatus("testapp"), writer);
 
                 while (ar.State != Request<ApparatusRequestObject, ApparatusResponseObject>.EState.Complete)
                 {
@@ -94,7 +98,7 @@ namespace Atomata.VSolar.Apparatus.Tests
                 else Debug.Log("The request failed");
             }
 
-            protected override UniTask TriggerNode(ApparatusTrigger trigger)
+            protected override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
             {
                 throw new System.NotImplementedException();
             }

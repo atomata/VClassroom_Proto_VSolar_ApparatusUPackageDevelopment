@@ -1,13 +1,13 @@
-using Atomata.VSolar.Apparatus.UnityEditor;
-
 using Cysharp.Threading.Tasks;
 
 using HexCS.Core;
 
 using HexUN.Data;
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,67 +16,69 @@ using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
 {
-    public class LocalAssetBundleProvider : IPrefabProvider
+    public class LocalApparatusProvider : IApparatusProvider
     {
         private const string cLogCategory = nameof(LocalAssetBundleProvider);
 
         private string _databaseName;
 
-        private Dictionary<int, GameObject> _cachedBundles = new Dictionary<int, GameObject>();
+        private Dictionary<int, SrApparatus> _cache = new Dictionary<int, SrApparatus>();
 
-        public LocalAssetBundleProvider(string databaseName)
+        public LocalApparatusProvider(string databaseName)
         {
             _databaseName = databaseName;
         }
 
-        public async UniTask<GameObject> Provide(string key)
+        public async UniTask<SrApparatus> Provide(string key, LogWriter writer)
         {
+            writer.AddInfo(cLogCategory, cLogCategory, "Performing local apparatus deserialization");
+
             // find the file based on the request args
             UnityPath databasePath = UnityPath.PersistentDataPath.Path
                 .InsertAtEnd("Database")
                 .InsertAtEnd(_databaseName)
-                .InsertAtEnd("assetbundles");
+                .InsertAtEnd("apparatus");
 
             if (databasePath.Path.TryAsDirectoryInfo(out DirectoryInfo di))
             {
-                string platformKey = $"{key}_{Enum.GetName(typeof(EAtomataPlatform), UTAtomataPlatform.FromRuntimePlatform(Application.platform))}".ToLower();
-
                 // find the file based on the request args
                 FileInfo[] files = di.GetFiles();
                 FileInfo file = files.FirstOrDefault(
                     f =>
                     {
                         PathString ps = f.FullName;
-                        return ps.End == platformKey;
+                        return ps.End == $"{key}.json";
                     }
                 );
 
                 if (file == null)
                 {
-                    OneHexServices.Instance.Log.Warn(cLogCategory, $"Unable to load asset bundle of key {{ {platformKey} }} from path {{ {di.FullName} }}");
+                    writer.AddWarning(cLogCategory, cLogCategory, $"Unable to load apparatus of key {{ {key} }} from path {{ {di.FullName} }}");
                     return null;
                 }
 
                 int hashKey = file.FullName.GetHashCode();
-                if (!_cachedBundles.ContainsKey(hashKey))
+                if (!_cache.ContainsKey(hashKey))
                 {
                     // Load an assetbundle from bytes
-                    byte[] bytes = null;
+                    string json = null;
                     using (FileStream fs = file.OpenRead())
                     {
-                        bytes = fs.ReadAllBytes();
+                        using(StreamReader sr = new StreamReader(fs))
+                        {
+                            json = sr.ReadToEnd(); 
+                        }
                     }
 
-                    AssetBundle assetBundle = await AssetBundle.LoadFromMemoryAsync(bytes);
-                    UnityEngine.Object obj = await assetBundle.LoadAllAssetsAsync();
-                    GameObject go = obj as GameObject;
-
-                    _cachedBundles.Add(hashKey, go);
+                    SrApparatus deserailized = JsonUtility.FromJson<SrApparatus>(json);
+                    _cache.Add(hashKey, deserailized);
                 }
 
-                return _cachedBundles[hashKey];
+                writer.AddInfo(cLogCategory, cLogCategory, "Local apparatus deserialization successful");
+                return _cache[hashKey];
             }
 
+            writer.AddInfo(cLogCategory, cLogCategory, "Local apparatus deserialization failed");
             return null;
         }
     }

@@ -5,6 +5,7 @@ using HexCS.Core;
 using HexUN.Behaviour;
 using HexUN.Engine.Utilities;
 using HexUN.Framework;
+using HexUN.Framework.Debugging;
 
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Atomata.VSolar.Apparatus
     public abstract partial class AApparatusNode : HexBehaviour
     {
         private string cLogCategory = nameof(AApparatusNode);
+        private string cNodeLogCategory = "NodeLog";
 
         [Header("[AApparatusNode]")]
         [SerializeField]
@@ -31,8 +33,10 @@ namespace Atomata.VSolar.Apparatus
         private AApparatusNode _parent;
         private List<AApparatusNode> _children = new List<AApparatusNode>();
 
-        private Action<ApparatusRequest> _requestHandler = null;  
-        
+        private Action<ApparatusRequest, LogWriter> _requestHandler = null;
+
+        public abstract string NodeType { get; }
+
         /// <summary>
         /// Is this node currently connected to it's parent and children. If unconnected, 
         /// none of the nodes functions will work reliably
@@ -90,14 +94,20 @@ namespace Atomata.VSolar.Apparatus
         /// requests to editor config based resolution. Can be set to override the request 
         /// handler implemented by the node with a custom request handler
         /// </summary>
-        public Action<ApparatusRequest> RequestHandler
+        public Action<ApparatusRequest, LogWriter> RequestHandler
         {
             get
             {
-                // introduced because it's possible for a request to be sent before nodes are enabled
-                if (_requestHandler == null) SetCustomRequestHandler();
+                if (IsRoot)
+                {
+                    IRequestHandler handler = transform.parent.GetComponent<IRequestHandler>();
+                    _requestHandler = handler == null ? NullHandler : new Action<ApparatusRequest, LogWriter>(handler.HandleRequest);
+                }
+                else
+                {
+                    _requestHandler = Parent.RequestHandler ?? NullHandler;
+                }
 
-                if (_requestHandler == null) _requestHandler = RelayRequestToParent;
                 return _requestHandler;
             }
             set => _requestHandler = value;
@@ -112,24 +122,38 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Connect the node to it's children
         /// </summary>
-        public void Connect()
+        public void Connect(LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, "Connecting...");
+
             TraverseHierachyAndSetChildren();
-            ConnectChildren();
+            foreach (AApparatusNode node in _children) node.Connect(log);
             _connectionState = EApparatusNodeConnectionState.Connected;
             OnConnected();
+
+            log.AddInfo(cLogCategory, NodeIdentityString, "Connected");
         }
 
         /// <summary>
         /// Disconnected the node from it's children and parent
         /// </summary>
-        public void Disconnect()
+        public void Disconnect(LogWriter log)
         {
-            DisconnectChildren();
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Disconnecting...");
+
+            if (_children != null)
+            {
+                foreach (AApparatusNode node in _children)
+                {
+                    if (node != null) node.Disconnect(log);
+                }
+            }
+
             _parent = null;
             _children.Clear();
             _connectionState = EApparatusNodeConnectionState.Disconnected;
             OnDisconnected();
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Disconnection complete");
         }
 
         /// <summary>
@@ -141,22 +165,6 @@ namespace Atomata.VSolar.Apparatus
         /// Called when the node is disconnected
         /// </summary>
         protected virtual void OnDisconnected() { }
-
-        private void ConnectChildren()
-        {
-            foreach (AApparatusNode node in _children) node.Connect();
-        }
-
-        private void DisconnectChildren()
-        {
-            if(_children != null)
-            {
-                foreach (AApparatusNode node in _children)
-                {
-                    if(node != null) node.Disconnect();
-                }
-            }
-        }
 
         private void CalculateParentFromNode()
         {
@@ -230,24 +238,31 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Start relaying a trigger from this node to it's children
         /// </summary>
-        public async UniTask Trigger(ApparatusTrigger trigger)
+        public async UniTask Trigger(ApparatusTrigger trigger, LogWriter log)
         {
-            await RelayTrigger(new ApparatusTriggerCarriage(trigger));
+            log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.GetIDString()} Trigger received, relaying...");
+
+            ApparatusTriggerCarriage triggerCarriage = new ApparatusTriggerCarriage(trigger);
+            await RelayTrigger(triggerCarriage, log);
         }
 
         /// <summary>
         /// The node recieves an apparatus trigger and handles it accordingly
         /// </summary>
-        protected abstract UniTask TriggerNode(ApparatusTrigger trigger);
+        protected abstract UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log);
 
-        private async UniTask RelayTrigger(ApparatusTriggerCarriage trigger)
+        private async UniTask RelayTrigger(ApparatusTriggerCarriage trigger, LogWriter log)
         {
             if (trigger.IsTarget(_identifier))
             {
-                await TriggerNode(trigger.Trigger);
+                log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Performing trigger relay operation. This node is the target. calling TriggerNode on this.");
+                await TriggerNode(trigger.Trigger, log);
 
                 if (trigger.IsGlobal)
-                    foreach (AApparatusNode child in _children) await child.RelayTrigger(trigger);
+                {
+                    log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Performing trigger relay operation. Trigger is global. Relaying trigger to children.");
+                    foreach (AApparatusNode child in _children) await child.RelayTrigger(trigger, log);
+                }
             }
             else
             {
@@ -255,9 +270,11 @@ namespace Atomata.VSolar.Apparatus
                 {
                     foreach (AApparatusNode child in _children)
                     {
-                        if(child.Identifier == trigger.Next)
+                        log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Relaying to children. Remaining Path: {trigger.RemainingPath}");
+                        
+                        if (child.Identifier == trigger.Next)
                         {
-                            await child.RelayTrigger(trigger);
+                            await child.RelayTrigger(trigger, log);
                         }
                     }
                 }
@@ -341,10 +358,19 @@ namespace Atomata.VSolar.Apparatus
         /// Sends a request by pushing it to the request pipeline. Returns the constructed
         /// request so that is can be awaited
         /// </summary>
-        protected ApparatusRequest SendRequest(ApparatusRequestObject request)
+        protected ApparatusRequest SendRequest(ApparatusRequestObject request, LogWriter writer)
         {
             ApparatusRequest req = new ApparatusRequest(request);
-            RequestHandler(req);
+            RequestHandler(req, writer);
+
+            if (!req.IsClaimed)
+            {
+                writer.AddError(cLogCategory, NodeIdentityString, "Sent request but it was not claimed. Sending error response to sender");
+
+                req.TryClaim(this);
+                req.Respond(ApparatusResponseObject.RequestFailedResponse(), this);
+            }
+
             return req;
         }
 
@@ -352,33 +378,27 @@ namespace Atomata.VSolar.Apparatus
         /// Sends a request by pushing it to the request pipeline. automatically awaits the
         /// request and provides a response
         /// </summary>
-        protected async Task<ApparatusResponseObject> SendRequestAsync(ApparatusRequestObject request)
+        protected async Task<ApparatusResponseObject> SendRequestAsync(ApparatusRequestObject request, LogWriter writer)
         {
             ApparatusRequest req = new ApparatusRequest(request);
+            RequestHandler(req, writer);
 
-            RequestHandler(req);
+            if (!req.IsClaimed)
+            {
+                writer.AddError(cLogCategory, NodeIdentityString, "Sent request but it was not claimed. Sending error response to sender");
+                return ApparatusResponseObject.RequestFailedResponse();
+            }
+
             return await req.AwaitAsync();
         }
 
         /// <summary>
         /// Handles a request received by the request pipeline
         /// </summary>
-        private void RelayRequestToParent(ApparatusRequest request)
+        private void NullHandler(ApparatusRequest request, LogWriter log)
         {
-            if (IsRoot)
-            {
-                OneHexServices.Instance.Log.Error(nameof(AApparatusNode), $"Node request has reached the root and is not being handled");
-            }
-            else
-            {
-                _parent.RequestHandler.Invoke(request);
-            }
+            log.AddError(cLogCategory, NodeIdentityString, $"Node request has reached the root and is not being handled");
         }
-
-        /// <summary>
-        /// Used to set a custom request handler from a concrete class
-        /// </summary>
-        protected virtual void SetCustomRequestHandler() { }
         #endregion
 
         /// <summary>
@@ -430,5 +450,23 @@ namespace Atomata.VSolar.Apparatus
             return false;
         }
 #endif
+
+        protected void LogInfo(string message) 
+            => OneHexServices.Instance.Log.Info(cNodeLogCategory, message);
+
+        protected void LogWaring(string message)
+            => OneHexServices.Instance.Log.Warn(cNodeLogCategory, message);
+
+        protected void LogError(string message)
+            => OneHexServices.Instance.Log.Error(cNodeLogCategory, message);
+        protected void LogError(string message, Exception exception)
+            => OneHexServices.Instance.Log.Error(cNodeLogCategory, message, exception);
+
+        protected void LogWriter(string title, LogWriter writer)
+        {
+            OneHexServices.Instance.Log.Info("LOG", writer.GetLog());
+        }
+
+        protected string NodeIdentityString => $"Node: {Path()} - {NodeType}";
     }
 }

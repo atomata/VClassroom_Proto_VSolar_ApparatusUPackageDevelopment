@@ -9,6 +9,7 @@ using HexCS.Core;
 using System;
 
 using UnityEngine;
+using HexUN.Framework.Debugging;
 
 namespace Atomata.VSolar.Apparatus
 {
@@ -37,7 +38,9 @@ namespace Atomata.VSolar.Apparatus
         /// <inheritdoc />
         public override EApparatusNodeType Type => EApparatusNodeType.DeltaTransform;
 
-        protected async override UniTask TriggerNode(ApparatusTrigger trigger)
+        public override string NodeType => "DeltaTransform";
+
+        protected async override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
             if (_managedTransform == null) return;
 

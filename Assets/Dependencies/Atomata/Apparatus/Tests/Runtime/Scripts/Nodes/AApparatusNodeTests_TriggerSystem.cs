@@ -37,6 +37,8 @@ namespace Atomata.VSolar.Apparatus.Tests
         [SetUp]
         public void Setup()
         {
+            LogWriter log = new LogWriter("Test");
+
             par = new GameObject("par").AddComponent<TestNode_TriggerSystem>();
             c1 = par.AddChild<TestNode_TriggerSystem>("c1");
             c11 = c1.AddChild<TestNode_TriggerSystem>("c11");
@@ -53,7 +55,7 @@ namespace Atomata.VSolar.Apparatus.Tests
             c21.Identifier = "c21";
             c22.Identifier = "c22";
 
-            par.Connect();
+            par.Connect(log);
 
             allNodes = new List<TestNode_TriggerSystem>() { par, c1, c11, c12, c2, c21, c22 };
         }
@@ -68,8 +70,10 @@ namespace Atomata.VSolar.Apparatus.Tests
         [UnityTest]
         public IEnumerator LoadTrigger_All()
         {
+            LogWriter ignore = new LogWriter("");
+
             ApparatusTrigger trig = ApparatusTrigger.LoadTrigger(true);
-            yield return par.Trigger(trig).ToCoroutine();
+            yield return par.Trigger(trig, ignore).ToCoroutine();
 
             bool allNodesGotTrigger = allNodes.All(n => n.LastTrigger == null ? false : n.LastTrigger.Equals(trig));
             UTTests.Log("All nodes recieve the trigger", allNodesGotTrigger);
@@ -83,13 +87,15 @@ namespace Atomata.VSolar.Apparatus.Tests
         [UnityTest]
         public IEnumerator LoadTrigger_One()
         {
+            LogWriter ignore = new LogWriter("");
+
             ApparatusTrigger trig = ApparatusTrigger.LoadTrigger(true, c22.Path());
-            yield return par.Trigger(trig).ToCoroutine();
+            yield return par.Trigger(trig, ignore).ToCoroutine();
             bool c22Triggered = c22.LastTrigger != null && c22.LastTrigger.Equals(trig) && c22.wasLoadCalled;
             UTTests.Log("child was triggered", c22Triggered);
 
             ApparatusTrigger trig2 = ApparatusTrigger.LoadTrigger(true, par.Path());
-            yield return par.Trigger(trig2).ToCoroutine();
+            yield return par.Trigger(trig2, ignore).ToCoroutine();
             bool parTriggered = par.LastTrigger != null && par.LastTrigger.Equals(trig2) && par.wasLoadCalled;
             UTTests.Log("parent was triggered", parTriggered);
 
@@ -99,8 +105,10 @@ namespace Atomata.VSolar.Apparatus.Tests
         [UnityTest]
         public IEnumerator LoadTrigger_FalsePath()
         {
+            LogWriter ignore = new LogWriter("");
+
             ApparatusTrigger trig = ApparatusTrigger.LoadTrigger(true, c22.Path().InsertAtEnd("fake"));
-            yield return par.Trigger(trig).ToCoroutine();
+            yield return par.Trigger(trig, ignore).ToCoroutine();
             bool noneTriggered = !allNodes.Any(n => n.wasLoadCalled || n.LastTrigger != null);
             UTTests.Log("No node was triggered", noneTriggered);
 
@@ -111,11 +119,13 @@ namespace Atomata.VSolar.Apparatus.Tests
         {
             public override EApparatusNodeType Type => default;
 
+            public override string NodeType => "Test";
+
             public ApparatusTrigger LastTrigger = null;
 
             public bool wasLoadCalled;
 
-            protected async override UniTask TriggerNode(ApparatusTrigger trigger)
+            protected async override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
             {
                 wasLoadCalled = false;
                 LastTrigger = trigger;
