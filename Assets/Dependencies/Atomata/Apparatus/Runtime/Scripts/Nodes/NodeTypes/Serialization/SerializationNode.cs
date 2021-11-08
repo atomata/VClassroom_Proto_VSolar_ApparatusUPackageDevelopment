@@ -161,7 +161,7 @@ namespace Atomata.VSolar.Apparatus
                 }
             }
             log.AddInfo(cLogCategory, NodeIdentityString, $"Unpacking success. New node created. Connecting to child");
-            Connect();
+            Connect(log);
         }
 
         protected void Unload() => DestroyAllNodeChildren();

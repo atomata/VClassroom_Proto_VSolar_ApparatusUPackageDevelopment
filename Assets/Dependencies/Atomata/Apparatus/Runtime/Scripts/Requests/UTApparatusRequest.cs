@@ -13,15 +13,15 @@ namespace Atomata.VSolar.Apparatus
             switch (req.RequestObject.Type)
             {
                 case EApparatusRequestType.LoadAsset:
-                    log.AddInfo(callerName, callerName, $"Routing to {nameof(UTApparatusRequest.AssetLoad)}");
+                    log.AddInfo(callerName, callerName, $"{req.GetIDString()} Routing to {nameof(UTApparatusRequest.AssetLoad)}");
                     AssetLoad(prefabProvider, req, callObject, callerName, log);
                     break;
                 case EApparatusRequestType.LoadApparatus:
-                    log.AddInfo(callerName, callerName, $"Routing to {nameof(UTApparatusRequest.ApparatusLoadAndDeserialize)}");
+                    log.AddInfo(callerName, callerName, $"{req.GetIDString()} Routing to {nameof(UTApparatusRequest.ApparatusLoadAndDeserialize)}");
                     ApparatusLoadAndDeserialize(apparatusProvider, req, callObject, callerName, log);
                     break;
                 default:
-                    log.AddWarning(callerName, callerName, $"Could not find route for request of type: {req.RequestObject.Type}");
+                    log.AddWarning(callerName, callerName, $"{req.GetIDString()} Could not find route for request of type: {req.RequestObject.Type}");
                     break;
             }
         }
@@ -36,10 +36,10 @@ namespace Atomata.VSolar.Apparatus
         /// <param name="log">The log write to log to</param>
         public static async void AssetLoad(IPrefabProvider provider, ApparatusRequest req, object callObject, string callerName, LogWriter log)
         {
-            log.AddInfo(callerName, callerName, $"Starting asset load");
+            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Starting asset load");
             if (!req.TryClaim(callObject))
             {
-                log.AddWarning(callerName, callerName, $"AssetLoad request already claimed. Aborting");
+                log.AddWarning(callerName, callerName, $"{req.GetIDString()} AssetLoad request already claimed. Aborting");
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace Atomata.VSolar.Apparatus
 
             if (args == null)
             {
-                log.AddError(callerName, callerName, "Failed to get AssetLoadRequestArgs from AssetLoadRequest");
+                log.AddError(callerName, callerName, "{req.GetIDString()} Failed to get AssetLoadRequestArgs from AssetLoadRequest");
                 req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Name), callObject);
                 return;
             }
@@ -56,11 +56,11 @@ namespace Atomata.VSolar.Apparatus
 
             if (prefab == null)
             {
-                log.AddWarning(callerName, callerName, $"Could not load prefab with name {args.Name}, does not exist");
+                log.AddWarning(callerName, callerName, $"{req.GetIDString()} Could not load prefab with name {args.Name}, does not exist");
                 req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Name), callObject);
             }
 
-            log.AddInfo(callerName, callerName, $"Assetloaded. Responding with asset {prefab.name}");
+            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Assetloaded. Responding with asset {prefab.name}");
             req.Respond(ApparatusResponseObject.AssetResponse(prefab), callObject);
         }
 
@@ -75,10 +75,10 @@ namespace Atomata.VSolar.Apparatus
         /// <param name="log">The log write to log to</param>
         public static async void ApparatusLoadAndDeserialize(IApparatusProvider provider, ApparatusRequest req, object callObject, string callerName, LogWriter log)
         {
-            log.AddInfo(callerName, callerName, $"Starting apparatus deserailization");
+            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Starting apparatus deserailization");
             if (!req.TryClaim(callObject))
             {
-                log.AddWarning(callerName, callerName, $"Apparatus request already claimed. Aborting");
+                log.AddWarning(callerName, callerName, $"{req.GetIDString()} Apparatus request already claimed. Aborting");
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace Atomata.VSolar.Apparatus
 
             if (args == null)
             {
-                log.AddError(callerName, callerName, "Failed to get AssetLoadRequestArgs from AssetLoadRequest");
+                log.AddError(callerName, callerName, $"{req.GetIDString()} Failed to get AssetLoadRequestArgs from AssetLoadRequest");
                 req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Identifier), callObject);
                 return;
             }
@@ -95,11 +95,11 @@ namespace Atomata.VSolar.Apparatus
 
             if (appa == null)
             {
-                log.AddWarning(callerName, callerName, $"Could not load prefab with name {args.Identifier}, does not exist");
+                log.AddWarning(callerName, callerName, $"{req.GetIDString()} Could not load prefab with name {args.Identifier}, does not exist");
                 req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Identifier), callObject);
             }
 
-            log.AddInfo(callerName, callerName, $"Assetloaded. Responding with asset {appa.Identifier}");
+            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Assetloaded. Responding with asset {appa.Identifier}");
             req.Respond(ApparatusResponseObject.SerializeNodeResponse(appa), callObject);
         }
     }

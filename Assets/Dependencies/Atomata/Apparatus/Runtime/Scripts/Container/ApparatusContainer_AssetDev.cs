@@ -31,9 +31,9 @@ namespace Atomata.VSolar.Apparatus {
             if (Node == null) return;
 
             await Node.Trigger(ApparatusTrigger.LoadTrigger(false), log);
-            Node.Disconnect();
+            Node.Disconnect(log);
 
-            Node.Connect();
+            Node.Connect(log);
             await Node.Trigger(ApparatusTrigger.LoadTrigger(true), log);
 
             OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());

@@ -37,6 +37,8 @@ namespace Atomata.VSolar.Apparatus.Tests
         [SetUp]
         public void Setup()
         {
+            LogWriter log = new LogWriter("Test");
+
             par = new GameObject("par").AddComponent<TestNode_TriggerSystem>();
             c1 = par.AddChild<TestNode_TriggerSystem>("c1");
             c11 = c1.AddChild<TestNode_TriggerSystem>("c11");
@@ -53,7 +55,7 @@ namespace Atomata.VSolar.Apparatus.Tests
             c21.Identifier = "c21";
             c22.Identifier = "c22";
 
-            par.Connect();
+            par.Connect(log);
 
             allNodes = new List<TestNode_TriggerSystem>() { par, c1, c11, c12, c2, c21, c22 };
         }

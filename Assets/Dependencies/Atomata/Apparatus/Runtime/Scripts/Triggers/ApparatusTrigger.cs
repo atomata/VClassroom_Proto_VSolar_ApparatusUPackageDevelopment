@@ -29,6 +29,16 @@ namespace Atomata.VSolar.Apparatus
         /// </summary>
         public string[] Params;
 
+        /// <summary>
+        /// Used in debugging to provide a string formated <TRIG#-HashCode> to 
+        /// identify the trigger in logs
+        /// </summary>
+        /// <returns></returns>
+        public string GetIDString()
+        {
+            return $"<TRIG#-{GetHashCode()}>";
+        }
+
         private ApparatusTrigger() { }
 
         public Dictionary<string, string> ParameterMap

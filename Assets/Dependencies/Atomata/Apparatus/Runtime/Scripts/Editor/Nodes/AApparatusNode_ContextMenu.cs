@@ -47,15 +47,20 @@ namespace Atomata.VSolar.Apparatus
         [ContextMenu("Connect")]
         private void ActivateNode()
         {
-            void Connect(AApparatusNode a) => a.Connect();
+            LogWriter log = new LogWriter(cLogCategory);
+            void Connect(AApparatusNode a) => a.Connect(log);
             DoNodeAction(Connect);
         }
 
         [ContextMenu("Unconnect")]
         private void UnconnectNode()
         {
-            void Unconnect(AApparatusNode a) => a.Disconnect();
+            LogWriter log = new LogWriter(nameof(AApparatusNode));
+
+            void Unconnect(AApparatusNode a) => a.Disconnect(log);
             DoNodeAction(Unconnect);
+
+            log.PrintToConsole(cLogCategory);
         }
 
         private void DoNodeAction(Action<AApparatusNode> nodeAction, bool catchReq = false)

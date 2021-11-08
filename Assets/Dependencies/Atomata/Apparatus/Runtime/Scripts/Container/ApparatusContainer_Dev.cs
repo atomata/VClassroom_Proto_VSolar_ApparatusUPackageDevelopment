@@ -44,25 +44,25 @@ namespace Atomata.VSolar.Apparatus {
                 return;
             }
 
-            log.AddInfo(cLogCategory, cLogCategory, "Triggering Unload");
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Unload trigger to node: {Node.Identifier}");
             await Node.Trigger(ApparatusTrigger.LoadTrigger(false), log);
 
-            log.AddInfo(cLogCategory, cLogCategory, "Triggering Disconnect");
-            Node.Disconnect();
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Disconnect trigger to node: {Node.Identifier}");
+            Node.Disconnect(log);
 
-            log.AddInfo(cLogCategory, cLogCategory, "Triggering Connected");
-            Node.Connect();
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Connect trigger to node: {Node.Identifier}");
+            Node.Connect(log);
 
-            log.AddInfo(cLogCategory, cLogCategory, "Triggering Load");
+            log.AddInfo(cLogCategory, cLogCategory, $"Sending Load trigger to node: {Node.Identifier}");
             await Node.Trigger(ApparatusTrigger.LoadTrigger(true), log);
 
             log.AddInfo(cLogCategory, cLogCategory, "Initializing complete");
-            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
+            log.PrintToConsole(cLogCategory);
         }
 
         public void HandleRequest(ApparatusRequest req, LogWriter log)
         {
-            log.AddInfo(cLogCategory, cLogCategory, "Request received, handling...");
+            log.AddInfo(cLogCategory, cLogCategory, $"{req.GetIDString()} Request received, handling...");
             UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, req, this, cLogCategory, log);
         }
     }

@@ -50,7 +50,9 @@ namespace Atomata.VSolar.Apparatus.Tests
         [Test]
         public void Connect()
         {
-            par.Connect();
+            LogWriter log = new LogWriter("Test");
+
+            par.Connect(log);
             TestNode_Connections[] nodes = new TestNode_Connections[] { par, ch1, ch2, ch11, ch12, ch21, ch22 };
 
             // Test the onConnected callback is functioning correctly
@@ -81,10 +83,12 @@ namespace Atomata.VSolar.Apparatus.Tests
         [Test]
         public void Disconnect()
         {
-            par.Connect();
+            LogWriter log = new LogWriter("Test");
+
+            par.Connect(log);
             TestNode_Connections[] nodes = new TestNode_Connections[] { par, ch1, ch2, ch11, ch12, ch21, ch22 };
 
-            par.Disconnect();
+            par.Disconnect(log);
 
             // Test the on disconnected callback is functioning correctly
             bool OnDisconnectedCallback = nodes.All(n => !n.isConnected); // TO DO: Add on disconnected callback
@@ -105,16 +109,18 @@ namespace Atomata.VSolar.Apparatus.Tests
         [Test]
         public void PropertiesUpdate()
         {
+            LogWriter log = new LogWriter("Test");
+
             TestNode_Connections[] nodes = new TestNode_Connections[] { par, ch1, ch2, ch11, ch12, ch21, ch22 };
 
             bool allNodesDisconnectedOnStart = nodes.All(n => n.ConnectionState == EApparatusNodeConnectionState.Disconnected);
             UTTests.Log("All nodes start off in disconnected state", allNodesDisconnectedOnStart);
 
-            par.Connect();
+            par.Connect(log);
             bool allNodesBecomeConnected = nodes.All(n => n.ConnectionState == EApparatusNodeConnectionState.Connected);
             UTTests.Log("All nodes become connected after connecting", allNodesBecomeConnected);
 
-            par.Disconnect();
+            par.Disconnect(log);
             bool allNodesAreNowDisconnected = nodes.All(n => n.ConnectionState == EApparatusNodeConnectionState.Disconnected);
             UTTests.Log("All nodes become unconnected after disconnected", allNodesAreNowDisconnected);
 

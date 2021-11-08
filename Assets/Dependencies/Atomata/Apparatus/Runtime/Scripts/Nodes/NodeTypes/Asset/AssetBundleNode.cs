@@ -107,7 +107,7 @@ namespace Atomata.VSolar.Apparatus
             // Activate children. By doing this, the children will become part of the tree
             // and the load trigger should automatically propogate too them
             if(_managedChild != null)
-                Connect();
+                Connect(log);
 
             log.AddInfo(cLogCategory, NodeIdentityString, $"Async load operation complete");
         }

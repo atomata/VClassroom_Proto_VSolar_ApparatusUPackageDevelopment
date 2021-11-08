@@ -122,24 +122,38 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Connect the node to it's children
         /// </summary>
-        public void Connect()
+        public void Connect(LogWriter log)
         {
+            log.AddInfo(cLogCategory, NodeIdentityString, "Connecting...");
+
             TraverseHierachyAndSetChildren();
-            ConnectChildren();
+            foreach (AApparatusNode node in _children) node.Connect(log);
             _connectionState = EApparatusNodeConnectionState.Connected;
             OnConnected();
+
+            log.AddInfo(cLogCategory, NodeIdentityString, "Connected");
         }
 
         /// <summary>
         /// Disconnected the node from it's children and parent
         /// </summary>
-        public void Disconnect()
+        public void Disconnect(LogWriter log)
         {
-            DisconnectChildren();
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Disconnecting...");
+
+            if (_children != null)
+            {
+                foreach (AApparatusNode node in _children)
+                {
+                    if (node != null) node.Disconnect(log);
+                }
+            }
+
             _parent = null;
             _children.Clear();
             _connectionState = EApparatusNodeConnectionState.Disconnected;
             OnDisconnected();
+            log.AddInfo(cLogCategory, NodeIdentityString, $"Disconnection complete");
         }
 
         /// <summary>
@@ -151,22 +165,6 @@ namespace Atomata.VSolar.Apparatus
         /// Called when the node is disconnected
         /// </summary>
         protected virtual void OnDisconnected() { }
-
-        private void ConnectChildren()
-        {
-            foreach (AApparatusNode node in _children) node.Connect();
-        }
-
-        private void DisconnectChildren()
-        {
-            if(_children != null)
-            {
-                foreach (AApparatusNode node in _children)
-                {
-                    if(node != null) node.Disconnect();
-                }
-            }
-        }
 
         private void CalculateParentFromNode()
         {
@@ -242,7 +240,7 @@ namespace Atomata.VSolar.Apparatus
         /// </summary>
         public async UniTask Trigger(ApparatusTrigger trigger, LogWriter log)
         {
-            log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.GetHashCode()}> Trigger received, relaying...");
+            log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.GetIDString()} Trigger received, relaying...");
 
             ApparatusTriggerCarriage triggerCarriage = new ApparatusTriggerCarriage(trigger);
             await RelayTrigger(triggerCarriage, log);
@@ -257,12 +255,12 @@ namespace Atomata.VSolar.Apparatus
         {
             if (trigger.IsTarget(_identifier))
             {
-                log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.Trigger.GetHashCode()}> Performing trigger relay operation. This node is the target. calling TriggerNode on this.");
+                log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Performing trigger relay operation. This node is the target. calling TriggerNode on this.");
                 await TriggerNode(trigger.Trigger, log);
 
                 if (trigger.IsGlobal)
                 {
-                    log.AddInfo(cLogCategory, NodeIdentityString, $"<TRIG#{trigger.Trigger.GetHashCode()}> Performing trigger relay operation. Trigger is global. Relaying trigger to children.");
+                    log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Performing trigger relay operation. Trigger is global. Relaying trigger to children.");
                     foreach (AApparatusNode child in _children) await child.RelayTrigger(trigger, log);
                 }
             }
@@ -272,7 +270,7 @@ namespace Atomata.VSolar.Apparatus
                 {
                     foreach (AApparatusNode child in _children)
                     {
-                        log.AddInfo(cLogCategory, NodeIdentityString, $"Trigger received, relaying to children. Remaining Path: {trigger.RemainingPath}");
+                        log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Relaying to children. Remaining Path: {trigger.RemainingPath}");
                         
                         if (child.Identifier == trigger.Next)
                         {

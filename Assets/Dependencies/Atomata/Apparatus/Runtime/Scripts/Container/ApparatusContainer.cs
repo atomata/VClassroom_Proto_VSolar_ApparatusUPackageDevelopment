@@ -41,7 +41,7 @@ namespace Atomata.VSolar.Apparatus
             LogWriter log = new LogWriter("ApparatusContainer SceneInitialize");
 
             PopulateApparatusRoot();
-            foreach (SerializationNode root in _managedApparatus) root.Connect();
+            foreach (SerializationNode root in _managedApparatus) root.Connect(log);
             foreach (SerializationNode root in _managedApparatus) root.Trigger( ApparatusTrigger.LoadTrigger(true), log);
 
             OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
@@ -51,7 +51,7 @@ namespace Atomata.VSolar.Apparatus
         {
             LogWriter log = new LogWriter("ApparatusContainer SceneDenitialize");
 
-            foreach (SerializationNode root in _managedApparatus) root.Disconnect();
+            foreach (SerializationNode root in _managedApparatus) root.Disconnect(log);
             foreach (SerializationNode root in _managedApparatus) root.Trigger(ApparatusTrigger.LoadTrigger(false), log);
             _managedApparatus = new SerializationNode[0];
 
