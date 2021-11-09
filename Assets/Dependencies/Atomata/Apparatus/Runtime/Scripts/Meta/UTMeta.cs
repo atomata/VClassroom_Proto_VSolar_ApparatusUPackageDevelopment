@@ -19,16 +19,27 @@ namespace Atomata.VSolar.Apparatus
         public const string cMetaInfoFormat = "{0}:{1}";
 
         public const string cMetaTypeIdentifer = "identifier";
+        public const string cMetaTypeType = "type";
+        public const string cMetaTypeAssociatedNode = "associatedNode";
         public const string cMetaTypeKey = "key";
 
         public const string cMetaTypeInput = "input";
         public const string cMetaInputFormat = "{0}/{1}"; // 0 is input type, 1 is input name
+        public const string cMetaTypeFormat = "{0}/{1}"; // 0 is input type, 1 is input name
+        public const string cMetaAssociatedNodeFormat = "{0}/{1}";
+
         public const string cMetaInputVoidType = "void";
         public const string cMetaInputBoolType = "bool";
         public const string cMetaInputVector3Type = "vec3";
 
+        public static string AssociatedNodeMeta(string associatedNode)
+          => string.Format(cMetaAssociatedNodeFormat, cMetaTypeAssociatedNode, associatedNode);
+
         public static string IdentifierMeta(string identifier)
             => string.Format(cMetaInfoFormat, cMetaTypeIdentifer, identifier);
+
+        public static string TypeMeta(string type)
+            => string.Format(cMetaTypeFormat, cMetaTypeType, type);
 
         public static string InputMeta(string inputType, string inputName)
             => string.Format(cMetaInfoFormat, cMetaTypeInput, string.Format(cMetaInfoFormat, inputType, inputName));

@@ -10,7 +10,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
     public class EiApparatusEventNode : Editor
     {
         private BaseProperties _baseProperties;
-
+        private SerializedProperty _associatedNode;
         private SerializedProperty _voidEventNames;
         private SerializedProperty _voidEvents;
         private SerializedProperty _boolEventNames;
@@ -19,7 +19,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
         protected virtual void OnEnable()
         {
             _baseProperties = GetBaseProperties(serializedObject);
-
+            _associatedNode = serializedObject.FindProperty(nameof(_associatedNode));
             _voidEventNames = serializedObject.FindProperty(nameof(_voidEventNames));
             _voidEvents = serializedObject.FindProperty(nameof(_voidEvents));
             _boolEventNames = serializedObject.FindProperty(nameof(_boolEventNames));
@@ -39,6 +39,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
 
             _baseProperties.RenderGUI(node);
 
+            EditorGUILayout.PropertyField(_associatedNode);
             EditorGUILayout.PropertyField(_voidEventNames);
             EditorGUILayout.PropertyField(_voidEvents);
             EditorGUILayout.PropertyField(_boolEventNames);

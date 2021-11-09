@@ -24,6 +24,11 @@ namespace Atomata.VSolar.Apparatus
     public class EventNode : AApparatusNode
     {
         [Header("[EventNode]")]
+
+        [SerializeField]
+        [Tooltip("associted node")]
+        private AApparatusNode _associatedNode;
+
         [SerializeField]
         [Tooltip("Names of void triggers")]
         private string[] _voidEventNames;
@@ -54,6 +59,7 @@ namespace Atomata.VSolar.Apparatus
 
         public override string NodeType => "Event";
 
+     
         public void Invoke_Void(string name)
         {
             int index = Array.IndexOf(_voidEventNames, name);
@@ -76,6 +82,10 @@ namespace Atomata.VSolar.Apparatus
 
         protected async override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)
         {
+            if(trigger.Type == ETriggerType.Load)
+            {
+                _associatedNode = Parent;
+            }
             if (trigger.TryUnpackTrigger_Input(out string type, out string name, out string value))
             {
                 int index = -1;
@@ -99,6 +109,7 @@ namespace Atomata.VSolar.Apparatus
             string[] b = base.ResolveMetadata();
 
             List<string> metas = new List<string>();
+            metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Identifier));
             foreach (string trig in VoidEvents) metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, trig));
             foreach (string trig in BoolEvents) metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputBoolType, trig));
 

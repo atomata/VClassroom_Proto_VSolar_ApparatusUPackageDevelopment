@@ -343,7 +343,8 @@ namespace Atomata.VSolar.Apparatus
         {
             return new string[]
             {
-                UTMeta.IdentifierMeta(Identifier)
+                UTMeta.IdentifierMeta(Identifier),
+                UTMeta.TypeMeta(NodeType)
             };
         }
 
