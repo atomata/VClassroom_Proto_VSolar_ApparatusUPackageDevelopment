@@ -37,9 +37,13 @@
     ],
     "Data": [
       "0@identifier:wobble-sphere",
+      "0@type/Serialization",
       "1@identifier:wobble-sphere",
+      "1@type/AssetBundle",
       "1@key:wobble-sphere",
       "2@identifier:animations",
+      "2@type/Event",
+      "2@associatedNode/wobble-sphere",
       "2@input:void:Still",
       "2@input:void:Wobble",
       "2@input:void:Bounce"
