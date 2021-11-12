@@ -109,7 +109,7 @@ namespace Atomata.VSolar.Apparatus
             string[] b = base.ResolveMetadata();
 
             List<string> metas = new List<string>();
-            metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Identifier));
+            metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Path().ToString('/')));
             foreach (string trig in VoidEvents) metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, trig));
             foreach (string trig in BoolEvents) metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputBoolType, trig));
 
