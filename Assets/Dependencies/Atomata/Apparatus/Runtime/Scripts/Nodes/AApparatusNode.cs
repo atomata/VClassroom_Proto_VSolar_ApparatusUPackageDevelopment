@@ -286,7 +286,7 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Gets all meta data from the node
         /// </summary>
-        public SrApparatusMetadata GetMetadata()
+        public SrApparatus Serialize()
         {
             Queue<AApparatusNode> nodes = new Queue<AApparatusNode>();
             nodes.Enqueue(this);
@@ -308,7 +308,7 @@ namespace Atomata.VSolar.Apparatus
                 foreach (AApparatusNode child in processNode.Children) nodes.Enqueue(child);
             }
 
-            return new SrApparatusMetadata
+            return new SrApparatus
             {
                 Paths = metaPaths.ToArray(),
                 Data = metaData.ToArray()
@@ -320,23 +320,12 @@ namespace Atomata.VSolar.Apparatus
         /// </summary>
         protected virtual string[] ResolveMetadata()
         {
-            if(Parent == Root)
+            return new string[]
             {
-                return new string[]
-                {
-                    UTMeta.IdentifierMeta(Identifier),
-                    UTMeta.TypeMeta(NodeType)
-                };
-            }
-            else
-            {
-                return new string[]
-                {
-                    UTMeta.IdentifierMeta(Identifier),
-                    UTMeta.TypeMeta(NodeType)
-                };
-            }
-
+                UTMeta.IdentifierMeta(Identifier),
+                UTMeta.TypeMeta(NodeType),
+                UTMeta.TransformMeta(transform)
+            };
         }
 
         #endregion

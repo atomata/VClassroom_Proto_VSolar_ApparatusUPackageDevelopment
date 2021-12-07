@@ -32,7 +32,7 @@ namespace Atomata.VSolar.Apparatus
         {
             UnityPath editableDatabase = Folders.EditableDatabaseApparatusPath;
 
-            string json = JsonUtility.ToJson(new SrApparatus(node));
+            string json = JsonUtility.ToJson(node.Serialize());
             UnityPath svPath = editableDatabase.Path.InsertAtEnd($"{node.Identifier}.json");
 
             if (svPath.Path.TryAsFileInfo(out FileInfo pth))

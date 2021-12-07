@@ -111,27 +111,46 @@ namespace Atomata.VSolar.Apparatus
                 return;
             }
 
-            // load the apparatus children
-            if(args.ApparatusKey != ApparatusKey)
-            {
-                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {ApparatusKey} because provided {nameof(SrApparatus)} object did not contain correct identifer [{Identifier}] as root object");
-                return;
-            }
-
             // Create the objects
             log.AddInfo(cLogCategory, NodeIdentityString, $"Json recieved. Unpacking...");
 
 
-            for(int i = 0; i < args.Metadata.Paths.Length; i++)
+            for(int i = 0; i < args.Paths.Length; i++)
             {
-                string[] split = args.Metadata.Paths[i].Split('/');
+                string[] split = args.Paths[i].Split('/');
 
+                // TODO: Make the below code WAY more generic 
+                // This is the root node
+                if (split.Length == 1)
+                {
+                    List<string> metaData = new List<string>();
+                    
+                    foreach(string data in args.Data)
+                    {
+                        string[] dataSplit = data.Split('@');
+                        if (dataSplit[0] == i.ToString())
+                            metaData.Add(dataSplit[1]);
+                    }
+                    
+                    // based on metadata deserialize the objects
+                    Dictionary<string, string> dataUnpacked = new Dictionary<string, string>();
+
+                    foreach(string data in metaData)
+                    {
+                        string[] dataSplit = data.Split(':');
+                        dataUnpacked.Add(dataSplit[0], dataSplit[1]);
+                    }
+
+                    Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer];
+                    ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey];
+                }
+                
                 // When the path length is 2, it's a direct child
                 if(split.Length == 2)
                 {
                     List<string> metaData = new List<string>();
 
-                    foreach(string data in args.Metadata.Data)
+                    foreach(string data in args.Data)
                     {
                         string[] dataSplit = data.Split('@');
                         if (dataSplit[0] == i.ToString())
@@ -160,8 +179,8 @@ namespace Atomata.VSolar.Apparatus
                             if(dataUnpacked.TryGetValue(UTMeta.cMetaTypeTransform, out string valueA))
                             {
                                 float[] transform = valueA.Split(',').Select(s => float.Parse(s)).ToArray();
-                                asset.transform.position = new Vector3(transform[0], transform[1], transform[2]);
-                                asset.transform.rotation = new Quaternion(transform[3], transform[4], transform[5], transform[6]);
+                                asset.transform.localPosition = new Vector3(transform[0], transform[1], transform[2]);
+                                asset.transform.localRotation = new Quaternion(transform[3], transform[4], transform[5], transform[6]);
                                 asset.transform.localScale = new Vector3(transform[7], transform[8], transform[9]);
                             }
                             break;
@@ -172,8 +191,8 @@ namespace Atomata.VSolar.Apparatus
                             if (dataUnpacked.TryGetValue(UTMeta.cMetaTypeTransform, out string valueS))
                             {
                                 float[] transform = valueS.Split(',').Select(s => float.Parse(s)).ToArray();
-                                ser.transform.position = new Vector3(transform[0], transform[1], transform[2]);
-                                ser.transform.rotation = new Quaternion(transform[3], transform[4], transform[5], transform[6]);
+                                ser.transform.localPosition = new Vector3(transform[0], transform[1], transform[2]);
+                                ser.transform.localRotation = new Quaternion(transform[3], transform[4], transform[5], transform[6]);
                                 ser.transform.localScale = new Vector3(transform[7], transform[8], transform[9]);
                             }
                             break;

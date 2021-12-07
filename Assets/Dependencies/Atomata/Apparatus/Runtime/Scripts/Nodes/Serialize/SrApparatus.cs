@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Atomata.VSolar.Apparatus
 {
     [System.Serializable]
-    public class SrApparatusMetadata
+    public class SrApparatus
     {
         public string[] Paths;
         public string[] Data;

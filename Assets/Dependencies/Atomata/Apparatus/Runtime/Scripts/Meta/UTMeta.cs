@@ -48,6 +48,6 @@ namespace Atomata.VSolar.Apparatus
             => string.Format(cMetaInfoFormat, cMetaTypeKey, key);
 
         public static string TransformMeta(Transform transform)
-            => string.Format(cMetaInfoFormat, cMetaTypeTransform, $"{transform.position.x},{transform.position.y},{transform.position.z},{transform.rotation.x},{transform.rotation.y},{transform.rotation.z},{transform.rotation.w}, {transform.localScale.x},{transform.localScale.y},{transform.localScale.z}");
+            => string.Format(cMetaInfoFormat, cMetaTypeTransform, $"{transform.localPosition.x},{transform.localPosition.y},{transform.localPosition.z},{transform.localRotation.x},{transform.localRotation.y},{transform.localRotation.z},{transform.localRotation.w},{transform.localScale.x},{transform.localScale.y},{transform.localScale.z}");
     }
 }

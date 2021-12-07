@@ -1,6 +1,4 @@
 {
-  "ApparatusKey" : "gracious-cube",
-  "Metadata": {
     "Paths": [
       "gracious-cube",
       "gracious-cube/gracious-cube",
@@ -18,6 +16,7 @@
     ],
     "Data": [
       "0@identifier:gracious-cube",
+      "0@key:gracious-cube",
       "0@type:Serialization",
       "1@identifier:gracious-cube",
       "1@type:AssetBundle",
@@ -42,8 +41,10 @@
       "3@input:vec3/scale_delta",
       "3@input:bool/isLocal",
       "4@identifier:evil-cylinder",
+      "4@key:evil-cylinder",
       "4@type:Serialization",
       "5@identifier:wobble-sphere",
+      "5@key:wobble-sphere",
       "5@type:Serialization",
       "6@identifier:evil-cylinder",
       "6@type:AssetBundle",
@@ -67,6 +68,7 @@
       "9@input:void/Wobble",
       "9@input:void/Bounce",
       "10@identifier:wobble-sphere",
+      "10@key:wobble-sphere",
       "10@type:Serialization",
       "11@identifier:wobble-sphere",
       "11@type:AssetBundle",
@@ -78,5 +80,4 @@
       "12@input:void/Wobble",
       "12@input:void/Bounce"
     ]
-  }
 }

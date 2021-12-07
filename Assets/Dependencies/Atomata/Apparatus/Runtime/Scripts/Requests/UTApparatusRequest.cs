@@ -99,7 +99,7 @@ namespace Atomata.VSolar.Apparatus
                 req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Identifier), callObject);
             }
 
-            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Assetloaded. Responding with asset {appa.ApparatusKey}");
+            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Assetloaded. Responding with asset");
             req.Respond(ApparatusResponseObject.SerializeNodeResponse(appa), callObject);
         }
     }
