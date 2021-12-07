@@ -55,8 +55,6 @@ namespace Atomata.VSolar.Apparatus
         /// </summary>
         public string[] BoolEvents => _boolEventNames;
 
-        public override EApparatusNodeType Type =>  EApparatusNodeType.Event;
-
         public override string NodeType => "Event";
 
      

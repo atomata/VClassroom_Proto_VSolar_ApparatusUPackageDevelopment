@@ -29,8 +29,6 @@ namespace Atomata.VSolar.Apparatus
 
         public string AssetBundleKey;
 
-        public override EApparatusNodeType Type => EApparatusNodeType.Asset;
-
         public override string NodeType => "AssetBundle";
 
         private async UniTask Load(LogWriter log)
@@ -203,18 +201,6 @@ namespace Atomata.VSolar.Apparatus
         {
             string[] baseMeta =  base.ResolveMetadata();
             return UTArray.Combine(baseMeta, new string[] { UTMeta.KeyMeta(AssetBundleKey) });
-        }
-
-        public override void Deserialize(SrApparatusNode node, string[] metas)
-        {
-            base.Deserialize(node, metas);
-
-            IEnumerable<string> keys = metas.Where(m => m.StartsWith(UTMeta.cMetaTypeKey));
-
-            foreach(string key in keys)
-            {
-                AssetBundleKey = key.Split(':')[1];
-            }
         }
     }
 }

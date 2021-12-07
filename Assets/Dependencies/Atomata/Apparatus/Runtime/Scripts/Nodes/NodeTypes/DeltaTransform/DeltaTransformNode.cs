@@ -35,9 +35,6 @@ namespace Atomata.VSolar.Apparatus
         public Vector3 RotationDelta => _rotationDelta;
         public Vector3 ScaleDelta => _scaleDelta;
 
-        /// <inheritdoc />
-        public override EApparatusNodeType Type => EApparatusNodeType.DeltaTransform;
-
         public override string NodeType => "DeltaTransform";
 
         protected async override UniTask TriggerNode(ApparatusTrigger trigger, LogWriter log)

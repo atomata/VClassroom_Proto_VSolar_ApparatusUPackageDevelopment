@@ -255,6 +255,14 @@ PrefabInstance:
       value: gracious-cube
       objectReference: {fileID: 0}
     - target: {fileID: 1242756300, guid: 70d0cf5a826970e438a90d0ae1b6906e, type: 3}
+      propertyPath: ApparatusKey
+      value: gracious-cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242756300, guid: 70d0cf5a826970e438a90d0ae1b6906e, type: 3}
+      propertyPath: _onRequest.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242756300, guid: 70d0cf5a826970e438a90d0ae1b6906e, type: 3}
       propertyPath: _onRequest.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 970844299}

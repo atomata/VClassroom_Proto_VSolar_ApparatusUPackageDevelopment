@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Atomata.VSolar.Apparatus
 {
     /// <summary>
@@ -24,6 +26,7 @@ namespace Atomata.VSolar.Apparatus
         public const string cMetaTypeAssociatedNode = "associatedNode";
         public const string cMetaTypeKey = "key";
         public const string cMetaTypeInput = "input";
+        public const string cMetaTypeTransform = "transform";
 
         public const string cMetaInputVoidType = "void";
         public const string cMetaInputBoolType = "bool";
@@ -43,5 +46,8 @@ namespace Atomata.VSolar.Apparatus
 
         public static string KeyMeta(string key) 
             => string.Format(cMetaInfoFormat, cMetaTypeKey, key);
+
+        public static string TransformMeta(Transform transform)
+            => string.Format(cMetaInfoFormat, cMetaTypeTransform, $"{transform.position.x},{transform.position.y},{transform.position.z},{transform.rotation.x},{transform.rotation.y},{transform.rotation.z},{transform.rotation.w}, {transform.localScale.x},{transform.localScale.y},{transform.localScale.z}");
     }
 }

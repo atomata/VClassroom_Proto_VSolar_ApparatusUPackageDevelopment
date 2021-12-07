@@ -157,6 +157,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+  ApparatusKey: wobble-sphere
 --- !u!1 &8016881231997255601
 GameObject:
   m_ObjectHideFlags: 0
