@@ -42,12 +42,6 @@ namespace Atomata.VSolar.Apparatus
             }
 
             Debug.Log($"Saved Json to {svPath}");
-
-            foreach (AApparatusNode child in node.Children)
-            {
-                SerializationNode rootChild = child as SerializationNode;
-                if (rootChild != null) SerializeNode(rootChild);
-            }
         }
     }
 }

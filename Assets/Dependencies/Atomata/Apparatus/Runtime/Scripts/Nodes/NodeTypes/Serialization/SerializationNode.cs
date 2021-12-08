@@ -133,16 +133,21 @@ namespace Atomata.VSolar.Apparatus
                     }
                     
                     // based on metadata deserialize the objects
-                    Dictionary<string, string> dataUnpacked = new Dictionary<string, string>();
+                    Dictionary<string, List<string>> dataUnpacked = new Dictionary<string, List<string>>();
 
                     foreach(string data in metaData)
                     {
                         string[] dataSplit = data.Split(':');
-                        dataUnpacked.Add(dataSplit[0], dataSplit[1]);
+
+                        if (!dataUnpacked.ContainsKey(dataSplit[0]))
+                        {
+                            dataUnpacked[dataSplit[0]] = new List<string>();
+                        }
+                        dataUnpacked[dataSplit[0]].Add(dataSplit[1]);
                     }
 
-                    Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer];
-                    ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey];
+                    Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer][0];
+                    ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey][0];
                 }
                 
                 // When the path length is 2, it's a direct child
@@ -184,7 +189,7 @@ namespace Atomata.VSolar.Apparatus
                                 asset.transform.localScale = new Vector3(transform[7], transform[8], transform[9]);
                             }
                             break;
-                        case "Serailization":
+                        case "Serialization":
                             SerializationNode ser = obj.AddComponent<SerializationNode>();
                             ser.Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer];
                             ser.ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey];
