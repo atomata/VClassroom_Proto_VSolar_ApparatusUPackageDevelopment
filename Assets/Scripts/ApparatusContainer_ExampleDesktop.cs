@@ -99,6 +99,7 @@ namespace Atomata.VSolar.Apparatus.Example
             // set the serialization node settings
             SerializationNode serNode = serNodeGo.AddComponent<SerializationNode>();
             serNode.Identifier = identifier;
+            serNode.ApparatusKey = identifier;
 
             // cache reference
             _managedNode = serNode;
