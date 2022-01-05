@@ -1,168 +1,83 @@
 using HexCS.Core;
 
-using HexUN.Behaviour;
-using HexUN.Deps;
-using HexUN.Framework;
-using HexUN.Framework.Debugging;
+using HexUN.Data;
 
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 using UnityEngine;
 
-namespace Atomata.VSolar.Apparatus
+using Atomata.VSolar.Apparatus;
+using UnityEngine.Networking;
+using System.Runtime.InteropServices;
+using HexUN.Framework.Debugging;
+
+namespace Atomata.VSolar.Apparatus.Example
 {
     /// <summary>
-    /// Provides apparatus access to environmental services used by apparatus children
+    /// This is an example container, that has only been created to show how
+    /// a container can load an apparatus from byte[] data that is stored in azure blob storage as assetbundle. 
     /// </summary>
-    [ExecuteAlways]
-    public class ApparatusContainer : DependentBehaviour
+    public class ApparatusContainer : AApparatusContainer
     {
-        private const string cLogCategory = nameof(ApparatusContainer);
+        protected override string cLogCategory { get; set; } = nameof(ApparatusContainer);
 
-        [Header("[ApparatusContainer]")]
-        [SerializeField]
-        [Tooltip("IEditorResourceDatabase used for loading and saving editable db assets")]
-        private Object _iEditorResourceDatabase;
-
-        [SerializeField]
-        [Tooltip("IResourceDatabase used for loading db assets")]
-        private Object _iResourceDatabase;
-
-        [SerializeField]
-        [Tooltip("All apparatus root object manged by the container")]
-        private SerializationNode[] _managedApparatus;
-
-        private IEditorResourceDatabase _editorResourceDatabase;
-        private IResourceDatabase _resourceDatabase;
-
-
-        protected override void SceneInitalize()
+        protected override void Start()
         {
-            LogWriter log = new LogWriter("ApparatusContainer SceneInitialize");
-
-            PopulateApparatusRoot();
-            foreach (SerializationNode root in _managedApparatus) root.Connect(log);
-            foreach (SerializationNode root in _managedApparatus) root.Trigger( ApparatusTrigger.LoadTrigger(true), log);
-
-            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
-        }
-
-        protected override void SceneDenitialize() 
-        {
-            LogWriter log = new LogWriter("ApparatusContainer SceneDenitialize");
-
-            foreach (SerializationNode root in _managedApparatus) root.Disconnect(log);
-            foreach (SerializationNode root in _managedApparatus) root.Trigger(ApparatusTrigger.LoadTrigger(false), log);
-            _managedApparatus = new SerializationNode[0];
-
-            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
-        }
-
-        protected override void ResolveDependencies()
-        {
-            base.ResolveDependencies();
-            UTDependency.Resolve(ref _iEditorResourceDatabase, out _editorResourceDatabase);
-            UTDependency.Resolve(ref _iResourceDatabase, out _resourceDatabase);
-        }
-
-        public void HandleTrigger(string trigger)
-        {
-            LogWriter log = new LogWriter("ApparatusContainer HandleTrigger");
-
-            string[] vars = trigger.Split('?');
-            PathString pth = vars[0];
-
-            if(vars.Length > 1)
-            {
-                string[] vars2 = vars[1].Split('=');
-                _managedApparatus[0].Trigger(ApparatusTrigger.Trigger_Bool(pth.End, vars2[1] == "True", pth.RemoveAtEnd()), log);
-            }
-            else
-            {
-                _managedApparatus[0].Trigger(ApparatusTrigger.DirectEvent_Void(pth.End, pth.RemoveAtEnd()), log);
-            }
-
-            OneHexServices.Instance.Log.Info(cLogCategory, log.GetLog());
-        }
-
-        public void PopulateApparatusRoot()
-        {
-            List<SerializationNode> roots = new List<SerializationNode>();
-
-            foreach(Transform t in transform)
-            {
-                SerializationNode r = t.gameObject.GetComponent<SerializationNode>();
-                if (r != null) roots.Add(r);
-            }
-
-            _managedApparatus = roots.ToArray();
+            PrefabProvider = new CloudAssetProvider("vsolarsystem-proto-storage", RootURL);
+            ApparatusProvider = new CloudApparatusProvider("vsolarsystem-proto-storage", RootURL);
         }
         
-
-        public void HandleRequest(ApparatusRequest request)
+        /// <summary>
+        /// Handles boolean triggers, sent as strings with following format 
+        /// path/to/node@eventName?(True|False). 
+        /// </summary>
+        public override async void BoolTrigger(string trigger)
         {
-            ApparatusRequestObject aro = request.RequestObject;
-
-            switch (aro.Type)
+            if (ManagedNode != null)
             {
-                case EApparatusRequestType.LoadAsset:
-                    HandleAssetLoadRequest(request);
-                    break;
-                case EApparatusRequestType.SaveAsset:
-                    HandleAssetSaveRequest(request);
-                    break;
-                case EApparatusRequestType.LoadApparatus:
-                    HandleApparatusLoadRequest(request);
-                    break;
-            }
+                LogWriter log = new LogWriter(cLogCategory);
+                // unpack the info
+                string[] pathAndArgs = trigger.Split('@');
+                string[] args = pathAndArgs[1].Split('?');
 
+                // convert the info to a bool trigger object
+                await ManagedNode.Trigger(
+                    ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0]), log
+                );
+
+            }
         }
 
-        // NOTE: SHARED LOGIC WITH SoApparatusConfig NEEDS DEALING WITH
-
-        // TO DO: Make interfaces for adding this funcitonality
-        private void HandleAssetLoadRequest(ApparatusRequest request)
+        /// <summary>
+        /// Handles void triggers, sent as strings with following format 
+        /// path/to/node@eventName. 
+        /// </summary>
+        public override async void VoidTrigger(string trigger)
         {
-            if (!request.TryClaim(this)) return;
-
-            AssetLoadRequestArgs args = request.RequestObject.Args as AssetLoadRequestArgs;
-            GameObject prefab = null;
-
-            if(_editorResourceDatabase == null)
+            if (ManagedNode != null)
             {
-                request.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(nameof(_editorResourceDatabase)), this);
-                return;
+                LogWriter log = new LogWriter(cLogCategory);
+                // unpack the info
+                string[] pathAndName = trigger.Split('@');
+
+                //convert the info to a void trigger object
+                await ManagedNode.Trigger(
+                    ApparatusTrigger.DirectEvent_Void(pathAndName[1], pathAndName[0]), log
+                );
             }
-            else
-            {
-                prefab = _editorResourceDatabase?.ResolveAsset(args.Name);
-            }
-
-            request.Respond(ApparatusResponseObject.AssetResponse(prefab), this);
         }
 
-        // TO DO: Make interfaces for adding this funcitonality
-        private void HandleAssetSaveRequest(ApparatusRequest request)
+        /// <summary>
+        /// This function handles requests from the apparatus and resolves them
+        /// based on a Desktop platform with relevent data existing in the file system.
+        /// </summary>
+        public override void HandleRequest(ApparatusRequest request, LogWriter log)
         {
-#if UNITY_EDITOR
-            AssetSaveRequestArgs args = request.RequestObject.Args as AssetSaveRequestArgs;
-            UTAssets.ConvertToAssetBundleAndSaveToDatabase(args.Instance);
-            request.Respond(ApparatusResponseObject.SuccessResponse(), this);
-
-            Debug.Log($"[{nameof(ApparatusContainer)}] Saved {args.Name} resource to local database");
-#endif
+            log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
+            UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, request, this, cLogCategory, log);
         }
-
-        // TO DO: Make interfaces for adding this funcitonality
-        private void HandleApparatusLoadRequest(ApparatusRequest request)
-        {
-            ApparatusLoadRequestArgs args = request.RequestObject.Args as ApparatusLoadRequestArgs;
-
-            request.Respond(
-                ApparatusResponseObject.SerializeNodeResponse(_editorResourceDatabase.ResolveSerializedNode(args.Identifier)),
-                this
-            );
-        }
-
     }
 }
