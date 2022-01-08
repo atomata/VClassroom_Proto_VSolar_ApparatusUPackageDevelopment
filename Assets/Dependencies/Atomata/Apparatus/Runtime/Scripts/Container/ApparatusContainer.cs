@@ -10,11 +10,9 @@ namespace Atomata.VSolar.Apparatus.Example
     {
         protected override string cLogCategory { get; set; } = nameof(ApparatusContainer);
 
-        protected override void Start()
-        {
-            GameObjectProvider = new CloudAssetProvider(ContainerURL);
-            ApparatusProvider = new CloudApparatusProvider(ContainerURL);
-        }
+        public AtomataSceneManager SceneManager;
+
+        public async void Trigger(ApparatusTrigger trig, LogWriter log) => await ManagedNode.Trigger(trig, log);
         
         /// <summary>
         /// Handles boolean triggers, sent as strings with following format 
@@ -60,10 +58,7 @@ namespace Atomata.VSolar.Apparatus.Example
         /// This function handles requests from the apparatus and resolves them
         /// based on a Desktop platform with relevent data existing in the file system.
         /// </summary>
-        public override void HandleRequest(ApparatusRequest request, LogWriter log)
-        {
-            log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
-            UTApparatusRequest.HandleRequest(GameObjectProvider, ApparatusProvider, request, this, cLogCategory, log);
-        }
+        public override void HandleRequest(ApparatusRequest request, LogWriter log) 
+            => SceneManager.HandleRequest(request, log);
     }
 }

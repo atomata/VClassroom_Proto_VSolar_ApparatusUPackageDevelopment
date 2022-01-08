@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
 {
-    public class CloudSkyboxProvider : ABlobContainerBasedProvider<Material>
+    public class MaterialProvider : ABlobContainerBasedProvider<Material>
     {
-        public CloudSkyboxProvider(string containerURL) : base(containerURL + "/skyboxes")
+        public MaterialProvider(string containerURL) : base(containerURL)
         {
         }
 

@@ -32,16 +32,6 @@ namespace Atomata.VSolar.Apparatus.Example
         public SerializationNode ManagedNode { get => _managedNode; set => _managedNode = value;}
         [SerializeField] SerializationNode _managedNode = null;
 
-        /// <summary>
-        /// The url used to load assetbundles
-        /// </summary>
-        public string ContainerURL { get => _containerURL; set => _containerURL = value;}
-        [SerializeField] private string _containerURL = "https://addressabletest1.blob.core.windows.net/assetbundles";
-
-        protected IGameObjectProvider GameObjectProvider;
-        protected IApparatusProvider ApparatusProvider;
-
-        protected abstract void Start();
         public abstract void BoolTrigger(string trigger);
         public abstract void VoidTrigger(string trigger);
         public abstract void HandleRequest(ApparatusRequest request, LogWriter log);

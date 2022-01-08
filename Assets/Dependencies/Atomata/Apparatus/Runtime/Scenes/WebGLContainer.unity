@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _managedNode: {fileID: 0}
-  _containerURL: https://vclassroommspedex.blob.core.windows.net
+  SceneManager: {fileID: 0}
 --- !u!1 &1641758736
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 1641758737}
   - component: {fileID: 1641758738}
   m_Layer: 0
-  m_Name: Controller
+  m_Name: AtomataScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,8 +431,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749aa366fa271f841b127b8a56cf7245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _containerURL: https://vclassroommspedex.blob.core.windows.net
+  _container: {fileID: 1589595087}
   ContainerUrl: https://vclassroommspedex.blob.core.windows.net
   skybox: {fileID: 1404025889}
-  _container: {fileID: 1589595087}
+  Camera: {fileID: 1404025886}
   TestLoadKey: wobble-sphere
   TestLoadSkyboxKey: space
+  TestTriggerKey: 

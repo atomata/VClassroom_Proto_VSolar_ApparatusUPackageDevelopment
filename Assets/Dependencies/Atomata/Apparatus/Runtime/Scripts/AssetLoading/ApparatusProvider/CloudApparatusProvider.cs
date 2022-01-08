@@ -5,7 +5,7 @@ namespace Atomata.VSolar.Apparatus
 {
     public class CloudApparatusProvider : ABlobContainerBasedProvider<SrApparatus>, IApparatusProvider
     {
-        public CloudApparatusProvider(string containerURL) : base(containerURL + "/apparatus") { }
+        public CloudApparatusProvider(string containerURL) : base(containerURL) { }
         
         protected override SrApparatus Convert(byte[] bytes)
         {

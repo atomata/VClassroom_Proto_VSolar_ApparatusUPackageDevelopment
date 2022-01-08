@@ -4,7 +4,7 @@ namespace Atomata.VSolar.Apparatus
 {
     public class CloudAssetProvider : ABlobContainerBasedProvider<GameObject>, IGameObjectProvider
     {
-        public CloudAssetProvider(string containerURL) : base(containerURL + "/assetbundles")
+        public CloudAssetProvider(string containerURL) : base(containerURL)
         {
         }
 
