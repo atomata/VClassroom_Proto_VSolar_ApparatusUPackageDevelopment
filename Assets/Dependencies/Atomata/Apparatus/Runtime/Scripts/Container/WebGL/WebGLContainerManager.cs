@@ -7,21 +7,24 @@ namespace Atomata.VSolar.Apparatus
     // TODO: Abstract an interface or abstract class for multiple platform
     public class WebGLContainerManager : MonoBehaviour
     {
-        [SerializeField] private ApparatusContainer _container;
+        [SerializeField] ApparatusContainer _container;
         public ApparatusContainer Container {get => _container;set => _container = value; }
 
+#if UNITY_EDITOR
+        public string TestLoadKey;
 
-        public string test;
+        [ContextMenu("TestLoad")] void TestLoad() => LoadApparatus(TestLoadKey);
+        [ContextMenu("TestUnload")] void TestUnload() => UnloadApparatus();
+#endif
 
-        [ContextMenu("test")]
-        public void LoadApparatus()
+        public void LoadApparatus(string key)
         { 
-            _container.LoadApparatus(test);
+            _container.LoadApparatus(key);
         }
 
         public void UnloadApparatus()
         {
-            
+            _container.UnloadApparatus();
         }
         
         

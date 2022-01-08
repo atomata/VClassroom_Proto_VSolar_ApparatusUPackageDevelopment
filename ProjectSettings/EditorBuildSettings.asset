@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Containers/ApparatusContainer_ExampleDesktop.unity
+    path: Assets/Scenes/Containers/Examples/ApparatusContainer_ExampleDesktop.unity
     guid: fb476052a1c354042920cb697fb8950b
   - enabled: 0
     path: Assets/Scenes/Containers/ApparatusContainer_AddressableTest.unity

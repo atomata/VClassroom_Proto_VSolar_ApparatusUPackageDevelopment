@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 1404025886}
   - component: {fileID: 1404025885}
   - component: {fileID: 1404025888}
+  - component: {fileID: 1404025889}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -322,6 +323,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -332,6 +334,15 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!45 &1404025889
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404025884}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1589595085
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _managedNode: {fileID: 0}
-  _rootURL: https://addressabletest1.blob.core.windows.net/assetbundles
+  _rootURL: https://vclassroommspedex.blob.core.windows.net
 --- !u!1 &1641758736
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,4 +432,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 1589595087}
-  test: wobble-sphere
+  TestLoadKey: wobble-sphere

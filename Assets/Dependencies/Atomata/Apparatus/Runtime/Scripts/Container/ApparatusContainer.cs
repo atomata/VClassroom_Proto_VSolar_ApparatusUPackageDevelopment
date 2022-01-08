@@ -1,17 +1,3 @@
-using HexCS.Core;
-
-using HexUN.Data;
-
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-using UnityEngine;
-
-using Atomata.VSolar.Apparatus;
-using UnityEngine.Networking;
-using System.Runtime.InteropServices;
 using HexUN.Framework.Debugging;
 
 namespace Atomata.VSolar.Apparatus.Example
@@ -26,8 +12,8 @@ namespace Atomata.VSolar.Apparatus.Example
 
         protected override void Start()
         {
-            PrefabProvider = new CloudAssetProvider("vsolarsystem-proto-storage", RootURL);
-            ApparatusProvider = new CloudApparatusProvider("vsolarsystem-proto-storage", RootURL);
+            PrefabProvider = new CloudAssetProvider("vsolarsystem-proto-storage", RootURL + "/assetbundles");
+            ApparatusProvider = new CloudApparatusProvider("vsolarsystem-proto-storage", RootURL + "/apparatus");
         }
         
         /// <summary>

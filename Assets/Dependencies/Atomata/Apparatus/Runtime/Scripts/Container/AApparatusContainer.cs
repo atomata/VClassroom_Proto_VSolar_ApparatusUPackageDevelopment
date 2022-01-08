@@ -47,9 +47,9 @@ namespace Atomata.VSolar.Apparatus.Example
         public abstract void HandleRequest(ApparatusRequest request, LogWriter log);
         
         /// <summary>
-        /// destroys the loaded node
+        /// destroys the loaded apparatus by calling Destory() on the node
         /// </summary>
-        public void DestroyNode()
+        public void UnloadApparatus()
         {
             if (_managedNode != null) Destroy(_managedNode.gameObject);
             _managedNode = null;
@@ -71,7 +71,7 @@ namespace Atomata.VSolar.Apparatus.Example
         /// </summary>
         public void SetupSerializationNode(string identifier)
         {
-            DestroyNode();
+            UnloadApparatus();
 
             // make a serialization node as child
             GameObject serNodeGo = new GameObject($"[SerializationNode] {identifier} Apparatus");
