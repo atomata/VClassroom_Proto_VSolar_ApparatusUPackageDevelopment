@@ -35,10 +35,10 @@ namespace Atomata.VSolar.Apparatus.Example
         /// <summary>
         /// The url used to load assetbundles
         /// </summary>
-        public string RootURL { get => _rootURL; set => _rootURL = value;}
-        [SerializeField] private string _rootURL = "https://addressabletest1.blob.core.windows.net/assetbundles";
+        public string ContainerURL { get => _containerURL; set => _containerURL = value;}
+        [SerializeField] private string _containerURL = "https://addressabletest1.blob.core.windows.net/assetbundles";
 
-        protected IPrefabProvider PrefabProvider;
+        protected IGameObjectProvider GameObjectProvider;
         protected IApparatusProvider ApparatusProvider;
 
         protected abstract void Start();

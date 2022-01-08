@@ -10,14 +10,14 @@ using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
 {
-    public class EditableDatabasePrefabProvider : IPrefabProvider
+    public class EditableDatabaseGameObjectProvider : IGameObjectProvider
     {
-        private const string cLogCategory = nameof(EditableDatabasePrefabProvider);
+        private const string cLogCategory = nameof(EditableDatabaseGameObjectProvider);
 
         private SoApparatusConfig _config;
         private Dictionary<string, GameObject> _prefabCache = new Dictionary<string, GameObject>();
 
-        public EditableDatabasePrefabProvider(SoApparatusConfig config)
+        public EditableDatabaseGameObjectProvider(SoApparatusConfig config)
         {
             _config = config;
         }

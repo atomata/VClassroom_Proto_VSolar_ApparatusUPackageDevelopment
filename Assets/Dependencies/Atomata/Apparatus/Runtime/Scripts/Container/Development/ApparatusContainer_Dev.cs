@@ -15,7 +15,7 @@ namespace Atomata.VSolar.Apparatus {
     public class ApparatusContainer_Dev : MonoBehaviour, IRequestHandler
     {
         private const string cLogCategory = nameof(ApparatusContainer_Dev);
-        private IPrefabProvider PrefabProvider;
+        private IGameObjectProvider _gameObjectProvider;
         private IApparatusProvider ApparatusProvider;
 
         [SerializeField]
@@ -32,7 +32,7 @@ namespace Atomata.VSolar.Apparatus {
                 OneHexServices.Instance.Log.Error(cLogCategory, "An SoApparatus Config must be assigned for editor containers");
             }
 
-            PrefabProvider = new EditableDatabasePrefabProvider(Config);
+            _gameObjectProvider = new EditableDatabaseGameObjectProvider(Config);
             ApparatusProvider = new EditableDatabaseApparatusProvider(Config);
 
             if (Node == null) return;
@@ -63,7 +63,7 @@ namespace Atomata.VSolar.Apparatus {
         public void HandleRequest(ApparatusRequest req, LogWriter log)
         {
             log.AddInfo(cLogCategory, cLogCategory, $"{req.GetIDString()} Request received, handling...");
-            UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, req, this, cLogCategory, log);
+            UTApparatusRequest.HandleRequest(_gameObjectProvider, ApparatusProvider, req, this, cLogCategory, log);
         }
     }
 }

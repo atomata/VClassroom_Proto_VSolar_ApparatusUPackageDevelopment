@@ -12,7 +12,7 @@ namespace Atomata.VSolar.Apparatus
     /// should handle all caching mechanisms and completely abstract the origin
     /// of the prefab from the consumer. 
     /// </summary>
-    public interface IPrefabProvider
+    public interface IGameObjectProvider
     {
         /// <summary>
         /// Provides a prefab based on the key. If the prefab cannot be found,

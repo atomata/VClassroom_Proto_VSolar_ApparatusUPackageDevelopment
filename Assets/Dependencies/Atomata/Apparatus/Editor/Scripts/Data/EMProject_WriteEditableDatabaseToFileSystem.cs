@@ -80,6 +80,7 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
 
             // Converts to assets to asset bundles, then move them to the desired location
             PerformSourceTargetProcess("assetbundles", "prefab", ProcessAssetBundle);
+            PerformSourceTargetProcess("skyboxes", "mat", ProcessAssetBundle);
 
             void ProcessAssetBundle(PathString sourceFile, PathString targetFolder)
             {

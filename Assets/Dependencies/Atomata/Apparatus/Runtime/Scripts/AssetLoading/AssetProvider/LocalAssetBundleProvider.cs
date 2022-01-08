@@ -17,7 +17,7 @@ using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
 {
-    public class LocalAssetBundleProvider : IPrefabProvider
+    public class LocalAssetBundleProvider : IGameObjectProvider
     {
         private const string cLogCategory = nameof(LocalAssetBundleProvider);
 

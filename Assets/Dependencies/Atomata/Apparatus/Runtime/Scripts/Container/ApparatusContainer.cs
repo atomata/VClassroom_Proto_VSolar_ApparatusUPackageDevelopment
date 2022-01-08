@@ -12,8 +12,8 @@ namespace Atomata.VSolar.Apparatus.Example
 
         protected override void Start()
         {
-            PrefabProvider = new CloudAssetProvider("vsolarsystem-proto-storage", RootURL + "/assetbundles");
-            ApparatusProvider = new CloudApparatusProvider("vsolarsystem-proto-storage", RootURL + "/apparatus");
+            GameObjectProvider = new CloudAssetProvider(ContainerURL);
+            ApparatusProvider = new CloudApparatusProvider(ContainerURL);
         }
         
         /// <summary>
@@ -63,7 +63,7 @@ namespace Atomata.VSolar.Apparatus.Example
         public override void HandleRequest(ApparatusRequest request, LogWriter log)
         {
             log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
-            UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, request, this, cLogCategory, log);
+            UTApparatusRequest.HandleRequest(GameObjectProvider, ApparatusProvider, request, this, cLogCategory, log);
         }
     }
 }
