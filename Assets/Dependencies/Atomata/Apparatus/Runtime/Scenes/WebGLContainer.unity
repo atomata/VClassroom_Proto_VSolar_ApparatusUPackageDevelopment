@@ -387,55 +387,104 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _managedNode: {fileID: 0}
-  SceneManager: {fileID: 0}
---- !u!1 &1641758736
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1641758737}
-  - component: {fileID: 1641758738}
-  m_Layer: 0
-  m_Name: AtomataScene
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1641758737
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641758736}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1641758738
+  SceneManager: {fileID: 1641758738}
+--- !u!114 &1641758738 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+  m_PrefabInstance: {fileID: 1148575149320653401}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641758736}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 749aa366fa271f841b127b8a56cf7245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _containerURL: https://vclassroommspedex.blob.core.windows.net
-  _container: {fileID: 1589595087}
-  ContainerUrl: https://vclassroommspedex.blob.core.windows.net
-  skybox: {fileID: 1404025889}
-  Camera: {fileID: 1404025886}
-  TestLoadKey: wobble-sphere
-  TestLoadSkyboxKey: space
-  TestTriggerKey: 
+--- !u!1001 &1148575149320653401
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064456, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064457, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: m_Name
+      value: AtomataScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1404025886}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: skybox
+      value: 
+      objectReference: {fileID: 1404025889}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 1404025886}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: c488f54dc5526eb4da024f86592d741f, type: 2}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: _skybox
+      value: 
+      objectReference: {fileID: 1404025889}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: _configSo
+      value: 
+      objectReference: {fileID: 11400000, guid: c488f54dc5526eb4da024f86592d741f, type: 2}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: _container
+      value: 
+      objectReference: {fileID: 1589595087}
+    - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
+      propertyPath: _skyboxMaterial
+      value: 
+      objectReference: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
