@@ -61,5 +61,14 @@ namespace Atomata.VSolar.Apparatus
                 new ApparatusLoadRequestArgs(identifier)
             );
         }
+
+        /// <summary>
+        /// Request that the given transform be focused on. The transform represents
+        /// the final transform of the camera in world space
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static ApparatusRequestObject CameraFocus(Transform t)
+            => new ApparatusRequestObject(EApparatusRequestType.CameraFocus, t);
     }
 }

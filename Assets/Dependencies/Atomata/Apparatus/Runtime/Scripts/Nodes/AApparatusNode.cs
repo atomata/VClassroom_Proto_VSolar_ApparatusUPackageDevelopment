@@ -9,6 +9,7 @@ using HexUN.Framework.Debugging;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -265,7 +266,7 @@ namespace Atomata.VSolar.Apparatus
                 {
                     foreach (AApparatusNode child in _children)
                     {
-                        log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Relaying to children. Remaining Path: {trigger.RemainingPath}");
+                        log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Relaying to children. Next Path Segment: {trigger.Next}");
                         
                         if (child.Identifier == trigger.Next)
                         {
