@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Containers/Examples/ApparatusContainer_ExampleDesktop.unity
-    guid: fb476052a1c354042920cb697fb8950b
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/Containers/ApparatusContainer_AddressableTest.unity
-    guid: bb10606d355f0394480d81aa317569fc
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Containers/ApparatusContainer_ExampleAssetBundleCloud.unity
-    guid: 5a5645555b12e6c429418b6924914815
+    path: Assets/Dependencies/Atomata/Apparatus/Runtime/Scenes/WebGLContainer.unity
+    guid: b148385082c27d94484a486fda7704ed
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 1b69ce73a58475e4fac1b4fae314a6ac, type: 2}

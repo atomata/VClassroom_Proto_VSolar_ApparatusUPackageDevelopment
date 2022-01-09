@@ -72,8 +72,7 @@ namespace Atomata.VSolar.Apparatus
         
         public void Trigger(string trigger)
         {
-            LogWriter log = new LogWriter(cLogCategory);
-            _container.Trigger(ApparatusTrigger.FromPathString(trigger), log);
+            _container.Trigger(ApparatusTrigger.FromPathString(trigger));
         }
     }
 }

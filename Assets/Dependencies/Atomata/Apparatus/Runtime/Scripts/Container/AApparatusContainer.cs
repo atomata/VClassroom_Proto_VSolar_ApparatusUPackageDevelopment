@@ -1,17 +1,4 @@
-using HexCS.Core;
-
-using HexUN.Data;
-
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
 using UnityEngine;
-
-using Atomata.VSolar.Apparatus;
-using UnityEngine.Networking;
-using System.Runtime.InteropServices;
 using HexUN.Framework.Debugging;
 
 namespace Atomata.VSolar.Apparatus.Example
@@ -32,8 +19,6 @@ namespace Atomata.VSolar.Apparatus.Example
         public SerializationNode ManagedNode { get => _managedNode; set => _managedNode = value;}
         [SerializeField] SerializationNode _managedNode = null;
 
-        public abstract void BoolTrigger(string trigger);
-        public abstract void VoidTrigger(string trigger);
         public abstract void HandleRequest(ApparatusRequest request, LogWriter log);
         
         /// <summary>
@@ -54,6 +39,7 @@ namespace Atomata.VSolar.Apparatus.Example
             LogWriter log = new LogWriter(cLogCategory);
             SetupSerializationNode(apparatus);
             if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true), log);
+            log.PrintToConsole(cLogCategory);
         }
 
         /// <summary>

@@ -12,46 +12,11 @@ namespace Atomata.VSolar.Apparatus.Example
 
         public AtomataSceneManager SceneManager;
 
-        public async void Trigger(ApparatusTrigger trig, LogWriter log) => await ManagedNode.Trigger(trig, log);
-        
-        /// <summary>
-        /// Handles boolean triggers, sent as strings with following format 
-        /// path/to/node@eventName?(True|False). 
-        /// </summary>
-        public override async void BoolTrigger(string trigger)
+        public async void Trigger(ApparatusTrigger trig)
         {
-            if (ManagedNode != null)
-            {
-                LogWriter log = new LogWriter(cLogCategory);
-                // unpack the info
-                string[] pathAndArgs = trigger.Split('@');
-                string[] args = pathAndArgs[1].Split('?');
-
-                // convert the info to a bool trigger object
-                await ManagedNode.Trigger(
-                    ApparatusTrigger.Trigger_Bool(args[0], bool.Parse(args[1]), pathAndArgs[0]), log
-                );
-
-            }
-        }
-
-        /// <summary>
-        /// Handles void triggers, sent as strings with following format 
-        /// path/to/node@eventName. 
-        /// </summary>
-        public override async void VoidTrigger(string trigger)
-        {
-            if (ManagedNode != null)
-            {
-                LogWriter log = new LogWriter(cLogCategory);
-                // unpack the info
-                string[] pathAndName = trigger.Split('@');
-
-                //convert the info to a void trigger object
-                await ManagedNode.Trigger(
-                    ApparatusTrigger.DirectEvent_Void(pathAndName[1], pathAndName[0]), log
-                );
-            }
+            LogWriter log = new LogWriter(cLogCategory);
+            await ManagedNode.Trigger(trig, log);
+            log.PrintToConsole(cLogCategory);
         }
 
         /// <summary>
