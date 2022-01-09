@@ -8,13 +8,13 @@ namespace Atomata.VSolar.Apparatus
 {
     public static class UTApparatusRequest
     {
-        public static async void HandleRequest(IPrefabProvider prefabProvider, IApparatusProvider apparatusProvider, ApparatusRequest req, object callObject, string callerName, LogWriter log)
+        public static async void HandleRequest(IGameObjectProvider gameObjectProvider, IApparatusProvider apparatusProvider, ApparatusRequest req, object callObject, string callerName, LogWriter log)
         {
             switch (req.RequestObject.Type)
             {
                 case EApparatusRequestType.LoadAsset:
                     log.AddInfo(callerName, callerName, $"{req.GetIDString()} Routing to {nameof(UTApparatusRequest.AssetLoad)}");
-                    AssetLoad(prefabProvider, req, callObject, callerName, log);
+                    AssetLoad(gameObjectProvider, req, callObject, callerName, log);
                     break;
                 case EApparatusRequestType.LoadApparatus:
                     log.AddInfo(callerName, callerName, $"{req.GetIDString()} Routing to {nameof(UTApparatusRequest.ApparatusLoadAndDeserialize)}");
@@ -34,7 +34,7 @@ namespace Atomata.VSolar.Apparatus
         /// <param name="callObject">The object calling</param>
         /// <param name="callerName">The object name to be used in logs</param>
         /// <param name="log">The log write to log to</param>
-        public static async void AssetLoad(IPrefabProvider provider, ApparatusRequest req, object callObject, string callerName, LogWriter log)
+        public static async void AssetLoad(IGameObjectProvider provider, ApparatusRequest req, object callObject, string callerName, LogWriter log)
         {
             log.AddInfo(callerName, callerName, $"{req.GetIDString()} Starting asset load");
             if (!req.TryClaim(callObject))
@@ -52,7 +52,8 @@ namespace Atomata.VSolar.Apparatus
                 return;
             }
 
-            GameObject prefab = await provider.Provide(args.Name, log);
+            string platformSuffix = Application.platform.AsAtomataPlatform().PlatformPrefix();
+            GameObject prefab = await provider.Provide($"{args.Name}_{platformSuffix}", log);
 
             if (prefab == null)
             {
@@ -91,7 +92,7 @@ namespace Atomata.VSolar.Apparatus
                 return;
             }
 
-            SrApparatus appa = await provider.Provide(args.Identifier, log);
+            SrApparatus appa = await provider.Provide(args.Identifier + ".json", log);
 
             if (appa == null)
             {
@@ -99,7 +100,7 @@ namespace Atomata.VSolar.Apparatus
                 req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Identifier), callObject);
             }
 
-            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Assetloaded. Responding with asset {appa.Identifier}");
+            log.AddInfo(callerName, callerName, $"{req.GetIDString()} Assetloaded. Responding with asset");
             req.Respond(ApparatusResponseObject.SerializeNodeResponse(appa), callObject);
         }
     }

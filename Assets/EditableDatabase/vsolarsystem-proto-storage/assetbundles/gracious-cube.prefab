@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e686f62cdd23546a2cd2a626e48441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _identifier: evil-cylinder
+  _identifier: evil-cylinder-worshipper
   _onRequest:
     m_PersistentCalls:
       m_Calls:
@@ -106,6 +106,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+  ApparatusKey: evil-cylinder
 --- !u!1 &7040942424282296407
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e686f62cdd23546a2cd2a626e48441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _identifier: wobble-sphere
+  _identifier: wobble-sphere-worshipper
   _onRequest:
     m_PersistentCalls:
       m_Calls:
@@ -263,6 +264,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+  ApparatusKey: wobble-sphere
 --- !u!1 &8141654591236442840
 GameObject:
   m_ObjectHideFlags: 0

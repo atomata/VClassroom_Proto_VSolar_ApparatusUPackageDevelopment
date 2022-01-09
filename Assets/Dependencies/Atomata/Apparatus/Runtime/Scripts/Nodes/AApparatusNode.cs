@@ -44,11 +44,6 @@ namespace Atomata.VSolar.Apparatus
         public EApparatusNodeConnectionState ConnectionState => _connectionState;
 
         /// <summary>
-        /// The node type
-        /// </summary>
-        public abstract EApparatusNodeType Type { get; }
-
-        /// <summary>
         /// The identifier of the node
         /// </summary>
         public string Identifier { get => _identifier; set => _identifier = value; }
@@ -283,22 +278,6 @@ namespace Atomata.VSolar.Apparatus
         #endregion
 
         /*
-         * SERAILIZATION SYSTEM
-         * How is the node serialized/deserialized
-         */
-        #region Serialization
-        /// <summary>
-        /// Returns a serializable id version of the node so that it can be identified
-        /// </summary>
-        public SrApparatusNode SerializableId() =>  new SrApparatusNode(Type, Identifier);
-
-        /// <summary>
-        /// Deserailize the basic load info based on id
-        /// </summary>
-        public virtual void Deserialize(SrApparatusNode node, string[] metas) => Identifier = node.Identifier;
-        #endregion
-
-        /*
          * METADATA SYSTEM
          * How does a node describe itself to the outside world. Format is
          * metadata_type:args
@@ -307,7 +286,7 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Gets all meta data from the node
         /// </summary>
-        public SrApparatusMetadata GetMetadata()
+        public SrApparatus Serialize()
         {
             Queue<AApparatusNode> nodes = new Queue<AApparatusNode>();
             nodes.Enqueue(this);
@@ -329,7 +308,7 @@ namespace Atomata.VSolar.Apparatus
                 foreach (AApparatusNode child in processNode.Children) nodes.Enqueue(child);
             }
 
-            return new SrApparatusMetadata
+            return new SrApparatus
             {
                 Paths = metaPaths.ToArray(),
                 Data = metaData.ToArray()
@@ -344,7 +323,8 @@ namespace Atomata.VSolar.Apparatus
             return new string[]
             {
                 UTMeta.IdentifierMeta(Identifier),
-                UTMeta.TypeMeta(NodeType)
+                UTMeta.TypeMeta(NodeType),
+                UTMeta.TransformMeta(transform)
             };
         }
 

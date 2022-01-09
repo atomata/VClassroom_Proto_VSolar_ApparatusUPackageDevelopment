@@ -129,8 +129,6 @@ namespace Atomata.VSolar.Apparatus.Tests
 
         public class TestNode_Connections : AApparatusNode
         {
-            public override EApparatusNodeType Type => default;
-
             public override string NodeType => "Test";
 
             public bool isConnected = false;

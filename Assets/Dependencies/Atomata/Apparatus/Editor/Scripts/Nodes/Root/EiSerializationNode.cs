@@ -11,11 +11,13 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
     public class EiSerializationNode : Editor
     {
         private SerializedProperty _onRequest;
+        private SerializedProperty ApparatusKey;
         private BaseProperties _baseProperties;
 
         protected virtual void OnEnable()
         {
             _onRequest = serializedObject.FindProperty("_onRequest");
+            ApparatusKey = serializedObject.FindProperty("ApparatusKey");
             _baseProperties = GetBaseProperties(serializedObject);
         }
 
@@ -31,7 +33,9 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
             GUI.enabled = true;
 
             EditorGUILayout.PropertyField(_onRequest);
-            _baseProperties.RenderGUI(node);
+            _baseProperties.RenderGUI_Fields(node);
+            EditorGUILayout.PropertyField(ApparatusKey);
+            _baseProperties.RenderGUI_ConnectionInfoAndDebug(node);
             serializedObject.ApplyModifiedProperties();
         }
     }

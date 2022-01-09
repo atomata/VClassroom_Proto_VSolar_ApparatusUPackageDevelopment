@@ -39,14 +39,14 @@ namespace Atomata.VSolar.Apparatus.Example
 
         private const string cLogCategory = nameof(ApparatusContainer_ExampleCloudBundles);
 
-        IPrefabProvider PrefabProvider;
+        IGameObjectProvider _gameObjectProvider;
         IApparatusProvider ApparatusProvider;
 
 
         private void Start()
         {
-            PrefabProvider = new CloudAssetProvider("vsolarsystem-proto-storage", _rootURL);
-            ApparatusProvider = new CloudApparatusProvider("vsolarsystem-proto-storage", _rootURL);
+            _gameObjectProvider = new CloudAssetProvider(_rootURL);
+            ApparatusProvider = new CloudApparatusProvider(_rootURL);
         }
         /// <summary>
         /// Handles boolean triggers, sent as strings with following format 
@@ -138,7 +138,7 @@ namespace Atomata.VSolar.Apparatus.Example
         public void HandleRequest(ApparatusRequest request, LogWriter log)
         {
             log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
-            UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, request, this, cLogCategory, log);
+            UTApparatusRequest.HandleRequest(_gameObjectProvider, ApparatusProvider, request, this, cLogCategory, log);
         }
     }
 }

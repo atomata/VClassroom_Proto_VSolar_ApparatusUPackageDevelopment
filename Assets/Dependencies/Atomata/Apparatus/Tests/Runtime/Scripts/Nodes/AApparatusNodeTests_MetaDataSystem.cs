@@ -39,7 +39,7 @@ namespace Atomata.VSolar.Apparatus.Tests
             par.Connect(log);
 
             // Tests
-            SrApparatusMetadata meta = par.GetMetadata();
+            SrApparatus meta = par.Serialize();
             bool pathsAreCorrect = meta.Paths.Length == 2 && meta.Paths.Contains("par") && meta.Paths.Contains("par/ch");
             UTTests.Log("The parent meta data provides expected paths", pathsAreCorrect);
 
@@ -55,7 +55,7 @@ namespace Atomata.VSolar.Apparatus.Tests
             UTTests.Log("The parent meta data values are correct", valuesAreCorrect);
 
 
-            SrApparatusMetadata metaCh = ch.GetMetadata();
+            SrApparatus metaCh = ch.Serialize();
             bool chPathsAreCorrect = metaCh.Paths.Length == 1 && metaCh.Paths.Contains("par/ch");
             UTTests.Log("The child meta data provides expected paths", chPathsAreCorrect);
 
@@ -70,8 +70,6 @@ namespace Atomata.VSolar.Apparatus.Tests
 
         public class TestNode_MetaData : AApparatusNode
         {
-            public override EApparatusNodeType Type => default;
-
             public override string NodeType => "Test";
 
             public Dictionary<string, string> OtherData = new Dictionary<string, string>();

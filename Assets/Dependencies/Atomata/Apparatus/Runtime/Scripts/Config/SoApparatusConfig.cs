@@ -107,8 +107,6 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
             AssetSaveRequestArgs args = request.RequestObject.Args as AssetSaveRequestArgs;
             UTAssets.ConvertToAssetBundleAndSaveToDatabase(args.Instance);
             request.Respond(ApparatusResponseObject.SuccessResponse(), this);
-
-            Debug.Log($"[{nameof(ApparatusContainer)}] Saved {args.Name} resource to local database");
 #endif
         }
 

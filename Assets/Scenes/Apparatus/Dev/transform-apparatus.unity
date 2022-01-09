@@ -130,8 +130,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1242756299, guid: 70d0cf5a826970e438a90d0ae1b6906e, type: 3}
+      propertyPath: m_Name
+      value: '[Apparatus] multiasset'
+      objectReference: {fileID: 0}
     - target: {fileID: 1242756300, guid: 70d0cf5a826970e438a90d0ae1b6906e, type: 3}
       propertyPath: _identifier
+      value: multi-asset
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242756300, guid: 70d0cf5a826970e438a90d0ae1b6906e, type: 3}
+      propertyPath: ApparatusKey
       value: multi-asset
       objectReference: {fileID: 0}
     - target: {fileID: 1242756300, guid: 70d0cf5a826970e438a90d0ae1b6906e, type: 3}

@@ -25,7 +25,7 @@ namespace Atomata.VSolar.Apparatus.Example
     {
         private const string cLogCategory = nameof(ApparatusContainer_ExampleDesktop);
 
-        IPrefabProvider PrefabProvider = new LocalAssetBundleProvider("vsolarsystem-proto-storage");
+        IGameObjectProvider _gameObjectProvider = new LocalAssetBundleProvider("vsolarsystem-proto-storage");
         IApparatusProvider ApparatusProvider = new LocalApparatusProvider("vsolarsystem-proto-storage");
 
         /// <summary>
@@ -99,6 +99,7 @@ namespace Atomata.VSolar.Apparatus.Example
             // set the serialization node settings
             SerializationNode serNode = serNodeGo.AddComponent<SerializationNode>();
             serNode.Identifier = identifier;
+            serNode.ApparatusKey = identifier;
 
             // cache reference
             _managedNode = serNode;
@@ -111,7 +112,7 @@ namespace Atomata.VSolar.Apparatus.Example
         public void HandleRequest(ApparatusRequest request, LogWriter log)
         {
             log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
-            UTApparatusRequest.HandleRequest(PrefabProvider, ApparatusProvider, request, this, cLogCategory, log);
+            UTApparatusRequest.HandleRequest(_gameObjectProvider, ApparatusProvider, request, this, cLogCategory, log);
         }
     }
 }
