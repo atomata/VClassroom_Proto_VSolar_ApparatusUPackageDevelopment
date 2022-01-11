@@ -10,6 +10,7 @@ using HexUN.Framework.Debugging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -417,6 +418,13 @@ namespace Atomata.VSolar.Apparatus
             _children.Clear();
         }
 
+        public void PrintTreeToStringBuilder(StringBuilder sb, string dashes)
+        {
+            sb.AppendLine($"{dashes} {_identifier}");
+            foreach (AApparatusNode node in Children)
+                node.PrintTreeToStringBuilder(sb, dashes + "-");
+        }
+        
 #if UNITY_EDITOR
         /// <summary>
         /// <para>Used when populating controls available to the node and it's children. In the unity editor,

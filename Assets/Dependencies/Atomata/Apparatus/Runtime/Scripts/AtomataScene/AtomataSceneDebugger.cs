@@ -13,6 +13,6 @@ public class AtomataSceneDebugger : MonoBehaviour
     [ContextMenu("UnloadApparatus")] void UnloadApparatus() => manager.UnloadApparatus();
     [ContextMenu("LoadSkybox")] void LoadSkybox() => manager.LoadSkybox(Input);
     [ContextMenu("Trigger")] void Trigger() => manager.Trigger(Input);
-
     [ContextMenu("ReturnCamera")] void ReturnCamera() => manager.ReturnCamera();
+    [ContextMenu("Debug")] void Debug() => manager.Dbg("printtree");
 }

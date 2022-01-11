@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using HexUN.Framework.Debugging;
 
@@ -60,6 +61,13 @@ namespace Atomata.VSolar.Apparatus.Example
 
             // cache reference
             _managedNode = serNode;
+        }
+
+        public void Debug_PrintTree()
+        {
+            StringBuilder sb = new StringBuilder();
+            _managedNode.PrintTreeToStringBuilder(sb, "");
+            Debug.Log(sb.ToString());
         }
     }
 }

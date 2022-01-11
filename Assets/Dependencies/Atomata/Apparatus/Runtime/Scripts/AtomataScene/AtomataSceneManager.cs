@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
 {
-    // TODO: Abstract an interface or abstract class for multiple platform
     public class AtomataSceneManager : MonoBehaviour
     {
         private const string cLogCategory = nameof(AtomataSceneManager);
@@ -176,6 +175,16 @@ namespace Atomata.VSolar.Apparatus
             _container.Trigger(ApparatusTrigger.FromPathString(trigger));
         }
 
+        public void Dbg(string command)
+        {
+            switch (command.ToLower())
+            {
+                case "printtree":
+                    Container.Debug_PrintTree();
+                    break;
+            }
+        }
+        
         IEnumerator LerpCamera(Transform origin, Transform target, float speed)
         {
             float lerp = 0;
