@@ -9,6 +9,8 @@ using HexUN.Framework.Debugging;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -265,7 +267,7 @@ namespace Atomata.VSolar.Apparatus
                 {
                     foreach (AApparatusNode child in _children)
                     {
-                        log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Relaying to children. Remaining Path: {trigger.RemainingPath}");
+                        log.AddInfo(cLogCategory, NodeIdentityString, $"{trigger.Trigger.GetIDString()} Relaying to children. Next Path Segment: {trigger.Next}");
                         
                         if (child.Identifier == trigger.Next)
                         {
@@ -416,6 +418,13 @@ namespace Atomata.VSolar.Apparatus
             _children.Clear();
         }
 
+        public void PrintTreeToStringBuilder(StringBuilder sb, string dashes)
+        {
+            sb.AppendLine($"{dashes} {_identifier}");
+            foreach (AApparatusNode node in Children)
+                node.PrintTreeToStringBuilder(sb, dashes + "-");
+        }
+        
 #if UNITY_EDITOR
         /// <summary>
         /// <para>Used when populating controls available to the node and it's children. In the unity editor,

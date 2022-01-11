@@ -21,6 +21,13 @@ namespace Atomata.VSolar.Apparatus
         /// Attempts to get an apparatus json from the database and
         /// deserailize it into an SRApparatusNode
         /// </summary>
-        LoadApparatus = 2
+        LoadApparatus = 2,
+        
+        /// <summary>
+        /// Asks for the environment to perform a camera focus event.
+        /// On some platforms this moves the camera, on others it moves to
+        /// object to the camera. 
+        /// </summary>
+        CameraFocus = 3
     }
 }

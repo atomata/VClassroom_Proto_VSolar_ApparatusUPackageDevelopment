@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IO;
 using Atomata.Scene;
 using Atomata.VSolar.Apparatus.Example;
@@ -7,7 +8,6 @@ using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
 {
-    // TODO: Abstract an interface or abstract class for multiple platform
     public class AtomataSceneManager : MonoBehaviour
     {
         private const string cLogCategory = nameof(AtomataSceneManager);
@@ -15,6 +15,10 @@ namespace Atomata.VSolar.Apparatus
         private IGameObjectProvider _assetProvider;
         private IApparatusProvider _apparatusProvider;
         private MaterialProvider _skyboxProvider;
+
+        private GameObject originCamera;
+        private GameObject lerpStart;
+        private GameObject lerpStop;
         
         public AtomataSceneConfig Config
         {
@@ -80,6 +84,13 @@ namespace Atomata.VSolar.Apparatus
                 Debug.LogError($"No Container has been set");
             
             ConfigureSkybox();
+
+            originCamera = new GameObject("originTransform");
+            originCamera.transform.SetParent(_camera.transform, false);
+            originCamera.transform.SetParent(null);
+
+            lerpStart = new GameObject("lerpStart");
+            lerpStop = new GameObject("lerpStop");
         }
 
         void ConfigureProviders()
@@ -108,6 +119,19 @@ namespace Atomata.VSolar.Apparatus
             AtomataSceneConfig config = JsonSerialization.FromJson<AtomataSceneConfig>(configuration);
             Config = config;
         }
+
+        public void ReturnCamera()
+        { 
+            StopAllCoroutines();
+
+            lerpStart.transform.position = _camera.transform.position;
+            lerpStart.transform.rotation = _camera.transform.rotation;
+
+            lerpStop.transform.position = originCamera.transform.position;
+            lerpStop.transform.rotation = originCamera.transform.rotation;
+            
+            StartCoroutine(LerpCamera(lerpStart.transform, lerpStop.transform, Config.CameraSpeed));
+        }
         
         public void LoadApparatus(string key) => _container.LoadApparatus(key);
 
@@ -122,12 +146,60 @@ namespace Atomata.VSolar.Apparatus
         public void HandleRequest(ApparatusRequest request, LogWriter log)
         {
             log.AddInfo(cLogCategory, cLogCategory, $"Received request {request.RequestObject.Type}");
-            UTApparatusRequest.HandleRequest(_assetProvider, _apparatusProvider, request, this, cLogCategory, log);
+
+            if (!request.IsClaimed)
+            {
+                if (request.RequestObject.Type == EApparatusRequestType.CameraFocus && request.TryClaim(this))
+                {
+                    Transform target = request.RequestObject.Args as Transform;
+
+                    lerpStart.transform.position = _camera.transform.position;
+                    lerpStart.transform.rotation = _camera.transform.rotation;
+                    
+                    lerpStop.transform.position = target.position;
+                    lerpStop.transform.rotation = target.rotation;
+
+                    StartCoroutine(LerpCamera(lerpStart.transform, lerpStop.transform, Config.CameraSpeed));
+
+                    request.Respond(null, this);
+                }
+                else
+                {
+                    UTApparatusRequest.HandleRequest(_assetProvider, _apparatusProvider, request, this, cLogCategory, log);
+                }
+            }
         }
         
         public void Trigger(string trigger)
         {
             _container.Trigger(ApparatusTrigger.FromPathString(trigger));
+        }
+
+        public void Dbg(string command)
+        {
+            switch (command.ToLower())
+            {
+                case "printtree":
+                    Container.Debug_PrintTree();
+                    break;
+            }
+        }
+        
+        IEnumerator LerpCamera(Transform origin, Transform target, float speed)
+        {
+            float lerp = 0;
+
+            while (lerp < speed)
+            {
+                float t = lerp / speed;
+                _camera.transform.position = Vector3.Lerp(origin.position, target.position, t);
+                _camera.transform.rotation = Quaternion.Lerp(origin.rotation, target.rotation, t);
+                lerp += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+
+            _camera.transform.position = target.position;
+            _camera.transform.rotation = target.rotation;
         }
     }
 }

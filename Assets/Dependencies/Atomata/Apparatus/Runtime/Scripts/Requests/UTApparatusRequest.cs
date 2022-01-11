@@ -53,7 +53,10 @@ namespace Atomata.VSolar.Apparatus
             }
 
             string platformSuffix = Application.platform.AsAtomataPlatform().PlatformPrefix();
-            GameObject prefab = await provider.Provide($"{args.Name}_{platformSuffix}", log);
+                
+            GameObject prefab = provider is EditableDatabaseGameObjectProvider 
+                ? await provider.Provide($"{args.Name}", log)
+                : await provider.Provide($"{args.Name}_{platformSuffix}", log);
 
             if (prefab == null)
             {

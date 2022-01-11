@@ -12,6 +12,7 @@ namespace Atomata.Scene
         public string ApparatusContainerUrl;
         public string AssetContainerUrl;
         public string SkyboxContainerUrl;
+        public float CameraSpeed = 1.5f;
 
         public AtomataSceneConfig AsSceneConfig()
         {
@@ -19,7 +20,8 @@ namespace Atomata.Scene
             {
                 ApparatusContainerUrl = ApparatusContainerUrl,
                 AssetContainerUrl = AssetContainerUrl,
-                SkyboxContainerUrl = SkyboxContainerUrl
+                SkyboxContainerUrl = SkyboxContainerUrl,
+                CameraSpeed = CameraSpeed
             };
         }
     }
@@ -30,5 +32,6 @@ namespace Atomata.Scene
         public string ApparatusContainerUrl;
         public string AssetContainerUrl;
         public string SkyboxContainerUrl;
+        public float CameraSpeed;
     }
 }
