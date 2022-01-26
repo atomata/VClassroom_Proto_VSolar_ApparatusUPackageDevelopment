@@ -51,7 +51,7 @@ namespace Atomata.VSolar.Apparatus
 
         public SrApparatus ResolveSerializedNode(string identifier)
         {
-            UnityPath path = Folders.EditableDatabaseApparatusPath.Path.InsertAtEnd($"{identifier}.json");
+            UnityPath path = Folders.EditableDatabaseApparatusPath.Path.InsertAtEnd($"{identifier}");
 
             if (!path.Path.TryAsFileInfo(out FileInfo info))
                 OneHexServices.Instance.Log.Error(cLogCategory, $"Failed to get path {path} as {nameof(FileInfo)}");

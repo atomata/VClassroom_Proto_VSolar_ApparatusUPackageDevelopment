@@ -32,6 +32,9 @@ namespace Atomata.VSolar.Apparatus
         public const string cMetaInputBoolType = "bool";
         public const string cMetaInputVector3Type = "vec3";
 
+        public static string BasicMeta(string key, string value)
+            => string.Format(cMetaInfoFormat, key, value);
+        
         public static string AssociatedNodeMeta(string associatedNode)
           => string.Format(cMetaInfoFormat, cMetaTypeAssociatedNode, associatedNode);
 
