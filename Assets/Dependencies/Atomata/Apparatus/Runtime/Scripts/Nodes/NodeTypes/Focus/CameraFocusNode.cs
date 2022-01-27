@@ -21,7 +21,7 @@ namespace Atomata.VSolar.Apparatus
     /// <summary>
     /// A group of named UnityEvents
     /// </summary>
-    public class CameraFocusNode : AApparatusNode
+    public class CameraFocusNode : HumanMetaNode
     {
         private const string cLogCategory = nameof(CameraFocusNode);
         

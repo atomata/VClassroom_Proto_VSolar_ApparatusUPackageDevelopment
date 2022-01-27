@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using System.Runtime.InteropServices;
 using Atomata.Scene;
 using Atomata.VSolar.Apparatus.Example;
 using HexUN.Framework.Debugging;
@@ -19,6 +20,10 @@ namespace Atomata.VSolar.Apparatus
         private GameObject originCamera;
         private GameObject lerpStart;
         private GameObject lerpStop;
+        
+        [DllImport("__Internal")]
+        private static extern void OnAtomataSceneInitalized();
+        
         
         public AtomataSceneConfig Config
         {
@@ -91,6 +96,10 @@ namespace Atomata.VSolar.Apparatus
 
             lerpStart = new GameObject("lerpStart");
             lerpStop = new GameObject("lerpStop");
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            OnAtomataSceneInitalized();
+#endif
         }
 
         void ConfigureProviders()
