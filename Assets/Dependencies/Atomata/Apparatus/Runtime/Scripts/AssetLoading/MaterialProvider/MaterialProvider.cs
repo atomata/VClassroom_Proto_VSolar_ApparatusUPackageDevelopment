@@ -12,6 +12,7 @@ namespace Atomata.VSolar.Apparatus
         {
             AssetBundle assetBundle = AssetBundle.LoadFromMemory(bytes);
             Material[] objs = assetBundle.LoadAllAssets<Material>();
+            assetBundle.Unload(false);
             return objs != null && objs.Length > 0 ? objs[0] : null;
         }
     }
