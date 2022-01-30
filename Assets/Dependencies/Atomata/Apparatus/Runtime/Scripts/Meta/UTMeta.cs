@@ -44,8 +44,13 @@ namespace Atomata.VSolar.Apparatus
         public static string TypeMeta(string type)
             => string.Format(cMetaInfoFormat, cMetaTypeType, type);
 
-        public static string InputMeta(string inputType, string inputName)
-            => string.Format(cMetaInfoFormat, cMetaTypeInput, string.Format(cMetaInputFormat, inputType, inputName));
+        public static string InputMeta(string inputType, string inputName, UiMeta uiMeta = null)
+        {
+            if (uiMeta != null)
+                return string.Format(cMetaInfoFormat, cMetaTypeInput, string.Format(cMetaInputFormat, inputType, inputName)) + uiMeta.AsArgs();
+            
+            return string.Format(cMetaInfoFormat, cMetaTypeInput, string.Format(cMetaInputFormat, inputType, inputName));
+        }
 
         public static string KeyMeta(string key) 
             => string.Format(cMetaInfoFormat, cMetaTypeKey, key);

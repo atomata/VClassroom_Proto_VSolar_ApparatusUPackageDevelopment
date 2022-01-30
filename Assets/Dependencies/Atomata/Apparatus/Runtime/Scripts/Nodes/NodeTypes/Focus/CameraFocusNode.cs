@@ -21,7 +21,7 @@ namespace Atomata.VSolar.Apparatus
     /// <summary>
     /// A group of named UnityEvents
     /// </summary>
-    public class CameraFocusNode : HumanMetaNode
+    public class CameraFocusNode : AApparatusNode
     {
         private const string cLogCategory = nameof(CameraFocusNode);
         
@@ -31,6 +31,8 @@ namespace Atomata.VSolar.Apparatus
         [Tooltip("Associated node")]
         private AApparatusNode _associatedNode;
 
+        [SerializeField] private UiMeta UiMeta;
+        
         public bool ShowCamera;
 
         private Camera _mainCamera;
@@ -93,7 +95,7 @@ namespace Atomata.VSolar.Apparatus
 
             List<string> metas = new List<string>();
             metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Path().ToString('/')));
-            metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, "focus"));
+            metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, "focus", UiMeta));
             return UTArray.Combine(b, metas.ToArray());
         }
 

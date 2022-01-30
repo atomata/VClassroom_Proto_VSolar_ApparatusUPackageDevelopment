@@ -1,5 +1,5 @@
 mergeInto(LibraryManager.library, {
-    AtomataSceneInitalized: function()
+    OnAtomataSceneInitalized: function()
     {
         if(window.onAtomataSceneInitalize)
         {

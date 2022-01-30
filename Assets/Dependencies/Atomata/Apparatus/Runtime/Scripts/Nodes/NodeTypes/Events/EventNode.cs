@@ -50,10 +50,14 @@ namespace Atomata.VSolar.Apparatus
         /// </summary>
         public string[] VoidEvents => _voidEventNames;
 
+        public UiMeta[] VoidEventMetas;
+
         /// <summary>
         /// All bool trigger names available
         /// </summary>
         public string[] BoolEvents => _boolEventNames;
+
+        public UiMeta[] BoolEventMetas;
 
         public override string NodeType => "Event";
 
@@ -108,8 +112,14 @@ namespace Atomata.VSolar.Apparatus
 
             List<string> metas = new List<string>();
             metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Path().ToString('/')));
-            foreach (string trig in VoidEvents) metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, trig));
-            foreach (string trig in BoolEvents) metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputBoolType, trig));
+
+            for (int i = 0; i < VoidEvents.Length; i++)
+                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, VoidEvents[i], VoidEventMetas.Length < i ?VoidEventMetas[i] : null));
+            
+
+            for (int i = 0; i < BoolEvents.Length; i++)
+                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, BoolEvents[i], BoolEventMetas.Length < i ? BoolEventMetas[i] : null));
+            
 
             return UTArray.Combine(b, metas.ToArray());
         }

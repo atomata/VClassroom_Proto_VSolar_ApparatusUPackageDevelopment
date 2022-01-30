@@ -47,7 +47,7 @@ namespace Atomata.VSolar.Apparatus
 
             if (args == null)
             {
-                log.AddError(callerName, callerName, "{req.GetIDString()} Failed to get AssetLoadRequestArgs from AssetLoadRequest");
+                log.AddError(callerName, callerName, $"{req.GetIDString()} Failed to get AssetLoadRequestArgs from AssetLoadRequest");
                 req.Respond(ApparatusResponseObject.NotYetLoadedOrMissingReferenceResponse(args.Name), callObject);
                 return;
             }

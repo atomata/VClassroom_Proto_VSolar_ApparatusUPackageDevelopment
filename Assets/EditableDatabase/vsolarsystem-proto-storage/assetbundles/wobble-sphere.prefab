@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _identifier: cam_closeup
-  Name: Close Up
-  Description: A close up of the wobble sphere's face
   _associatedNode: {fileID: 0}
+  UiMeta:
+    UiName: Close Up
+    UiDesc: A close up of the wobble sphere
   ShowCamera: 0
 --- !u!20 &4368991457931312844
 Camera:
@@ -172,9 +173,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _identifier: cam_frombehind
-  Name: Back shot
-  Description: A camera angle showing the wobble sphere looking into the distance
   _associatedNode: {fileID: 0}
+  UiMeta:
+    UiName: Behind
+    UiDesc: The wobble sphere looks into the distance
   ShowCamera: 0
 --- !u!20 &2390153770557149831
 Camera:
@@ -402,9 +404,9 @@ MonoBehaviour:
   _identifier: animations
   _associatedNode: {fileID: 0}
   _voidEventNames:
-  - Still
-  - Wobble
-  - Bounce
+  - still
+  - wobble
+  - bounce
   _voidEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -450,3 +452,11 @@ MonoBehaviour:
         m_CallState: 2
   _boolEventNames: []
   _boolEvents: []
+  VoidEventMetas:
+  - UiName: Still
+    UiDesc: asdf
+  - UiName: Wobble Around
+    UiDesc: asdf
+  - UiName: Bounce Up
+    UiDesc: asdf
+  BoolEventMetas: []
