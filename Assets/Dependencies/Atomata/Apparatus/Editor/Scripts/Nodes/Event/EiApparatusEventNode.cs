@@ -13,8 +13,10 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
         private SerializedProperty _associatedNode;
         private SerializedProperty _voidEventNames;
         private SerializedProperty _voidEvents;
+        private SerializedProperty _voidEventUiMetas;
         private SerializedProperty _boolEventNames;
         private SerializedProperty _boolEvents;
+        private SerializedProperty _boolEventUiMetas;
 
         protected virtual void OnEnable()
         {
@@ -22,8 +24,10 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
             _associatedNode = serializedObject.FindProperty(nameof(_associatedNode));
             _voidEventNames = serializedObject.FindProperty(nameof(_voidEventNames));
             _voidEvents = serializedObject.FindProperty(nameof(_voidEvents));
+            _voidEventUiMetas = serializedObject.FindProperty("VoidEventMetas");
             _boolEventNames = serializedObject.FindProperty(nameof(_boolEventNames));
             _boolEvents = serializedObject.FindProperty(nameof(_boolEvents));
+            _boolEventUiMetas = serializedObject.FindProperty("BoolEventMetas");
         }
 
         public override void OnInspectorGUI()
@@ -42,8 +46,10 @@ namespace Atomata.VSolar.Apparatus.UnityEditor
             EditorGUILayout.PropertyField(_associatedNode);
             EditorGUILayout.PropertyField(_voidEventNames);
             EditorGUILayout.PropertyField(_voidEvents);
+            EditorGUILayout.PropertyField(_voidEventUiMetas);
             EditorGUILayout.PropertyField(_boolEventNames);
             EditorGUILayout.PropertyField(_boolEvents);
+            EditorGUILayout.PropertyField(_boolEventUiMetas);
 
             serializedObject.ApplyModifiedProperties();
         }

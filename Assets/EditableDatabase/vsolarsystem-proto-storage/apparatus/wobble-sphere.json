@@ -19,22 +19,18 @@
     "2@type:Event",
     "2@transform:0,0,0,0,0,0,1,1,1,1",
     "2@associatedNode:wobble-sphere/wobble-sphere",
-    "2@input:void/Still",
-    "2@input:void/Wobble",
-    "2@input:void/Bounce",
+    "2@input:void/still?uiname=Still&uidesc=asdf",
+    "2@input:void/wobble?uiname=Wobble Around&uidesc=asdf",
+    "2@input:void/bounce?uiname=Bounce Up&uidesc=asdf",
     "3@identifier:cam_closeup",
     "3@type:CameraFocus",
     "3@transform:1.424,0.391,-0.731,0.06201966,-0.4424898,0.05627118,0.8928549,1,1,1",
-    "3@name:Close Up",
-    "3@description:A close up of the wobble sphere's face",
     "3@associatedNode:wobble-sphere/wobble-sphere",
-    "3@input:void/focus",
+    "3@input:void/focus?uiname=Close Up&uidesc=A close up of the wobble sphere",
     "4@identifier:cam_frombehind",
     "4@type:CameraFocus",
     "4@transform:-2.61,0.11,-1.66,0,0.6160336,0,0.7877199,1,1,1",
-    "4@name:Back shot",
-    "4@description:A camera angle showing the wobble sphere looking into the distance",
     "4@associatedNode:wobble-sphere/wobble-sphere",
-    "4@input:void/focus"
+    "4@input:void/focus?uiname=Behind&uidesc=The wobble sphere looks into the distance"
   ]
 }
