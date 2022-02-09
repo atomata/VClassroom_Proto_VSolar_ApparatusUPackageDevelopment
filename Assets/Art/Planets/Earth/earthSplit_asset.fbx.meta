@@ -1,12 +1,34 @@
 fileFormatVersion: 2
-guid: e42cf7f7d035641448c5421417028a15
+guid: a399b86f79b89b14192e974aa107bf5e
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable:
+  internalIDToNameTable: []
+  externalObjects:
   - first:
-      74: 7977886469264515512
-    second: earthMantle_moving|CubeAction
-  externalObjects: {}
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: crustInside_mat
+    second: {fileID: 2100000, guid: 6c1af0c3a76c0c440a4627d02c8cba4c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: crust_mat
+    second: {fileID: 2100000, guid: 48078f53448b70540bb031b7b6b7fcbb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: innerCore_mat
+    second: {fileID: 2100000, guid: 0dd0c9a5732a86043b261ab20811779a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mantle_mat
+    second: {fileID: 2100000, guid: 11c996b72748896459a1161f599cb6d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: outerCore_mat
+    second: {fileID: 2100000, guid: c2837f10d971b0241b855f3c323ee4c0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -75,7 +97,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - 47b1285e831572d40853893201b9c807
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

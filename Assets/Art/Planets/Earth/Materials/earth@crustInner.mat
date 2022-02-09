@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5057677718710347213
+--- !u!114 &-2476938256364586781
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,10 +20,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: earth@core
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
-  m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 2
+  m_Name: earth@crustInner
+  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
@@ -34,7 +34,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_f751fc6cd6cb43e3843602dc083c969e:
-        m_Texture: {fileID: 2800000, guid: cb7d18bf0cd69374a98c25e1a9f84269, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_fad920826a65428a90ede2b025bfeffc:
@@ -103,7 +103,7 @@ Material:
     - Boolean_f06e026bdf484f08a17566b3c18bf065: 0
     - Vector1_48ea378ce97b45fdac66bc2beacc849f: 1
     - Vector1_67c17b20aa9a40838febdbed640212db: 0
-    - Vector1_7c4cacf3354447f8be58af556836d23d: 10
+    - Vector1_7c4cacf3354447f8be58af556836d23d: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0
@@ -128,6 +128,7 @@ Material:
     - _FlipbookMode: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
+    - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _Metallic: 0
     - _Mode: 0
@@ -136,25 +137,28 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SampleGI: 0
+    - _Shininess: 0
     - _Smoothness: 0.5
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
+    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_4bef7a66fa424b0ba0ea3b2623910eed: {r: 1, g: 0.40784317, b: 0, a: 1}
-    - Color_e86e9a23f4a4467e90e41a66dfae9069: {r: 0, g: 0, b: 0, a: 0}
-    - _BaseColor: {r: 0.96470594, g: 0.9607844, b: 0, a: 1}
+    - Color_4bef7a66fa424b0ba0ea3b2623910eed: {r: 0, g: 0, b: 0, a: 0}
+    - Color_e86e9a23f4a4467e90e41a66dfae9069: {r: 0.31132078, g: 0.11702098, b: 0,
+        a: 0}
+    - _BaseColor: {r: 0.24528301, g: 0.1435803, b: 0, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 3.6862745, g: 3.654902, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0.5686275, g: 0, b: 0.003921569, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
