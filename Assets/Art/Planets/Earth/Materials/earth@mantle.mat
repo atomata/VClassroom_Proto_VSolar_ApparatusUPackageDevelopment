@@ -138,10 +138,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_4bef7a66fa424b0ba0ea3b2623910eed: {r: 0.24528301, g: 0.049689993, b: 0,
-        a: 0}
-    - Color_e86e9a23f4a4467e90e41a66dfae9069: {r: 0.5471698, g: 0.19477925, b: 0,
-        a: 0}
+    - Color_4bef7a66fa424b0ba0ea3b2623910eed: {r: 0.24528301, g: 0.049689993, b: 0, a: 0}
+    - Color_e86e9a23f4a4467e90e41a66dfae9069: {r: 0.5471698, g: 0.19477925, b: 0, a: 0}
     - _BaseColor: {r: 0.16981131, g: 0.029972283, b: 0.00080099865, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5342672212624740402}
   m_Layer: 0
-  m_Name: earth
+  m_Name: moon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 48078f53448b70540bb031b7b6b7fcbb, type: 2}
+  - {fileID: 2100000, guid: 2c2a34be1187d02468d3810587a47a14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
