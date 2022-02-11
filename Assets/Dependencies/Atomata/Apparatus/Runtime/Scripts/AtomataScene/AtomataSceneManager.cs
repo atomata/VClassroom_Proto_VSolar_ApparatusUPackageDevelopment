@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Atomata.Scene;
 using Atomata.VSolar.Apparatus.Example;
+using Atomata.VSolar.Apparatus.UnityEditor;
 using HexUN.Framework.Debugging;
 using Unity.Serialization.Json;
 using UnityEngine;
@@ -77,6 +78,10 @@ namespace Atomata.VSolar.Apparatus
         
         public ApparatusContainer Container {get => _container;set => _container = value; }
         [SerializeField] ApparatusContainer _container;
+
+        [SerializeField]
+        [Tooltip("TEMP: If not null, makes the scene use the editable database in editor")]
+        private SoApparatusConfig AssetDatabaseConfig;
         
         void Start()
         {
@@ -108,7 +113,16 @@ namespace Atomata.VSolar.Apparatus
             {
                 _skyboxProvider = new MaterialProvider(Config.SkyboxContainerUrl);
                 _assetProvider = new CloudAssetProvider(Config.AssetContainerUrl);
-                _apparatusProvider = new CloudApparatusProvider(Config.ApparatusContainerUrl);
+                
+                
+                #if UNITY_EDITOR
+                if (AssetDatabaseConfig != null)
+                    _apparatusProvider = new EditableDatabaseApparatusProvider(AssetDatabaseConfig);
+                else 
+                    _apparatusProvider = new CloudApparatusProvider(Config.ApparatusContainerUrl);
+                #else
+                    _apparatusProvider = new CloudApparatusProvider(Config.ApparatusContainerUrl);
+                #endif
             }
             else
                 Debug.LogError($"No {nameof(Config)} has been set");
