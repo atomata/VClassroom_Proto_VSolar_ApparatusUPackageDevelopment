@@ -85,6 +85,10 @@ namespace Atomata.VSolar.Apparatus
         
         void Start()
         {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+            WebGLInput.captureAllKeyboardInput = false;
+#endif
+        
             if (_configSo != null)
                 Config = _configSo.AsSceneConfig();
             
