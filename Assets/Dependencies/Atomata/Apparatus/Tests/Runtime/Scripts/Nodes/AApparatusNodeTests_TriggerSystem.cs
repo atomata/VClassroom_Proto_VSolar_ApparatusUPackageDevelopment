@@ -133,6 +133,11 @@ namespace Atomata.VSolar.Apparatus.Tests
                 return;
             }
 
+            protected override string[] ResolveMetadata()
+            {
+                throw new System.NotImplementedException();
+            }
+
             protected async UniTask Load()
             {
                 wasLoadCalled = true;

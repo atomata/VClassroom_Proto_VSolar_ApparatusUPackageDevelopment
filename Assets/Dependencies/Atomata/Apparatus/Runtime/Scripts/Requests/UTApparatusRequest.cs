@@ -95,7 +95,7 @@ namespace Atomata.VSolar.Apparatus
                 return;
             }
 
-            SrApparatus appa = await provider.Provide(args.Identifier + ".json", log);
+            SrNode appa = await provider.Provide(args.Identifier + ".json", log);
 
             if (appa == null)
             {

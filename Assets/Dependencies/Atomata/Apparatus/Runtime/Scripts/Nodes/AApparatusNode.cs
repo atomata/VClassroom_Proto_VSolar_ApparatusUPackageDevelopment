@@ -288,47 +288,79 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Gets all meta data from the node
         /// </summary>
-        public SrApparatus Serialize()
+        public SrNode Serialize()
         {
-            Queue<AApparatusNode> nodes = new Queue<AApparatusNode>();
-            nodes.Enqueue(this);
+            SrNode node = new SrNode()
+                {
+                    Identifier = _identifier,
+                    Type = NodeType,
+                    Transform = UTMeta.TransformMeta(transform),
+                    MetaData = ResolveMetadata(),
+                    Children = new SrNode[Children.Length]
+                };
 
-            List<string> metaPaths = new List<string>();
-            List<string> metaData = new List<string>();
+            for (int i = 0; i < Children.Length; i++)
+                node.Children[i] = Children[i].Serialize();
 
-            int index = 0;
-
-            while (nodes.Count > 0)
-            {
-                AApparatusNode processNode = nodes.Dequeue();
-                string[] metas = processNode.ResolveMetadata();
-
-                metaPaths.Add(processNode.Path().ToString('/'));
-                foreach (string meta in metas) metaData.Add($"{index}@{meta}");
-                index++;
-
-                foreach (AApparatusNode child in processNode.Children) nodes.Enqueue(child);
-            }
-
-            return new SrApparatus
-            {
-                Paths = metaPaths.ToArray(),
-                Data = metaData.ToArray()
-            };
+            return node;
         }
+
+        public void Deserialize(SrNode node, LogWriter log)
+        {
+            MetaDataReader reader = new MetaDataReader(node.MetaData);
+            
+            Identifier = node.Identifier;
+
+            foreach (AApparatusNode child in _children)
+                Destroy(child);
+            
+            _children.Clear();
+            
+            foreach (SrNode child in node.Children)
+            {
+                GameObject obj = gameObject.AddChild($"[{child.Type}] {child.Identifier}");
+                obj.hideFlags = HideFlags.DontSave;
+
+                float[] transformF = node.Transform.Split(',').Select(s => float.Parse(s)).ToArray();
+                Transform t = transform;
+                t.localPosition = new Vector3(transformF[0], transformF[1], transformF[2]);
+                t.localRotation = new Quaternion(transformF[3], transformF[4], transformF[5], transformF[6]);
+                t.localScale = new Vector3(transformF[7], transformF[8], transformF[9]);
+               
+                AApparatusNode newNode = null;
+                
+                switch (child.Type)
+                {
+                    case "AssetBundle":
+                        newNode = obj.AddComponent<AssetBundleNode>();
+                        break;
+                    case "Serialization":
+                        newNode = obj.AddComponent<SerializationNode>();
+                        break;
+                    case "Event":
+                        log.AddError(cLogCategory, NodeIdentityString, $"Currently, event nodes must be children of asset bundle node. Cannot load.");
+                        break;
+                    case "DeltaTransform":
+                        log.AddError(cLogCategory, NodeIdentityString, $"Currently, delta transform nodes must be children of asset bundle node. Cannot load.");
+                        break;
+                }
+
+                if (newNode != null)
+                {
+                    newNode.CompleteDeserialization(reader, log);
+                    newNode.Deserialize(child, log);
+                }
+                
+                _children.Add(newNode);
+            }
+        }
+
+        public virtual void CompleteDeserialization(MetaDataReader reader, LogWriter log) { }
 
         /// <summary>
         /// Return all metadata pertaining to the node
         /// </summary>
-        protected virtual string[] ResolveMetadata()
-        {
-            return new string[]
-            {
-                UTMeta.IdentifierMeta(Identifier),
-                UTMeta.TypeMeta(NodeType),
-                UTMeta.TransformMeta(transform)
-            };
-        }
+        protected abstract string[] ResolveMetadata();
 
         #endregion
         /*

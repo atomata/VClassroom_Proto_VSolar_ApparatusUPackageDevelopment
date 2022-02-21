@@ -62,8 +62,6 @@ namespace Atomata.VSolar.Apparatus
 
         protected override string[] ResolveMetadata()
         {
-            string[] parMeta =  base.ResolveMetadata();
-
             string[] thisMeta = new string[]
             {
                 UTMeta.InputMeta(UTMeta.cMetaInputVector3Type, "position"),
@@ -75,7 +73,7 @@ namespace Atomata.VSolar.Apparatus
                 UTMeta.InputMeta(UTMeta.cMetaInputBoolType, "isLocal")
             };
 
-            return UTArray.Combine(parMeta, thisMeta);
+            return thisMeta;
         }
 
         private void SetTransformValue(string name, Vector3 value)

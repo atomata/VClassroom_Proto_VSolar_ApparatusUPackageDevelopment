@@ -15,8 +15,8 @@ namespace Atomata.VSolar.Apparatus
 
         /// <summary>
         /// Find the serialized node with the given identifier and deserialize
-        /// it to a <see cref="SrApparatus"/>
+        /// it to a <see cref="SrNode"/>
         /// </summary>
-        public SrApparatus ResolveSerializedNode(string identifier);
+        public SrNode ResolveSerializedNode(string identifier);
     }
 }

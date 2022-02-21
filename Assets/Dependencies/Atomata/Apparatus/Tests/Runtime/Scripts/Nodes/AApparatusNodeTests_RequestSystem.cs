@@ -100,6 +100,11 @@ namespace Atomata.VSolar.Apparatus.Tests
             {
                 throw new System.NotImplementedException();
             }
+
+            protected override string[] ResolveMetadata()
+            {
+                throw new System.NotImplementedException();
+            }
         }
 
     }

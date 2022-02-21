@@ -47,7 +47,7 @@ namespace Atomata.VSolar.Apparatus
         /// <summary>
         /// Return a response that provides an asset
         /// </summary>
-        public static ApparatusResponseObject SerializeNodeResponse(SrApparatus node)
+        public static ApparatusResponseObject SerializeNodeResponse(SrNode node)
         {
             return new ApparatusResponseObject(EApparatusResponseStatus.Success, node);
         }

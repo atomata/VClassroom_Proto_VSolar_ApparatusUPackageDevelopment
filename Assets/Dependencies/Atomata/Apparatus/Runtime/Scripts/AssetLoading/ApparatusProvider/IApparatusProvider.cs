@@ -18,6 +18,6 @@ namespace Atomata.VSolar.Apparatus
         /// Provides an apparatus based on the key. If the apparatus cannot be found,
         /// return null;
         /// </summary>
-        UniTask<SrApparatus> Provide(string key, LogWriter logWriter);
+        UniTask<SrNode> Provide(string key, LogWriter logWriter);
     }
 }

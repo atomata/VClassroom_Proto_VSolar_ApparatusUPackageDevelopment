@@ -9,7 +9,7 @@ using HexUN.Framework.Debugging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Atomata.VSolar.Apparatus;
 using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
@@ -103,125 +103,62 @@ namespace Atomata.VSolar.Apparatus
                 return;
             }
 
-            SrApparatus args = res.ResponseData as SrApparatus;
+            SrNode args = res.ResponseData as SrNode;
 
             if(args == null)
             {
-                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {ApparatusKey} because response object was not a {nameof(SrApparatus)}");
+                log.AddError(cLogCategory, NodeIdentityString, $"Failed to load apparatus {ApparatusKey} because response object was not a {nameof(SrNode)}");
                 return;
             }
 
             // Create the objects
             log.AddInfo(cLogCategory, NodeIdentityString, $"Json recieved. Unpacking...");
-
-
-            for(int i = 0; i < args.Paths.Length; i++)
-            {
-                string[] split = args.Paths[i].Split('/');
-
-                // TODO: Make the below code WAY more generic 
-                // This is the root node
-                if (split.Length == 1)
-                {
-                    List<string> metaData = new List<string>();
-                    
-                    foreach(string data in args.Data)
-                    {
-                        string[] dataSplit = data.Split('@');
-                        if (dataSplit[0] == i.ToString())
-                            metaData.Add(dataSplit[1]);
-                    }
-                    
-                    // based on metadata deserialize the objects
-                    Dictionary<string, List<string>> dataUnpacked = new Dictionary<string, List<string>>();
-
-                    foreach(string data in metaData)
-                    {
-                        string[] dataSplit = data.Split(':');
-
-                        if (!dataUnpacked.ContainsKey(dataSplit[0]))
-                        {
-                            dataUnpacked[dataSplit[0]] = new List<string>();
-                        }
-                        dataUnpacked[dataSplit[0]].Add(dataSplit[1]);
-                    }
-
-                    Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer][0];
-                    ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey][0];
-                }
-                
-                // When the path length is 2, it's a direct child
-                if(split.Length == 2)
-                {
-                    List<string> metaData = new List<string>();
-
-                    foreach(string data in args.Data)
-                    {
-                        string[] dataSplit = data.Split('@');
-                        if (dataSplit[0] == i.ToString())
-                            metaData.Add(dataSplit[1]);
-                    }
-
-                    // based on metadata deserialize the objects
-                    Dictionary<string, string> dataUnpacked = new Dictionary<string, string>();
-
-                    foreach(string data in metaData)
-                    {
-                        string[] dataSplit = data.Split(':');
-                        dataUnpacked.Add(dataSplit[0], dataSplit[1]);
-                    }
-
-                    GameObject obj = gameObject.AddChild($"[{dataUnpacked[UTMeta.cMetaTypeType]}] {dataUnpacked[UTMeta.cMetaTypeIdentifer]}");
-                    obj.hideFlags = HideFlags.DontSave;
-
-                    // Now spawn stuff based on the data
-                    switch (dataUnpacked[UTMeta.cMetaTypeType])
-                    {
-                        case "AssetBundle":
-                            AssetBundleNode asset = obj.AddComponent<AssetBundleNode>();
-                            asset.Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer];
-                            asset.AssetBundleKey = dataUnpacked[UTMeta.cMetaTypeKey];
-                            if(dataUnpacked.TryGetValue(UTMeta.cMetaTypeTransform, out string valueA))
-                            {
-                                float[] transform = valueA.Split(',').Select(s => float.Parse(s)).ToArray();
-                                asset.transform.localPosition = new Vector3(transform[0], transform[1], transform[2]);
-                                asset.transform.localRotation = new Quaternion(transform[3], transform[4], transform[5], transform[6]);
-                                asset.transform.localScale = new Vector3(transform[7], transform[8], transform[9]);
-                            }
-                            break;
-                        case "Serialization":
-                            SerializationNode ser = obj.AddComponent<SerializationNode>();
-                            ser.Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer];
-                            ser.ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey];
-                            if (dataUnpacked.TryGetValue(UTMeta.cMetaTypeTransform, out string valueS))
-                            {
-                                float[] transform = valueS.Split(',').Select(s => float.Parse(s)).ToArray();
-                                ser.transform.localPosition = new Vector3(transform[0], transform[1], transform[2]);
-                                ser.transform.localRotation = new Quaternion(transform[3], transform[4], transform[5], transform[6]);
-                                ser.transform.localScale = new Vector3(transform[7], transform[8], transform[9]);
-                            }
-                            break;
-                        case "Event":
-                            log.AddError(cLogCategory, NodeIdentityString, $"Currently, event nodes must be children of asset bundle node. Cannot load.");
-                            break;
-                        case "DeltaTransform":
-                            log.AddError(cLogCategory, NodeIdentityString, $"Currently, delta transform nodes must be children of asset bundle node. Cannot load.");
-                            break;
-
-                    }
-                }
-            }
+            
+            Deserialize(args, log);
 
             log.AddInfo(cLogCategory, NodeIdentityString, $"Unpacking success. New node created. Connecting to child");
             Connect(log);
         }
 
+        public override void CompleteDeserialization(MetaDataReader reader, LogWriter log)
+        {
+            ApparatusKey = reader.Key;
+        }
+
         protected override string[] ResolveMetadata()
         {
-            string[] baseMeta = base.ResolveMetadata();
-            return UTArray.Combine(baseMeta, new string[] { UTMeta.KeyMeta(ApparatusKey) });
+            return new string[] { UTMeta.KeyMeta(ApparatusKey) };
         }
 
         protected void Unload() => DestroyAllNodeChildren();
+    }
+}
+
+public class MetaDataReader
+{
+    public string Identifier;
+    public string Key;
+    public string Type;
+    public Vector3 localPosition;
+    public Quaternion localRotation;
+    public Vector3 localScale;
+    
+    public MetaDataReader(string[] metadata)
+    {
+        Dictionary<string, List<string>> dataUnpacked = new Dictionary<string, List<string>>();
+
+        foreach(string data in metadata)
+        {
+            string[] dataSplit = data.Split(':');
+            
+            if (!dataUnpacked.ContainsKey(dataSplit[0]))
+            {
+                dataUnpacked[dataSplit[0]] = new List<string>();
+            }
+            dataUnpacked[dataSplit[0]].Add(dataSplit[1]);
+        }
+
+        if (dataUnpacked.TryGetValue(UTMeta.cMetaTypeKey, out List<string> key))
+            Key = key[0];
     }
 }

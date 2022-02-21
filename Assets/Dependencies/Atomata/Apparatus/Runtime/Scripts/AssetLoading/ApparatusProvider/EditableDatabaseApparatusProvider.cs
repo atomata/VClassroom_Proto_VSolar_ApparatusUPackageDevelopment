@@ -9,14 +9,14 @@ namespace Atomata.VSolar.Apparatus
     {
         private const string cLogCategory = nameof(EditableDatabaseApparatusProvider);
         private SoApparatusConfig _config;
-        private Dictionary<string, SrApparatus> _cache = new Dictionary<string, SrApparatus>();
+        private Dictionary<string, SrNode> _cache = new Dictionary<string, SrNode>();
 
         public EditableDatabaseApparatusProvider(SoApparatusConfig config)
         {
             _config = config;
         }
 
-        public async UniTask<SrApparatus> Provide(string key, LogWriter writer)
+        public async UniTask<SrNode> Provide(string key, LogWriter writer)
         {
             writer.AddInfo(cLogCategory, cLogCategory, "Performing editable database apparatus deserialization");
 
@@ -30,7 +30,7 @@ namespace Atomata.VSolar.Apparatus
             }
             else
             {
-                SrApparatus node = _config.EditorResourceDatabase?.ResolveSerializedNode(key);
+                SrNode node = _config.EditorResourceDatabase?.ResolveSerializedNode(key);
                 _cache[key] = node;
                 writer.AddInfo(cLogCategory, cLogCategory, "editable database apparatus deserialization complete");
                 return node;

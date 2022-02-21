@@ -22,14 +22,14 @@ namespace Atomata.VSolar.Apparatus
 
         private string _databaseName;
 
-        private Dictionary<int, SrApparatus> _cache = new Dictionary<int, SrApparatus>();
+        private Dictionary<int, SrNode> _cache = new Dictionary<int, SrNode>();
 
         public LocalApparatusProvider(string databaseName)
         {
             _databaseName = databaseName;
         }
 
-        public async UniTask<SrApparatus> Provide(string key, LogWriter writer)
+        public async UniTask<SrNode> Provide(string key, LogWriter writer)
         {
             writer.AddInfo(cLogCategory, cLogCategory, "Performing local apparatus deserialization");
 
@@ -70,7 +70,7 @@ namespace Atomata.VSolar.Apparatus
                         }
                     }
 
-                    SrApparatus deserailized = JsonUtility.FromJson<SrApparatus>(json);
+                    SrNode deserailized = JsonUtility.FromJson<SrNode>(json);
                     _cache.Add(hashKey, deserailized);
                 }
 

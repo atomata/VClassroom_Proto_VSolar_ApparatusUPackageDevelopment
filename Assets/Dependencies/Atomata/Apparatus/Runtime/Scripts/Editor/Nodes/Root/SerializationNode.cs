@@ -5,7 +5,7 @@ using HexUN.Data;
 
 using System.IO;
 using System.Text;
-
+using Unity.Serialization.Json;
 using UnityEditor;
 
 using UnityEngine;
@@ -32,15 +32,17 @@ namespace Atomata.VSolar.Apparatus
         {
             UnityPath editableDatabase = Folders.EditableDatabaseApparatusPath;
 
-            string json = JsonUtility.ToJson(node.Serialize());
-            UnityPath svPath = editableDatabase.Path.InsertAtEnd($"{node.Identifier}.json");
+            SrNode sr = node.Serialize();
 
+            string json = JsonSerialization.ToJson(sr);
+            UnityPath svPath = editableDatabase.Path.InsertAtEnd($"{node.Identifier}.json");
+            
             if (svPath.Path.TryAsFileInfo(out FileInfo pth))
             {
                 pth.ForceEmptyOrCreate();
                 pth.WriteString(json, Encoding.UTF8);
             }
-
+            
             Debug.Log($"Saved Json to {svPath}");
         }
     }

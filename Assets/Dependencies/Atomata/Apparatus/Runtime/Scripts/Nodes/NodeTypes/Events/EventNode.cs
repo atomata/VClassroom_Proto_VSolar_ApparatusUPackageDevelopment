@@ -108,8 +108,6 @@ namespace Atomata.VSolar.Apparatus
 
         protected override string[] ResolveMetadata()
         {
-            string[] b = base.ResolveMetadata();
-
             List<string> metas = new List<string>();
             metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Path().ToString('/')));
 
@@ -121,7 +119,7 @@ namespace Atomata.VSolar.Apparatus
                 metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, BoolEvents[i], BoolEventMetas.Length < i ? BoolEventMetas[i] : null));
             
 
-            return UTArray.Combine(b, metas.ToArray());
+            return metas.ToArray();
         }
 
 #if UNITY_EDITOR

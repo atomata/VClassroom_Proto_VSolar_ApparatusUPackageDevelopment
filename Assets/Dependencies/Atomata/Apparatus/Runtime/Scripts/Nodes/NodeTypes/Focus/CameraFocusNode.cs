@@ -91,12 +91,10 @@ namespace Atomata.VSolar.Apparatus
 
         protected override string[] ResolveMetadata()
         {
-            string[] b = base.ResolveMetadata();
-
             List<string> metas = new List<string>();
             metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Path().ToString('/')));
             metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, "focus", UiMeta));
-            return UTArray.Combine(b, metas.ToArray());
+            return metas.ToArray();
         }
 
 #if UNITY_EDITOR

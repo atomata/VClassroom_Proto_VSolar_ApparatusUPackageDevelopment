@@ -190,6 +190,11 @@ namespace Atomata.VSolar.Apparatus
             return loaded;
         }
 
+        public override void CompleteDeserialization(MetaDataReader reader, LogWriter log)
+        {
+            AssetBundleKey = reader.Key;
+        }
+
         private void LoadEtherealAsFailureObject()
         {
             _managedChild = UTGameObject.CreateFailureObject();
@@ -199,8 +204,7 @@ namespace Atomata.VSolar.Apparatus
         /// <inheritdoc/>
         protected override string[] ResolveMetadata()
         {
-            string[] baseMeta =  base.ResolveMetadata();
-            return UTArray.Combine(baseMeta, new string[] { UTMeta.KeyMeta(AssetBundleKey) });
+            return new string[] { UTMeta.KeyMeta(AssetBundleKey) };
         }
     }
 }

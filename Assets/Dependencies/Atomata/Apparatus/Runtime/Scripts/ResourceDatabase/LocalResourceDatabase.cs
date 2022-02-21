@@ -46,7 +46,7 @@ namespace Atomata.VSolar.Apparatus
             return loaded;
         }
 
-        public SrApparatus ResolveSerializedNode(string identifier)
+        public SrNode ResolveSerializedNode(string identifier)
         {
             UnityPath path = Folders.EditableDatabaseApparatusPath.Path.InsertAtEnd($"{identifier}.json");
 
@@ -55,7 +55,7 @@ namespace Atomata.VSolar.Apparatus
 
             try
             {
-                return JsonUtility.FromJson<SrApparatus>(info.ReadAllText());
+                return JsonUtility.FromJson<SrNode>(info.ReadAllText());
             }
             catch (Exception e)
             {
