@@ -116,14 +116,18 @@ namespace Atomata.VSolar.Apparatus
             if (Config != null)
             {
                 _skyboxProvider = new MaterialProvider(Config.SkyboxContainerUrl);
-                _assetProvider = new CloudAssetProvider(Config.AssetContainerUrl);
-                
-                
+
                 #if UNITY_EDITOR
                 if (AssetDatabaseConfig != null)
+                {
                     _apparatusProvider = new EditableDatabaseApparatusProvider(AssetDatabaseConfig);
-                else 
+                    _assetProvider = new EditableDatabaseGameObjectProvider(AssetDatabaseConfig);
+                }
+                else
+                {
                     _apparatusProvider = new CloudApparatusProvider(Config.ApparatusContainerUrl);
+                    _assetProvider = new CloudAssetProvider(Config.AssetContainerUrl);
+                } 
                 #else
                     _apparatusProvider = new CloudApparatusProvider(Config.ApparatusContainerUrl);
                 #endif

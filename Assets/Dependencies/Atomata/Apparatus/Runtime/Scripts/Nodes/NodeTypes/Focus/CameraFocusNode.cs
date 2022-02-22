@@ -89,6 +89,20 @@ namespace Atomata.VSolar.Apparatus
             }
         }
 
+        public async void Focus()
+        {
+            LogWriter log = new LogWriter(NodeIdentityString);
+            await Focus(log); 
+            log.PrintToConsole(cLogCategory);
+        }
+        
+        public async UniTask Focus(LogWriter log)
+        {
+            ApparatusRequestObject req = ApparatusRequestObject.CameraFocus(transform);
+            await SendRequestAsync(req, log);
+        }
+
+
         protected override string[] ResolveMetadata()
         {
             string[] b = base.ResolveMetadata();
