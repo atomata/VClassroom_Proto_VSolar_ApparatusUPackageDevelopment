@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using PlasticGui;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Atomata.Apparatus.Runtime.Scripts.Animation

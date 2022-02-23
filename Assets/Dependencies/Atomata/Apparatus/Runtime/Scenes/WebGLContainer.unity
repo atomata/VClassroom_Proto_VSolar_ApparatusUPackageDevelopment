@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1641758738}
-  LoadApparatusOnStart: 1
   Input: earth
 --- !u!4 &624437719
 Transform:
@@ -535,6 +534,6 @@ PrefabInstance:
     - target: {fileID: 1148575148778064459, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
       propertyPath: AssetDatabaseConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 7cb1b2cc848176a4db12d8051ecc16af, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecbcf1385bafb54da80bf9187253929, type: 3}
