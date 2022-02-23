@@ -114,11 +114,11 @@ namespace Atomata.VSolar.Apparatus
             metas.Add(UTMeta.AssociatedNodeMeta(_associatedNode?.Path().ToString('/')));
 
             for (int i = 0; i < VoidEvents.Length; i++)
-                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, VoidEvents[i], VoidEventMetas.Length < i ?VoidEventMetas[i] : null));
+                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, VoidEvents[i], VoidEventMetas.Length > i ?VoidEventMetas[i] : null));
             
 
             for (int i = 0; i < BoolEvents.Length; i++)
-                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, BoolEvents[i], BoolEventMetas.Length < i ? BoolEventMetas[i] : null));
+                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, BoolEvents[i], BoolEventMetas.Length > i ? BoolEventMetas[i] : null));
             
 
             return UTArray.Combine(b, metas.ToArray());
