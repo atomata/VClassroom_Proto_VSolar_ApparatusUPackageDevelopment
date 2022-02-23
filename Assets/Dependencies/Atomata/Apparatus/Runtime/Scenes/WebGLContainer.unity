@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1641758738}
+  LoadApparatusOnStart: 1
   Input: earth
 --- !u!4 &624437719
 Transform:
