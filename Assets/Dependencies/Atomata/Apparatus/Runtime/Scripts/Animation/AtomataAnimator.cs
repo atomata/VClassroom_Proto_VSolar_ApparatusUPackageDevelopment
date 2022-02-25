@@ -24,7 +24,7 @@ namespace Atomata.Apparatus.Runtime.Scripts.Animation
                 lastTrigger = trigger;
             }
         }
-
+        
         public void Clear() => lastTrigger = String.Empty;
 
         

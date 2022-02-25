@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 480916165513128301}
-  m_LocalRotation: {x: 0.15564007, y: -0.7335235, z: 0.6347481, w: 0.18658592}
-  m_LocalPosition: {x: 0.12, y: 1.77, z: -0.03}
+  m_LocalRotation: {x: 0.62524307, y: 0.19357057, z: 0.16398555, w: 0.73804486}
+  m_LocalPosition: {x: -0.99, y: 2.03, z: -0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 81.605, y: -148.562, z: 3.353}
+  m_LocalEulerAnglesHint: {x: 59.253, y: 73.734, z: 71.247}
 --- !u!114 &6959781655420546484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,15 +152,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026381010012152435}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.20364177, w: 0.97904545}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8926748671994594924}
   - {fileID: 4183220692132414332}
+  - {fileID: 7984393314425650318}
   m_Father: {fileID: 6585096732055493213}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23.5}
 --- !u!95 &7120309459023485193
 Animator:
   serializedVersion: 3
@@ -196,6 +197,109 @@ MonoBehaviour:
   - {fileID: 1563004120443494738}
   - {fileID: 505407249617277110}
   - {fileID: 3516317302520385012}
+--- !u!1 &1704695280882199877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 863439374576845237}
+  - component: {fileID: 4361129342243374905}
+  m_Layer: 0
+  m_Name: '[options]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &863439374576845237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704695280882199877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6585096732055493213}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4361129342243374905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704695280882199877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86426f14ba2153342aa991dfebb217f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: options
+  _associatedNode: {fileID: 0}
+  _voidEventNames:
+  - enableRotate
+  - disableRotate
+  _voidEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7120309459023485193}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: rotate
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7120309459023485193}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 0
+        m_CallState: 2
+  _boolEventNames:
+  - axis
+  _boolEvents:
+  - _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8621592676272108266}
+          m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  VoidEventMetas:
+  - UiName: Enable Rotation
+    UiDesc: Enable the rotation of the eath
+  - UiName: Disable Rotation
+    UiDesc: Disable th rotaiton of the earth
+  BoolEventMetas:
+  - UiName: Show Axis
+    UiDesc: Shows the earths axis as a cylinder
 --- !u!1 &2068641607773327196
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,13 +326,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068641607773327196}
-  m_LocalRotation: {x: -0, y: 0.24587032, z: -0, w: 0.9693027}
-  m_LocalPosition: {x: -2.59, y: 0.047, z: -1.611}
+  m_LocalRotation: {x: -0, y: 0.2582339, z: -0, w: 0.9660824}
+  m_LocalPosition: {x: -2.61, y: -0.62, z: -2.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 28.467, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 29.931, z: 0}
 --- !u!114 &454758736720812499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,13 +453,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2294051170766495843}
-  m_LocalRotation: {x: 0.24702129, y: 0.28375897, z: -0.049878053, w: 0.9251884}
-  m_LocalPosition: {x: -3.056, y: 1.02, z: -1.437}
+  m_LocalRotation: {x: -0.04184854, y: 0.39366522, z: 0.014239369, w: 0.9181904}
+  m_LocalPosition: {x: -4.06, y: -1.21, z: -1.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 29.038, y: 34.915, z: 3.14}
+  m_LocalEulerAnglesHint: {x: -5.052, y: 46.431, z: -0.391}
 --- !u!114 &3042087008967888665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,13 +580,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3926542210791016532}
-  m_LocalRotation: {x: 0.107702695, y: -0.8172831, z: 0.16231142, w: 0.54231304}
-  m_LocalPosition: {x: 1.61, y: 0.68, z: 0.59}
+  m_LocalRotation: {x: 0.1901645, y: -0.7824105, z: 0.28658402, w: 0.5191732}
+  m_LocalPosition: {x: 1.54, y: 1.46, z: 0.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 22.465, y: -112.867, z: 0}
+  m_LocalEulerAnglesHint: {x: 40.234, y: -112.867, z: 0}
 --- !u!114 &346352130425868680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,37 +727,12 @@ MonoBehaviour:
   _identifier: insight
   _associatedNode: {fileID: 0}
   _voidEventNames:
-  - EarthCoreFocusMantle
   - EarthCoreFocusInnerCore
+  - EarthCoreFocusOuterCore
+  - EarthCoreFocusMantle
+  - EarthCoreFocusCrust
   - EarthNorthPole
-  - EarthRotates
   _voidEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 454758736720812499}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
-        m_MethodName: Focus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: split
-          m_BoolArgument: 1
-        m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4022420686827643719}
@@ -682,6 +761,84 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2203333743582210254}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 7120309459023485193}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: split
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7120309459023485193}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: split
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 454758736720812499}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7120309459023485193}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: split
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3042087008967888665}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 6959781655420546484}
         m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
         m_MethodName: Focus
@@ -706,42 +863,18 @@ MonoBehaviour:
           m_StringArgument: idleinstant
           m_BoolArgument: 1
         m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: rotate
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2479767026343116790}
-        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
-        m_MethodName: Focus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   _boolEventNames: []
   _boolEvents: []
   VoidEventMetas:
-  - UiName: 'Earths Core: Mantle'
-    UiDesc: adsfdfgdsfg
   - UiName: 'Earths Core: Inner Core'
     UiDesc: sdfgsdfgsdf
-  - UiName: 'Earth Places: North Pole'
+  - UiName: 'Earths Core: Outer Core'
     UiDesc: sdfgsdfgdfs
-  - UiName: Earth Rotates
+  - UiName: 'Earths Core: Mantle'
+    UiDesc: adsfdfgdsfg
+  - UiName: 'Earths Core: Crust'
+    UiDesc: sdfgsdfgdfs
+  - UiName: 'Earth Places: North Pole'
     UiDesc: sdfgsdfgdfs
   BoolEventMetas: []
 --- !u!1 &5629768935989120420
@@ -820,6 +953,7 @@ Transform:
   - {fileID: 6875406450474753948}
   - {fileID: 4583261053400874086}
   - {fileID: 1634165173146338490}
+  - {fileID: 863439374576845237}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -955,13 +1089,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7508903844119802661}
-  m_LocalRotation: {x: -0, y: -0.18419744, z: -0, w: 0.9828893}
-  m_LocalPosition: {x: 0.545, y: 0, z: -1.611}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -21.229, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4022420686827643719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,13 +1216,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7529771675376208951}
-  m_LocalRotation: {x: 0.040166304, y: -0.88561255, z: 0.052924417, w: 0.45964772}
-  m_LocalPosition: {x: 3.044, y: 0.402, z: 1.197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 7.508, y: -125.225, z: -1.3}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2479767026343116790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,13 +1470,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8749452538631398541}
-  m_LocalRotation: {x: -0, y: -0.18419744, z: -0, w: 0.9828893}
-  m_LocalPosition: {x: -0.31, y: 0.047, z: -1.611}
+  m_LocalRotation: {x: -0, y: 0.17200018, z: -0, w: 0.98509693}
+  m_LocalPosition: {x: -1.42, y: -0.28, z: -1.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -21.229, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 19.808, z: 0}
 --- !u!114 &2203333743582210254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1437,6 +1571,102 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &8855812182608646464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7984393314425650318}
+  - component: {fileID: 6784567686751832008}
+  - component: {fileID: 8621592676272108266}
+  - component: {fileID: 4614108888219534808}
+  m_Layer: 0
+  m_Name: '[mesh] axis '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7984393314425650318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855812182608646464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 1.56, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 6875406450474753948}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6784567686751832008
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855812182608646464}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8621592676272108266
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855812182608646464}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: c0d9162fac00a3145ae6cff43e7b3d28, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &4614108888219534808
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855812182608646464}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1001 &3586785656576448094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1632,14 +1862,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
---- !u!23 &4931842754273230731 stripped
+--- !u!23 &1568623122808476036 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 8788243238619880220, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5115215033936338248 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -325503219262031393, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_CorrespondingSourceObject: {fileID: -6322018032179333869, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &8868271200447498382 stripped
@@ -1647,14 +1872,19 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -4137367866844337127, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &3457486269066074805 stripped
+--- !u!23 &5115215033936338248 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7891426939731575262, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_CorrespondingSourceObject: {fileID: -325503219262031393, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &1568623122808476036 stripped
+--- !u!23 &4931842754273230731 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -6322018032179333869, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8788243238619880220, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1761672146398480627 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2735311189996776548, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4183220692132414332 stripped
@@ -1667,9 +1897,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &1761672146398480627 stripped
+--- !u!23 &3457486269066074805 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2735311189996776548, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_CorrespondingSourceObject: {fileID: -7891426939731575262, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &3538653105187510034 stripped
