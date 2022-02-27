@@ -40,6 +40,7 @@ namespace Atomata.VSolar.Apparatus.Example
             LogWriter log = new LogWriter(cLogCategory);
             SetupSerializationNode(apparatus);
             if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true), log);
+            _managedNode.TriggerDefaultCamera();
             log.PrintToConsole(cLogCategory);
         }
 

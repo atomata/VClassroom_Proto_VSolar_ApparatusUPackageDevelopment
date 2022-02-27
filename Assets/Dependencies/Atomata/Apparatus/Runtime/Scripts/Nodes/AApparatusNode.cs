@@ -227,6 +227,64 @@ namespace Atomata.VSolar.Apparatus
         #endregion
 
         /*
+         * SEARCH SYSTEM
+         * How do I find a node in my tree
+         */
+
+        /// <summary>
+        /// Populates the provided list with all apparatus nodes
+        /// </summary>
+        /// <param name="nodes"></param>
+        public void SearchAllNodes(List<AApparatusNode> nodes)
+        {
+            foreach (AApparatusNode node in Children)
+            {
+                nodes.Add(node);
+                node.SearchAllNodes(nodes);
+            }
+        }
+
+        /// <summary>
+        /// Populates the list with all nodes of type T
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <typeparam name="T"></typeparam>
+        public void SearchNodesOfType<T>(List<T> nodes)
+            where T: AApparatusNode
+        {
+            foreach (AApparatusNode node in Children)
+            {
+                if(node is T n)
+                    nodes.Add(n);
+                
+                node.SearchNodesOfType<T>(nodes);
+            }   
+        }
+
+        /// <summary>
+        /// Returns node of type T at path, or null if does not exist. An empty path will be
+        /// interpreted as self
+        /// </summary>
+        /// <param name="path"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T SearchNodeAtPath<T>(PathString path)
+            where T : AApparatusNode
+        {
+            if (path.Length == 0 && this is T n)
+                return n;
+            
+            AApparatusNode node = Children.FirstOrDefault(c => c.Identifier == path.Start);
+
+            if (node == null)
+                return null;
+
+            return node.SearchNodeAtPath<T>(path.RemoveAtStart(1));
+        }
+        
+        
+        
+        /*
          * TRIGGER SYSTEM
          * This allows the environment to send commands to nodes in the apparatus.
          * Triggers follow a URI syntax

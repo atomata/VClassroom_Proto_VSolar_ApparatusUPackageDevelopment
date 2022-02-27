@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using HexCS.Core;
 
 using HexUN.Engine.Utilities;
-using HexUN.Framework;
 using HexUN.Framework.Debugging;
 
 using System;
@@ -30,6 +29,8 @@ namespace Atomata.VSolar.Apparatus
 
         public string ApparatusKey;
 
+        public string DefaultCameraPath;
+        
         private EApparatusNodeLoadState _loadState = EApparatusNodeLoadState.Unloaded;
 
         protected override void OnConnected()
@@ -148,6 +149,9 @@ namespace Atomata.VSolar.Apparatus
 
                     Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer][0];
                     ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey][0];
+                    
+                    if(dataUnpacked.TryGetValue("defaultCameraPath", out List<string> s))
+                        DefaultCameraPath = s[0];
                 }
                 
                 // When the path length is 2, it's a direct child
@@ -193,6 +197,8 @@ namespace Atomata.VSolar.Apparatus
                             SerializationNode ser = obj.AddComponent<SerializationNode>();
                             ser.Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer];
                             ser.ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey];
+                            if(dataUnpacked.TryGetValue("defaultCameraPath", out string s2))
+                                DefaultCameraPath = s2;
                             if (dataUnpacked.TryGetValue(UTMeta.cMetaTypeTransform, out string valueS))
                             {
                                 float[] transform = valueS.Split(',').Select(s => float.Parse(s)).ToArray();
@@ -211,15 +217,27 @@ namespace Atomata.VSolar.Apparatus
                     }
                 }
             }
-
+            
             log.AddInfo(cLogCategory, NodeIdentityString, $"Unpacking success. New node created. Connecting to child");
             Connect(log);
+        }
+
+        public void TriggerDefaultCamera()
+        {
+            CameraFocusNode cam = SearchNodeAtPath<CameraFocusNode>(DefaultCameraPath);
+            if (cam != null)
+                cam.Focus();
         }
 
         protected override string[] ResolveMetadata()
         {
             string[] baseMeta = base.ResolveMetadata();
-            return UTArray.Combine(baseMeta, new string[] { UTMeta.KeyMeta(ApparatusKey) });
+            return UTArray.Combine(baseMeta, new string[]
+            {
+                UTMeta.KeyMeta(ApparatusKey),
+                UTMeta.BasicMeta("defaultCameraPath", DefaultCameraPath)
+            });
+            
         }
 
         protected void Unload() => DestroyAllNodeChildren();
