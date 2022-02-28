@@ -7,6 +7,36 @@ public class AnimatorTriggerer : MonoBehaviour
 {
     public AtomataAnimator[] Animator;
 
+    /// <summary>
+    /// Performs a BFS on game objects and registers all Atomata animators, but not their
+    /// children
+    /// </summary>
+    [ContextMenu("FindAndRegisterAnimators")]
+    public void FindAndRegisterAnimators()
+    {
+        Queue<Transform> s = new Queue<Transform>();
+        foreach (Transform t in transform)
+            s.Enqueue(t);
+
+        List<AtomataAnimator> animators = new List<AtomataAnimator>();
+        while (s.Count > 0)
+        {
+            Transform process = s.Dequeue();
+            
+            AtomataAnimator anim = process.gameObject.GetComponent<AtomataAnimator>();
+            if (anim != null)
+            {
+                animators.Add(anim);
+                continue;
+            }
+            
+            foreach (Transform t in process)
+                s.Enqueue(t);
+        }
+
+        Animator = animators.ToArray();
+    }
+    
     public void AnimEventTriggerSubAnimators(string s)
     {
         string[] inst = s.Split(',');

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: earth@rotate
+  m_Name: earthApparatus@split
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -53,7 +53,7 @@ AnimationClip:
   m_Events:
   - time: 0
     functionName: AnimEventTriggerSubAnimators
-    data: 1@rotate,1@rend:true,0@idleinstant,0@rend:false
+    data: 0@split,1@rend:false
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

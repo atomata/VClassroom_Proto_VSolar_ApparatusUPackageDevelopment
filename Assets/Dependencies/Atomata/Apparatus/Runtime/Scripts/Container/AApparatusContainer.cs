@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Atomata.Apparatus.Runtime.Scripts.Interfaces;
+using HexCS.Core;
 using UnityEngine;
 using HexUN.Framework.Debugging;
 
@@ -41,6 +45,22 @@ namespace Atomata.VSolar.Apparatus.Example
             SetupSerializationNode(apparatus);
             if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true), log);
             _managedNode.TriggerDefaultCamera();
+            
+            // Perform interfaces
+            Stack<GameObject> gos = new Stack<GameObject>();
+            gos.Push(_managedNode.gameObject);
+
+            while (gos.Count > 0)
+            {
+                GameObject process = gos.Pop();
+
+                foreach (Transform t in process.transform)
+                    gos.Push(t.gameObject);
+
+                process.GetComponents<IPostLoadInitialize>()
+                    .Do(p => p.PostLoadInitalize());
+            }
+            
             log.PrintToConsole(cLogCategory);
         }
 

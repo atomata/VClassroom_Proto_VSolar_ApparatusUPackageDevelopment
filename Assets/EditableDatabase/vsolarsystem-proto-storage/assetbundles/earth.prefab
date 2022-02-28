@@ -137,6 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6875406450474753948}
   - component: {fileID: 7120309459023485193}
+  - component: {fileID: 7963415443372702412}
   - component: {fileID: 1343136354687422178}
   m_Layer: 0
   m_Name: '[transform] earth'
@@ -160,7 +161,7 @@ Transform:
   - {fileID: 4183220692132414332}
   - {fileID: 7984393314425650318}
   m_Father: {fileID: 6585096732055493213}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23.5}
 --- !u!95 &7120309459023485193
 Animator:
@@ -181,6 +182,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7963415443372702412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026381010012152435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fde1a040271da4ba9e984967818ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 7120309459023485193}
+  Renderers:
+  - {fileID: 8621592676272108266}
+  - {fileID: 8066033724334757838}
+  - {fileID: 3538653105187510034}
+  - {fileID: 1761672146398480627}
+  - {fileID: 4931842754273230731}
+  - {fileID: 5115215033936338248}
+  - {fileID: 8868271200447498382}
+  - {fileID: 3457486269066074805}
+  - {fileID: 1568623122808476036}
 --- !u!114 &1343136354687422178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,9 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator:
-  - {fileID: 1563004120443494738}
   - {fileID: 505407249617277110}
-  - {fileID: 3516317302520385012}
+  - {fileID: 1563004120443494738}
 --- !u!1 &1704695280882199877
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,14 +266,15 @@ MonoBehaviour:
   _identifier: options
   _associatedNode: {fileID: 0}
   _voidEventNames:
-  - enableRotate
-  - disableRotate
+  - enableRotateEarth
+  - disableRotateEarth
   _voidEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+      - m_Target: {fileID: 7963415443372702412}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -262,9 +286,10 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+      - m_Target: {fileID: 7963415443372702412}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -276,6 +301,7 @@ MonoBehaviour:
         m_CallState: 2
   _boolEventNames:
   - axis
+  - enableMoon
   _boolEvents:
   - _unityEvent:
       m_PersistentCalls:
@@ -283,6 +309,22 @@ MonoBehaviour:
         - m_Target: {fileID: 8621592676272108266}
           m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
           m_MethodName: set_enabled
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3516317302520385012}
+          m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+            Atomata.VSolar
+          m_MethodName: SetRenderersEnabled
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -300,6 +342,8 @@ MonoBehaviour:
   BoolEventMetas:
   - UiName: Show Axis
     UiDesc: Shows the earths axis as a cylinder
+  - UiName: Enable Moon
+    UiDesc: Shows or hides the moon from view
 --- !u!1 &2068641607773327196
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,9 +791,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -773,9 +818,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -787,9 +833,10 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -813,9 +860,10 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -851,9 +899,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7120309459023485193}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -931,6 +980,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6585096732055493213}
+  - component: {fileID: 8709899820704071779}
+  - component: {fileID: 2057851902261625314}
+  - component: {fileID: 7964967292932746113}
   m_Layer: 0
   m_Name: earth
   m_TagString: Untagged
@@ -949,14 +1001,71 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8230191714472302601}
   - {fileID: 6875406450474753948}
+  - {fileID: 8230191714472302601}
   - {fileID: 4583261053400874086}
   - {fileID: 1634165173146338490}
   - {fileID: 863439374576845237}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8709899820704071779
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6333376625722083856}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d8135706fa1c3842a1aa924d2cf0800, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2057851902261625314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6333376625722083856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fde1a040271da4ba9e984967818ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 8709899820704071779}
+  Renderers:
+  - {fileID: 8621592676272108266}
+  - {fileID: 8066033724334757838}
+  - {fileID: 3538653105187510034}
+  - {fileID: 1761672146398480627}
+  - {fileID: 4931842754273230731}
+  - {fileID: 5115215033936338248}
+  - {fileID: 8868271200447498382}
+  - {fileID: 3457486269066074805}
+  - {fileID: 1568623122808476036}
+--- !u!114 &7964967292932746113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6333376625722083856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be9a5e092ce7aa42a0239c929508041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator:
+  - {fileID: 7963415443372702412}
+  - {fileID: 3516317302520385012}
 --- !u!1 &6653912787821171673
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +1083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8230191714472302601
 Transform:
   m_ObjectHideFlags: 0
@@ -988,7 +1097,7 @@ Transform:
   m_Children:
   - {fileID: 2788822097537479754}
   m_Father: {fileID: 6585096732055493213}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8244425130806941996
 Animator:
@@ -1740,14 +1849,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
---- !u!23 &8066033724334757838 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6788785436601860496, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
-  m_PrefabInstance: {fileID: 3586785656576448094}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8926748671994594924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5342672212624740402, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
+  m_PrefabInstance: {fileID: 3586785656576448094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8066033724334757838 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6788785436601860496, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
   m_PrefabInstance: {fileID: 3586785656576448094}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3321657688308273744 stripped
@@ -1862,24 +1971,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
---- !u!23 &1568623122808476036 stripped
+--- !u!23 &3538653105187510034 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -6322018032179333869, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &8868271200447498382 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -4137367866844337127, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5115215033936338248 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -325503219262031393, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &4931842754273230731 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 8788243238619880220, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_CorrespondingSourceObject: {fileID: -8314592471784328315, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &1761672146398480627 stripped
@@ -1887,9 +1981,24 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2735311189996776548, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4183220692132414332 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+--- !u!23 &4931842754273230731 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8788243238619880220, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1568623122808476036 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6322018032179333869, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5115215033936338248 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -325503219262031393, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8868271200447498382 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4137367866844337127, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3550553543313037766 stripped
@@ -1897,14 +2006,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4183220692132414332 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &3457486269066074805 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7891426939731575262, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &3538653105187510034 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -8314592471784328315, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &2936590244518002773

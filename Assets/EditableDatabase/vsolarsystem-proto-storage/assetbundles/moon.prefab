@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5586696454696773697}
   - component: {fileID: 9035955534664247714}
   m_Layer: 0
-  m_Name: Animations
+  m_Name: '[insights]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,8 +126,9 @@ GameObject:
   - component: {fileID: 2306125622797517814}
   - component: {fileID: 6788785436601860496}
   - component: {fileID: 2887777199422411688}
+  - component: {fileID: 986967804259170693}
   m_Layer: 0
-  m_Name: '[Mesh] Moon'
+  m_Name: '[mesh] moon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,6 +216,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &986967804259170693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3108717790321211103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fde1a040271da4ba9e984967818ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 2887777199422411688}
+  Renderers: []
 --- !u!1 &4581754291615593029
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2188990287527770346}
   m_Layer: 0
-  m_Name: Cameras
+  m_Name: '[options]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

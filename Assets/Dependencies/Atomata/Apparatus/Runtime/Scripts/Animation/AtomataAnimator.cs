@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Atomata.Apparatus.Runtime.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Atomata.Apparatus.Runtime.Scripts.Animation
 {
-    public class AtomataAnimator : MonoBehaviour
+    public class AtomataAnimator : MonoBehaviour, IPostLoadInitialize
     {
         private string lastTrigger = string.Empty;
         
@@ -24,7 +25,7 @@ namespace Atomata.Apparatus.Runtime.Scripts.Animation
                 lastTrigger = trigger;
             }
         }
-        
+
         public void Clear() => lastTrigger = String.Empty;
 
         
@@ -56,6 +57,11 @@ namespace Atomata.Apparatus.Runtime.Scripts.Animation
         {
             foreach (Renderer renderer1 in Renderers)
                 renderer1.enabled = state;
+        }
+
+        public void PostLoadInitalize()
+        {
+            LinkRenderers();
         }
     }
 }
