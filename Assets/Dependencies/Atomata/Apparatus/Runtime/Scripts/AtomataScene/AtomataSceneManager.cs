@@ -130,6 +130,7 @@ namespace Atomata.VSolar.Apparatus
                 } 
                 #else
                     _apparatusProvider = new CloudApparatusProvider(Config.ApparatusContainerUrl);
+                    _assetProvider = new CloudAssetProvider(Config.AssetContainerUrl);
                 #endif
             }
             else
