@@ -118,7 +118,7 @@ namespace Atomata.VSolar.Apparatus
             
 
             for (int i = 0; i < BoolEvents.Length; i++)
-                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputVoidType, BoolEvents[i], BoolEventMetas.Length > i ? BoolEventMetas[i] : null));
+                metas.Add(UTMeta.InputMeta(UTMeta.cMetaInputBoolType, BoolEvents[i], BoolEventMetas.Length > i ? BoolEventMetas[i] : null));
             
 
             return UTArray.Combine(b, metas.ToArray());

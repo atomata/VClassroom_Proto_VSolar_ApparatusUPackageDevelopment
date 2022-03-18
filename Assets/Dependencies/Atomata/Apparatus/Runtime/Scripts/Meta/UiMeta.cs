@@ -13,13 +13,15 @@ namespace Atomata.VSolar.Apparatus
     {
         public string UiName;
         public string UiDesc;
+        public bool UiEnabled;
 
         public string AsArgs()
         {
             Dictionary<string, string> kvs = new Dictionary<string, string>()
             {
                 {nameof(UiName).ToLower(), UiName},
-                {nameof(UiDesc).ToLower(), UiDesc}
+                {nameof(UiDesc).ToLower(), UiDesc},
+                {nameof(UiEnabled).ToLower(), UiEnabled.ToString()}
             };
 
             if (!kvs.QueryContains(kv => !string.IsNullOrEmpty(kv.Value)))

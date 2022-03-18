@@ -50,6 +50,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Core
     UiDesc: focuses on the core
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &5273367452304342625
 Camera:
@@ -337,13 +338,17 @@ MonoBehaviour:
   VoidEventMetas:
   - UiName: Enable Rotation
     UiDesc: Enable the rotation of the eath
+    UiEnabled: 1
   - UiName: Disable Rotation
     UiDesc: Disable th rotaiton of the earth
+    UiEnabled: 1
   BoolEventMetas:
   - UiName: Show Axis
     UiDesc: Shows the earths axis as a cylinder
+    UiEnabled: 1
   - UiName: Enable Moon
     UiDesc: Shows or hides the moon from view
+    UiEnabled: 1
 --- !u!1 &2068641607773327196
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +399,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Mantle
     UiDesc: focuses on the core
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &4971904690145731558
 Camera:
@@ -521,6 +527,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Crust
     UiDesc: focuses on the crust of the earth
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &2293330632245819502
 Camera:
@@ -648,6 +655,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Core
     UiDesc: focuses on the core
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &6375073560922280473
 Camera:
@@ -917,14 +925,19 @@ MonoBehaviour:
   VoidEventMetas:
   - UiName: 'Earths Core: Inner Core'
     UiDesc: sdfgsdfgsdf
+    UiEnabled: 1
   - UiName: 'Earths Core: Outer Core'
     UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
   - UiName: 'Earths Core: Mantle'
     UiDesc: adsfdfgdsfg
+    UiEnabled: 1
   - UiName: 'Earths Core: Crust'
     UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
   - UiName: 'Earth Places: North Pole'
     UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
   BoolEventMetas: []
 --- !u!1 &5629768935989120420
 GameObject:
@@ -1222,6 +1235,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Inner Core
     UiDesc: focuses on the core
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &3438539331142381053
 Camera:
@@ -1349,6 +1363,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Moon and Earth
     UiDesc: Show the moon against the earth
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &7191647166664232109
 Camera:
@@ -1476,6 +1491,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Moon and Earth
     UiDesc: Show the moon against the earth
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &974407291545457196
 Camera:
@@ -1603,6 +1619,7 @@ MonoBehaviour:
   UiMeta:
     UiName: Outer Core
     UiDesc: focuses on the core
+    UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &8578599406531342994
 Camera:
@@ -1961,6 +1978,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4137367866844337127, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3cabe21ec4243eb4eafc0ae03925ba70, type: 2}
+    - target: {fileID: -325503219262031393, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3cabe21ec4243eb4eafc0ae03925ba70, type: 2}
     - target: {fileID: 919132149155446097, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
       propertyPath: m_Name
       value: '[mesh] earth_split'
