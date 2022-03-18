@@ -221,6 +221,134 @@ MonoBehaviour:
   Animator:
   - {fileID: 505407249617277110}
   - {fileID: 1563004120443494738}
+--- !u!1 &1179178362328025507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3015739532252668481}
+  - component: {fileID: 1864895796152294614}
+  - component: {fileID: 7610066189490295417}
+  - component: {fileID: 3977313615323864053}
+  m_Layer: 0
+  m_Name: base_southamerica
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3015739532252668481
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179178362328025507}
+  m_LocalRotation: {x: -0.07961444, y: -0.33927462, z: 0.12346857, w: 0.9291447}
+  m_LocalPosition: {x: 0.929, y: -0.298, z: -1.633}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4583261053400874086}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: -3.679, y: -40.653, z: 16.502}
+--- !u!114 &1864895796152294614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179178362328025507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a04bd0676918f4aa4a6c5402b1771d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: base_southamerica
+  _associatedNode: {fileID: 0}
+  UiMeta:
+    UiName: South America
+    UiDesc: Show north america
+    UiEnabled: 0
+  ShowCamera: 0
+--- !u!20 &7610066189490295417
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179178362328025507}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &3977313615323864053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179178362328025507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1704695280882199877
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +733,134 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &2802011647460715916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4746603382055816406}
+  - component: {fileID: 3332257510280912266}
+  - component: {fileID: 5447907994827084460}
+  - component: {fileID: 6538512921085114251}
+  m_Layer: 0
+  m_Name: base_asia
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4746603382055816406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802011647460715916}
+  m_LocalRotation: {x: 0.042545646, y: 0.9133834, z: -0.26833984, w: 0.30317396}
+  m_LocalPosition: {x: -0.585, y: 1.08, z: 1.49}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4583261053400874086}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 31.064, y: 141.692, z: -5.694}
+--- !u!114 &3332257510280912266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802011647460715916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a04bd0676918f4aa4a6c5402b1771d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: base_asia
+  _associatedNode: {fileID: 0}
+  UiMeta:
+    UiName: Asia
+    UiDesc: Show Asia
+    UiEnabled: 0
+  ShowCamera: 0
+--- !u!20 &5447907994827084460
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802011647460715916}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &6538512921085114251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802011647460715916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &3926542210791016532
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +1040,12 @@ MonoBehaviour:
   - EarthCoreFocusMantle
   - EarthCoreFocusCrust
   - EarthNorthPole
+  - EarthSaharaDesert
+  - EarthMoonOrbits
+  - EarthNorthAmerica
+  - EarthSouthAmerica
+  - EarthAfrica
+  - EarthAsia
   _voidEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -920,6 +1182,193 @@ MonoBehaviour:
           m_StringArgument: idleinstant
           m_BoolArgument: 1
         m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 346352130425868680}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7895658449038519929}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3516317302520385012}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4361129342243374905}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.EventNode, Atomata.VSolar
+        m_MethodName: Invoke_Bool
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: enableMoon?True
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5595517933766925963}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1864895796152294614}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6306879615407711792}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3332257510280912266}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
   _boolEventNames: []
   _boolEvents: []
   VoidEventMetas:
@@ -938,7 +1387,153 @@ MonoBehaviour:
   - UiName: 'Earth Places: North Pole'
     UiDesc: sdfgsdfgdfs
     UiEnabled: 1
+  - UiName: 'Earth Places: Sahara Desert'
+    UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
+  - UiName: 'Earth Satellites: Moon'
+    UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
+  - UiName: 'Earth Places: North America'
+    UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
+  - UiName: 'Earth Places: South America'
+    UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
+  - UiName: 'Earth Places: Africa'
+    UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
+  - UiName: 'Earth Places: Asia'
+    UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
   BoolEventMetas: []
+--- !u!1 &5402957968426585766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853618660959532728}
+  - component: {fileID: 6306879615407711792}
+  - component: {fileID: 278206952706085770}
+  - component: {fileID: 4449146974548970744}
+  m_Layer: 0
+  m_Name: base_africa
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853618660959532728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5402957968426585766}
+  m_LocalRotation: {x: 0.082695454, y: -0.8556916, z: 0.17485176, w: 0.47997943}
+  m_LocalPosition: {x: 1.81, y: 0.82, z: 0.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4583261053400874086}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 22.248, y: -121.101, z: 1.63}
+--- !u!114 &6306879615407711792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5402957968426585766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a04bd0676918f4aa4a6c5402b1771d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: base_africa
+  _associatedNode: {fileID: 0}
+  UiMeta:
+    UiName: Africa
+    UiDesc: Show Africa
+    UiEnabled: 0
+  ShowCamera: 0
+--- !u!20 &278206952706085770
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5402957968426585766}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &4449146974548970744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5402957968426585766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &5629768935989120420
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,6 +1579,134 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _identifier: moon
   AssetBundleKey: moon
+--- !u!1 &6120148978456118401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6197930330847532837}
+  - component: {fileID: 7895658449038519929}
+  - component: {fileID: 1101248811137922374}
+  - component: {fileID: 8126984487620579923}
+  m_Layer: 0
+  m_Name: base_moon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6197930330847532837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120148978456118401}
+  m_LocalRotation: {x: 0.084654555, y: -0.5849666, z: 0.010019507, w: 0.80656505}
+  m_LocalPosition: {x: 2.78, y: 0.49, z: -0.43}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4583261053400874086}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 8.527, y: -72.262, z: -4.807}
+--- !u!114 &7895658449038519929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120148978456118401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a04bd0676918f4aa4a6c5402b1771d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: base_moon
+  _associatedNode: {fileID: 0}
+  UiMeta:
+    UiName: Moon
+    UiDesc: Show Moon
+    UiEnabled: 0
+  ShowCamera: 0
+--- !u!20 &1101248811137922374
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120148978456118401}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &8126984487620579923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120148978456118401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &6333376625722083856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1905,10 @@ Transform:
   - {fileID: 8207725959180053317}
   - {fileID: 7122995804324774086}
   - {fileID: 1108816079784497224}
+  - {fileID: 3015739532252668481}
+  - {fileID: 853618660959532728}
+  - {fileID: 4746603382055816406}
+  - {fileID: 6197930330847532837}
   m_Father: {fileID: 6585096732055493213}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1454,7 +2181,7 @@ GameObject:
   - component: {fileID: 974407291545457196}
   - component: {fileID: 2945798568285762209}
   m_Layer: 0
-  m_Name: base_moonandearth
+  m_Name: base_northamerica
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,13 +2194,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7810852618447536564}
-  m_LocalRotation: {x: 0.040166304, y: -0.88561255, z: 0.052924417, w: 0.45964772}
-  m_LocalPosition: {x: 3.044, y: 0.402, z: 1.197}
+  m_LocalRotation: {x: 0.31046027, y: 0.20633477, z: -0.026854623, w: 0.9275339}
+  m_LocalPosition: {x: -0.662, y: 1.001, z: -1.063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583261053400874086}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 7.508, y: -125.225, z: -1.3}
+  m_LocalEulerAnglesHint: {x: 35.945, y: 26.885, z: 5.55}
 --- !u!114 &5595517933766925963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1486,11 +2213,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a04bd0676918f4aa4a6c5402b1771d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _identifier: base_moonandearth
+  _identifier: base_northamerica
   _associatedNode: {fileID: 0}
   UiMeta:
-    UiName: Moon and Earth
-    UiDesc: Show the moon against the earth
+    UiName: North America
+    UiDesc: Show north america
     UiEnabled: 0
   ShowCamera: 0
 --- !u!20 &974407291545457196
@@ -1871,14 +2598,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5342672212624740402, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
   m_PrefabInstance: {fileID: 3586785656576448094}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &8066033724334757838 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6788785436601860496, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
-  m_PrefabInstance: {fileID: 3586785656576448094}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3321657688308273744 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2296330706784863246, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
+  m_PrefabInstance: {fileID: 3586785656576448094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8066033724334757838 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6788785436601860496, guid: 3a4d61f17eb64ca458744bb446f8a346, type: 3}
   m_PrefabInstance: {fileID: 3586785656576448094}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &8934792835026499512
@@ -1996,24 +2723,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
---- !u!23 &3538653105187510034 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -8314592471784328315, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1761672146398480627 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2735311189996776548, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &4931842754273230731 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8788243238619880220, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
-  m_PrefabInstance: {fileID: 4433635998284424343}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1568623122808476036 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -6322018032179333869, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &5115215033936338248 stripped
@@ -2034,6 +2746,21 @@ GameObject:
 --- !u!4 &4183220692132414332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3538653105187510034 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8314592471784328315, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1568623122808476036 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6322018032179333869, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
+  m_PrefabInstance: {fileID: 4433635998284424343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1761672146398480627 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2735311189996776548, guid: a399b86f79b89b14192e974aa107bf5e, type: 3}
   m_PrefabInstance: {fileID: 4433635998284424343}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &3457486269066074805 stripped

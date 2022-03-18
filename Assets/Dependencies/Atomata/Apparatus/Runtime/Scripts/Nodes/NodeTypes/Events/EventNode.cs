@@ -72,13 +72,21 @@ namespace Atomata.VSolar.Apparatus
             }
         }
 
-        public void Invoke_Bool(string name, bool val)
+        /// <summary>
+        /// Invoke a bool event. Useable from UnityEvents. Must provide argument ?bool
+        /// </summary>
+        public void Invoke_Bool(string command)
         {
-            int index = Array.IndexOf(_boolEventNames, name);
+            string[] args = command.Split('?');
+
+            if (args.Length != 2)
+                return;
+            
+            int index = Array.IndexOf(_boolEventNames, args[0]);
 
             if (index > -1)
             {
-                if (_boolEvents.Length > index) _boolEvents[index]?.Invoke(val);
+                if (_boolEvents.Length > index) _boolEvents[index]?.Invoke(bool.Parse(args[1]));
             }
         }
 
