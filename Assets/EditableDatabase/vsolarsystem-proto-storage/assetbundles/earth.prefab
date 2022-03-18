@@ -1046,6 +1046,7 @@ MonoBehaviour:
   - EarthSouthAmerica
   - EarthAfrica
   - EarthAsia
+  - default
   _voidEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -1369,6 +1370,82 @@ MonoBehaviour:
           m_StringArgument: idleinstant
           m_BoolArgument: 1
         m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2479767026343116790}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.CameraFocusNode, Atomata.VSolar
+        m_MethodName: Focus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2057851902261625314}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4361129342243374905}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.EventNode, Atomata.VSolar
+        m_MethodName: Invoke_Bool
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: enableMoon?True
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4361129342243374905}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.EventNode, Atomata.VSolar
+        m_MethodName: Invoke_Bool
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: axis?False
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3516317302520385012}
+        m_TargetAssemblyTypeName: Atomata.Apparatus.Runtime.Scripts.Animation.AtomataAnimator,
+          Atomata.VSolar
+        m_MethodName: TriggerOnce
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: idleinstant
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4361129342243374905}
+        m_TargetAssemblyTypeName: Atomata.VSolar.Apparatus.EventNode, Atomata.VSolar
+        m_MethodName: Invoke_Void
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: disableRotateEarth
+          m_BoolArgument: 1
+        m_CallState: 2
   _boolEventNames: []
   _boolEvents: []
   VoidEventMetas:
@@ -1403,6 +1480,9 @@ MonoBehaviour:
     UiDesc: sdfgsdfgdfs
     UiEnabled: 1
   - UiName: 'Earth Places: Asia'
+    UiDesc: sdfgsdfgdfs
+    UiEnabled: 1
+  - UiName: Earth Default Pose
     UiDesc: sdfgsdfgdfs
     UiEnabled: 1
   BoolEventMetas: []

@@ -55,8 +55,11 @@ namespace Atomata.Apparatus.Runtime.Scripts.Animation
 
         public void SetRenderersEnabled(bool state)
         {
-            foreach (Renderer renderer1 in Renderers)
-                renderer1.enabled = state;
+            if (Renderers != null)
+            {
+                foreach (Renderer renderer1 in Renderers)
+                    if(renderer1 != null) renderer1.enabled = state;
+            }
         }
 
         public void PostLoadInitalize()

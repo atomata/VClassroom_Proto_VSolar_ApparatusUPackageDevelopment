@@ -8,7 +8,7 @@ using HexUN.Framework.Debugging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Atomata.VSolar.Apparatus
@@ -29,7 +29,7 @@ namespace Atomata.VSolar.Apparatus
 
         public string ApparatusKey;
 
-        public string DefaultCameraPath;
+        public string DefaultState;
         
         private EApparatusNodeLoadState _loadState = EApparatusNodeLoadState.Unloaded;
 
@@ -150,8 +150,8 @@ namespace Atomata.VSolar.Apparatus
                     Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer][0];
                     ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey][0];
                     
-                    if(dataUnpacked.TryGetValue("defaultCameraPath", out List<string> s))
-                        DefaultCameraPath = s[0];
+                    if(dataUnpacked.TryGetValue("defaultState", out List<string> s))
+                        DefaultState = s[0];
                 }
                 
                 // When the path length is 2, it's a direct child
@@ -198,7 +198,7 @@ namespace Atomata.VSolar.Apparatus
                             ser.Identifier = dataUnpacked[UTMeta.cMetaTypeIdentifer];
                             ser.ApparatusKey = dataUnpacked[UTMeta.cMetaTypeKey];
                             if(dataUnpacked.TryGetValue("defaultCameraPath", out string s2))
-                                DefaultCameraPath = s2;
+                                DefaultState = s2;
                             if (dataUnpacked.TryGetValue(UTMeta.cMetaTypeTransform, out string valueS))
                             {
                                 float[] transform = valueS.Split(',').Select(s => float.Parse(s)).ToArray();
@@ -222,11 +222,16 @@ namespace Atomata.VSolar.Apparatus
             Connect(log);
         }
 
-        public void TriggerDefaultCamera()
+        public async Task TriggerDefaultCamera()
         {
-            CameraFocusNode cam = SearchNodeAtPath<CameraFocusNode>(DefaultCameraPath);
-            if (cam != null)
-                cam.Focus();
+            LogWriter log = new LogWriter(nameof(TriggerDefaultCamera));
+            
+            await Trigger(
+                ApparatusTrigger.FromPathString(DefaultState),
+                log
+            );
+            
+            log.PrintToConsole(cLogCategory);
         }
 
         protected override string[] ResolveMetadata()
@@ -235,7 +240,7 @@ namespace Atomata.VSolar.Apparatus
             return UTArray.Combine(baseMeta, new string[]
             {
                 UTMeta.KeyMeta(ApparatusKey),
-                UTMeta.BasicMeta("defaultCameraPath", DefaultCameraPath)
+                UTMeta.BasicMeta("defaultState", DefaultState)
             });
             
         }

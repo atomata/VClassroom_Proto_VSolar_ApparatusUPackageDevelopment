@@ -44,7 +44,7 @@ namespace Atomata.VSolar.Apparatus.Example
             LogWriter log = new LogWriter(cLogCategory);
             SetupSerializationNode(apparatus);
             if (_managedNode != null) await _managedNode.Trigger(ApparatusTrigger.LoadTrigger(true), log);
-            _managedNode.TriggerDefaultCamera();
+            await _managedNode.TriggerDefaultCamera();
             
             // Perform interfaces
             Stack<GameObject> gos = new Stack<GameObject>();
