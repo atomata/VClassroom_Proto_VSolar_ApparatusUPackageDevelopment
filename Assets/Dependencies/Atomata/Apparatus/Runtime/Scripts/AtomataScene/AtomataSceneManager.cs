@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Atomata.Scene;
 using Atomata.VSolar.Apparatus.Example;
@@ -214,6 +215,24 @@ namespace Atomata.VSolar.Apparatus
                 case "printtree":
                     Container.Debug_PrintTree();
                     break;
+            }
+        }
+
+        public void PlayApparatus()
+        {
+            if (Container != null)
+            {
+                foreach (Animator anim in Container.GetComponentsInChildren(typeof(Animator)).Select(a => (Animator) a))
+                    anim.speed = 1;
+            }
+        }
+
+        public void PauseApparatus()
+        {
+            if (Container != null)
+            {
+                foreach (Animator anim in Container.GetComponentsInChildren(typeof(Animator)).Select(a => (Animator) a))
+                    anim.speed = 0;
             }
         }
         

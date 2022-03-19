@@ -16,4 +16,7 @@ public class AtomataSceneDebugger : MonoBehaviour
     [ContextMenu("Trigger")] void Trigger() => manager.Trigger(Input);
     [ContextMenu("ReturnCamera")] void ReturnCamera() => manager.ReturnCamera();
     [ContextMenu("Debug")] void Debug() => manager.Dbg("printtree");
+    [ContextMenu("Play")] void Play() => manager.PlayApparatus();
+    [ContextMenu("Pause")] void Pause() => manager.PauseApparatus();
+
 }
